@@ -1,0 +1,23 @@
+article.event-list-item
+	.clearfix
+		header(ng-class="{'no-image':!event['@files:header']}")
+			.image(style="background-image:url({{event['@files:header'].url}});")
+			.main-info
+				h3
+					a(href="/agenda/{{event.id}}/") {{event.name}}
+				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
+		section.occurrences
+			.occurrence.clearfix(ng-repeat="occur in event.occurrences | spaceOccurrences:space | byDateOccurrences:eventSearch.startDate:eventSearch.endDate | futureOccurrences:isFutureEvents")
+				.date-info(ng-class="{'showing-from-now': showFromNow(occur)}")
+					p.fromNow(ng-show="showFromNow(occur)")
+						span.entypo &#128340;
+						span(fromnow date="occur.timestamp")
+					p.date(ng-hide="showFromNow(occur)")
+						span.entypo &#128197;
+						| {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
+				p.price
+					span.entypo &#127915;
+					| {{occur.price}}
+				p.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
+					span.entypo &#59172;
+					| {{occur.spaceName}}

@@ -1,0 +1,26 @@
+section#highlight-event.clearfix(ng-show="featured")
+	h2 {{featured.label}}
+	.image(style="background-image:url({{featured.image}})")
+	.highlight-items(ng-controller="EventController")
+		article.highlight-item(ng-repeat="featEvent in featured.events" ng-click="openFeatured($event, featEvent)" ng-class="{featured:featEvent==openedFeatured}")
+			.highlight-content
+				section.meta
+					.clearfix
+						p.time(ng-show="service.isHappening()")
+							span.entypo &#128340;
+							span(fromnow date="featEvent.occurrence.timestamp")
+						p.date(ng-hide="service.isHappening()")
+							span.entypo &#128340;
+							| {{getFormattedDate(featEvent.occurrence)}}
+					p.space(ng-controller="MapController" ng-click="openDialog($event, featEvent.occurrence)")
+						span.entypo &#59172;
+						| {{featEvent.space.name}} 
+						span(ng-show="featured.type == 'near'")
+							| (
+							strong {{featEvent.space.kmDistance}} km 
+							| de você)
+				header
+					h3
+						a(href="/agenda/{{featEvent.event.id}}/") {{featEvent.event.name}}
+				section.content
+					p.description {{featEvent.event.shortDescription}}

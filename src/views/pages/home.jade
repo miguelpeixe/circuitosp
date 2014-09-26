@@ -1,0 +1,58 @@
+section#home
+	section#news.clearfix(ng-controller="NewsController" ng-show="news")
+
+		article#featured.feat
+			.image(style="background-image:url({{getFeaturedImage(news.first)}})")
+			.post-content
+				header
+					h2
+						a(href="/noticias/{{news.first.ID}}/" ng-bind-html="getTitle(news.first)")
+				section.excerpt(ng-bind-html="getExcerpt(news.first)")
+
+		article#second.feat
+			.image(style="background-image:url({{getFeaturedImage(news.second)}})")
+			.post-content
+				header
+					h2
+						a(href="/noticias/{{news.second.ID}}/" ng-bind-html="getTitle(news.second)")
+
+		a.more-news(href="/noticias") Todas as notícias
+
+	section#intro.clearfix
+
+		section.box-section
+			header.box-section-header
+				h2 Programação
+			section.box-section-content
+				p Veja todos os {{allEvents.length}} eventos distribuidos em {{allSpaces.length}} espaços
+				a.box-section-button(href="/agenda/") Programação
+
+		section.box-section
+			header.box-section-header
+				h2 #MCI2014
+			section.box-section-content
+				p Participe da cobertura colaborativa utilizando a hashtag #mci2014
+				a.box-section-button(href="/na-rede/") Veja a cobertura
+
+		section.box-section
+			header.box-section-header
+				h2 Cultura Independente
+			section.box-section-content
+				p Saiba mais sobre o maior evento de cultura independente do país
+				a.box-section-button(href="/sobre/") Sobre o evento
+
+	section#event-list.box-section(ng-show="homeEvents.length")
+		header.box-section-header
+			h2 Próximos eventos
+		section.box-section-content
+			ul.event-list(ng-controller="EventController")
+				li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
+					include ../events/partials/event-list-item
+
+	section#social
+		h3 Acompanhe pelas redes sociais
+		p
+			a(href="https://www.facebook.com/culturaindependente" target="_blank" title="Facebook" class="entypo-social fb") &#62222;
+		p
+			a(href="https://twitter.com/mcifest" target="_blank" title="Twitter" class="entypo-social tw") &#62217;
+		.clear

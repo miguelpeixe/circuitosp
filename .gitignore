@@ -1,0 +1,6 @@
+design
+dist
+node_modules
+npm-debug.log
+.env
+options.json

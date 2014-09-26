@@ -1,0 +1,56 @@
+{
+	"name": "mci",
+	"description": "Agenda do Mês da Cultura Independente",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/miguelpeixe/mci.git"
+	},
+	"version": "0.0.1",
+	"author": "Miguel Peixe <miguel@cardume.art.br>",
+	"scripts": {
+		"install": "./node_modules/.bin/napa",
+		"postinstall": "mkdir -p dist/data && ./node_modules/grunt-cli/bin/grunt build",
+		"start": "node app.js"
+	},
+	"dependencies": {
+		"express": "latest",
+		"body-parser": "latest",
+		"jade": "latest",
+		"compression": "latest",
+		"async": "latest",
+		"dotenv": "latest",
+		"request": "latest",
+		"underscore": "latest",
+		"less": "latest",
+		"jquery": "latest",
+		"angular": "latest",
+		"ui-router": "latest",
+		"leaflet": "latest",
+		"moment": "latest",
+		"prerender-node": "latest",
+		"grunt": "latest",
+		"grunt-cli": "latest",
+		"grunt-contrib-copy": "latest",
+		"grunt-contrib-less": "latest",
+		"grunt-contrib-jade": "latest",
+		"grunt-browserify": "latest",
+		"grunt-contrib-uglify": "latest",
+		"grunt-contrib-connect": "latest",
+		"grunt-contrib-watch": "latest",
+		"napa": "latest"
+	},
+	"napa": {
+		"angular-i18n": "angular/bower-angular-i18n",
+		"angular-pickadate": "miguelpeixe/angular-pickadate",
+		"angular-leaflet": "tombatossals/angular-leaflet-directive",
+		"angular-masonry": "passy/angular-masonry",
+		"angular-dialog": "likeastore/ngDialog",
+		"angular-infiniteScroll": "sroze/ngInfiniteScroll"
+	},
+	"keywords": [
+		"mci",
+		"angular",
+		"mapasculturais"
+	],
+	"engine": "node >= 0.10"
+}

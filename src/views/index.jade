@@ -1,0 +1,42 @@
+doctype html
+html(lang='pt-BR')
+	include includes/head
+	body
+		#fb-root
+		script.
+			(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=684842854918331&version=v2.0";
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+		header#masthead
+			h1
+				a(href="/")
+					span Mês da Cultura Independente
+					img(src='/img/logo.png' alt='Mês da Cultura Independente')
+			nav#mastnav.clearfix(ng-controller="NavCtrl")
+				p.currentHover(ng-bind="currentHover")
+				ul(ng-mouseleave="updateHover('')")
+					li(ng-repeat="item in nav")
+						a(href="{{item.href}}" title="{{item.title}}" ng-mouseenter="updateHover(item.title)")
+							span.entypo(ng-bind-html="item.icon")
+							span.label {{item.title}}
+			h2
+				span setembro/
+				| 2014
+		section#content(ui-view, autoscroll='true')
+
+		.clear
+
+		footer#mastfoot
+			#by
+				h3 Realização
+				img(alt="Secretaria Municipal de Cultura de São Paulo" src="/img/logos/secult.jpg")
+
+		#loading(loading-status-message='loading-status-message', ng-class='{active: loads.length}')
+		.loading-message
+
+		include includes/foot
