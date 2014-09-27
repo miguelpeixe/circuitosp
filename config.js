@@ -1,8 +1,11 @@
 'use strict';
 
+var path = require('path');
+
 require('dotenv').load();
 
 module.exports = {
+	root: path.normalize(__dirname),
 	apiUrl: process.env.MCI_API_URL || 'http://spcultura.prefeitura.sp.gov.br/api',
 	projectId: process.env.MCI_PROJECT_ID || 4,
 	wpUrl: process.env.MCI_WP_URL || false,
