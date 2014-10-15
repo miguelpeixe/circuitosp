@@ -33,7 +33,10 @@ angular.module('mci', [
 	'$httpProvider',
 	function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-		$locationProvider.html5Mode(true);
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
 		$locationProvider.hashPrefix('!');
 
 		$stateProvider
