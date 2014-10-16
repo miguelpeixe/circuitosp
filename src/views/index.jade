@@ -13,20 +13,20 @@ html(lang='pt-BR')
 			}(document, 'script', 'facebook-jssdk'));
 
 		header#masthead
-			h1
-				a(href="/")
-					span Circuito São Paulo de Cultura
-					img(src='/img/logo.png' alt='Circuito São Paulo de Cultura')
-			nav#mastnav.clearfix(ng-controller="NavCtrl")
-				p.currentHover(ng-bind="currentHover")
-				ul(ng-mouseleave="updateHover('')")
-					li(ng-repeat="item in nav")
-						a(href="{{item.href}}" title="{{item.title}}" ng-mouseenter="updateHover(item.title)")
-							span.entypo(ng-bind-html="item.icon")
-							span.label {{item.title}}
-			h2
-				span setembro/
-				| 2014
+			.container
+				.six.columns
+					h1
+						a(href="/")
+							span Circuito São Paulo de Cultura
+							img(src='/img/logo.png' alt='Circuito São Paulo de Cultura')
+				.six.columns
+					nav#mastnav.clearfix(ng-controller="NavCtrl")
+						ul
+							li(ng-repeat="item in nav")
+								a(href="{{item.href}}" title="{{item.title}}")
+									span.entypo(ng-bind-html="item.icon")
+									span.label {{item.title}}
+
 		section#content(ui-view, autoscroll='true')
 
 		.clear
