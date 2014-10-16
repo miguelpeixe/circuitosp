@@ -13,7 +13,7 @@ var
 
 var SettingsSchema = new Schema({
 	siteUrl: String,
-	hashtags: String,
+	hashtag: String,
 	mapasCulturais: {
 		endpoint: {type: String, default: 'http://spcultura.prefeitura.sp.gov.br/api'},
 		projectId: { type: String, default: '11'}
@@ -22,22 +22,26 @@ var SettingsSchema = new Schema({
 		analyticsId: String
 	},
 	facebook: {
-		pageUrL: String,
 		apiKey: String
 	},
 	twitter: {
-		pageUrL: String,
+		apiKey: String
+	},
+	flickr: {
+		apiKey: String
+	},
+	instagram: {
 		apiKey: String
 	},
 	wordpress: {
-		apiUrl: String
+		endpoint: String
 	},
 	smtp: {
 		host: { type: String },
 		secureConnection: {type: Boolean, default: true}, // use SSL
 		port: {type: Number, default: 465}, // port for secure SMTP
 		user: { type: String, default: '' },
-		pass: { type: String, default: '' }
+		password: { type: String, default: '' }
 	}
 })
 

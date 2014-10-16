@@ -24,7 +24,7 @@ module.exports = function (app, passport) {
 			failureRedirect: 'login',
 			failureFlash: 'Invalid email or password.'
 	}), admin.session);
-	app.post('/admin', auth.requiresLogin, admin.update);
+	app.post('/admin', auth.requiresLogin, settings.update);
 
 
 	app.get('/api/v1/settings', settings.json);

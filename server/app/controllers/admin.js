@@ -40,18 +40,6 @@ exports.index = function (req, res) {
 	})
 };
 
-exports.update = function(req, res) {
-	Settings.findOne({}, function(err, settings){
-		if (err) return res.render('500');
-		if (!settings) settings = new Settings(req.body.settings);
-		else settings = _.extend(settings, req.body.settings);
-		settings.save(function(err){
-			if (err) return res.render('500');
-			res.render('admin/index', {settings: settings});
-		});
-	});
-}
-
 exports.create = function(req, res) {
 	var admin = new Admin({
 		email: req.body.email,
