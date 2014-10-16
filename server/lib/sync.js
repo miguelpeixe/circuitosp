@@ -1,25 +1,11 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-	request = require('request'),
-	_ = require('underscore'),
-	moment = require('moment'),
-	config = require('../../config');
-
-var tryJSON = function(jsonString) {
-	try {
-		var o = JSON.parse(jsonString);
-		// Handle non-exception-throwing cases:
-		// Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-		// but... JSON.parse(null) returns 'null', and typeof null === "object", 
-		// so we must check for that, too.
-		if (o && typeof o === "object" && o !== null) {
-			return o;
-		}
-	}
-	catch (e) { }
-	return false;
-};
+var fs = require('fs');
+var request = require('request');
+var _ = require('underscore');
+var moment = require('moment');
+var config = require('../../config');
+var tryJSON = require('./tryParseJSON')
 
 
 module.exports = function(cb) {

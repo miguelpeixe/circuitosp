@@ -8,6 +8,7 @@ var config = require('../../config');
 var admin = require('../app/controllers/admin');
 var settings = require('../app/controllers/settings');
 var auth = require('./auth');
+var _ = require('underscore');
 
 module.exports = function (app, passport) {
 
