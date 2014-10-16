@@ -42,12 +42,12 @@ module.exports = function (app, passport) {
 	// Logging middleware
 	if (env !== 'test') app.use(morgan("dev", log));
 
-  // Swig templating engine settings
-  if (env === 'development' || env === 'test') {
-    swig.setDefaults({
-      cache: false
-    });
-  }
+	// Swig templating engine settings
+	if (env === 'development' || env === 'test') {
+		swig.setDefaults({
+			cache: false
+		});
+	}
 
 
 	// set views path, template engine and default layout
@@ -76,27 +76,27 @@ module.exports = function (app, passport) {
 
 
 	// CookieParser should be above session
-  app.use(cookieParser());
-  app.use(cookieSession({ secret: 'secret' }));
-  app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: pkg.name,
-    store: new mongoStore({
-      url: config.db,
-      collection : 'sessions'
-    })
-  }));
+	app.use(cookieParser());
+	app.use(cookieSession({ secret: 'secret' }));
+	app.use(session({
+		resave: true,
+		saveUninitialized: true,
+		secret: pkg.name,
+		store: new mongoStore({
+			url: config.db,
+			collection : 'sessions'
+		})
+	}));
 
 	// use passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
+	app.use(passport.initialize());
+	app.use(passport.session());
 
-  // connect flash for flash messages - should be declared after sessions
-  app.use(flash());
+	// connect flash for flash messages - should be declared after sessions
+	app.use(flash());
 
-  // should be declared after session and flash
-  app.use(helpers(pkg.name));
+	// should be declared after session and flash
+	app.use(helpers(pkg.name));
 
 	// adds CSRF support
 	if (process.env.NODE_ENV !== 'test') {

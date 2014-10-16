@@ -14,9 +14,9 @@ var
 var SettingsSchema = new Schema({
 	siteUrl: String,
 	hashtags: String,
-	mapasculturais: {
+	mapasCulturais: {
 		endpoint: {type: String, default: 'http://spcultura.prefeitura.sp.gov.br/api'},
-		projectId: String
+		projectId: { type: String, default: '11'}
 	},
 	google: {
 		analyticsId: String

@@ -4,11 +4,12 @@ var fs = require('fs');
 var request = require('request');
 var _ = require('underscore');
 var moment = require('moment');
-var config = require('../../config');
 var tryJSON = require('./tryParseJSON')
 
 
-module.exports = function(cb) {
+module.exports = function(app) {
+
+	var config = app.locals.config;
 
 	var storeDir = 'dist/data';
 
@@ -17,15 +18,13 @@ module.exports = function(cb) {
 	};
 
 	var eventsReq = {
-		url: config.apiUrl + '/event/find',
+		url: config.mapasCulturais.endpoint + '/event/find',
 		qs: {
 			'@select': 'id,name,shortDescription,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
 			'@files': '(avatar,header):url',
-			'@limit': 2,
-			'project': 'in(@Project:' + config.projectId + ')'
+			'project': 'in(@Project:' + config.mapasCulturais.projectId + ')'
 		}
 	};
-
 
 	request(_.extend(defaultReq, eventsReq), function(err, res, body) {
 		if(err) {
@@ -49,14 +48,14 @@ module.exports = function(cb) {
 			eventIds = eventIds.join(',');
 
 			var occursReq = {
-				url: config.apiUrl + '/eventOccurrence/find?event=in(' + eventIds + ')',
+				url: config.mapasCulturais.endpoint + '/eventOccurrence/find?event=in(' + eventIds + ')',
 				qs: {
 					'@select': 'id,eventId,rule',
 					'@order': '_startsAt'
 				}
 			};
 
-			var occursReqUrl = config.apiUrl + '/eventOccurrence/find?@select=id,eventId,rule&event=in(' + eventIds + ')&@order=_startsAt';
+			var occursReqUrl = config.mapasCulturais.endpoint + '/eventOccurrence/find?@select=id,eventId,rule&event=in(' + eventIds + ')&@order=_startsAt';
 
 			request(occursReqUrl, function(err, res, body) {
 
@@ -99,7 +98,7 @@ module.exports = function(cb) {
 					spaceIds = _.uniq(spaceIds).join(',');
 
 					var spacesReq = {
-						url: config.apiUrl + '/space/find',
+						url: config.mapasCulturais.endpoint + '/space/find',
 						qs: {
 							'@select': 'id,name,shortDescription,endereco,location',
 							'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
@@ -116,27 +115,10 @@ module.exports = function(cb) {
 
 							var spaces = tryJSON(body) || [];
 
-							fs.writeFile(storeDir + '/events.json', JSON.stringify(events), function(err) {
-								if(err) console.log(err);
-							});
-
-							fs.writeFile(storeDir + '/occurrences.json', JSON.stringify(occurrences), function(err) {
-								if(err) console.log(err);
-							});
-
-							fs.writeFile(storeDir + '/spaces.json', JSON.stringify(spaces), function(err) {
-								if(err) console.log(err);
-							});
-
-							if(typeof cb == 'function')
-								cb({
-									events: events,
-									occurrences: occurrences,
-									spaces: spaces
-								});
-
+							app.locals.data.events = events;
+							app.locals.data.occurrences = occurrences;
+							app.locals.data.spaces = spaces;
 						}
-
 					})
 				}
 			});
