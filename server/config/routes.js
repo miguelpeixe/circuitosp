@@ -80,9 +80,9 @@ module.exports = function (app, passport) {
 				wpUrl: config.wpUrl,
 				hashtag: config.hashtag
 			},
-			options: options
-			// events: app.locals.data.events,
-			// spaces: app.locals.data.spaces
+			options: options,
+			events: req.app.locals.data.events,
+			spaces: req.app.locals.data.spaces
 		};
 
 		res.send(data);

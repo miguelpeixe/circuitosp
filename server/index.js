@@ -50,10 +50,10 @@ require('./config/express')(app, passport);
 require('./config/routes')(app, passport);
 
 // Init data sync
-// app.locals.data = { events: [], spaces: [] }
-// sync(function(data) {
-// 	app.locals.data = data;
-// });
+app.locals.data = { events: [], spaces: [] }
+sync(function(data) {
+	app.locals.data = data;
+});
 
 var port = process.env.PORT || 8000;
 app.listen(port);

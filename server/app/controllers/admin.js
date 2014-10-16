@@ -58,7 +58,6 @@ exports.create = function(req, res) {
 		password: req.body.password
 	})
 	admin.save(function(err){
-		console.log(err);
 		if (err) {
 			res.render('admin/signup', {
 				admin: admin,
