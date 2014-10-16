@@ -1,8 +1,8 @@
-# Visualização da Cultura Independente
+# Circuito SP de Cultura
 
 Visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais), desenvolvido para a plataforma [SP Cultura](http://spcultura.prefeitura.sp.gov.br/) da [Secretaria Municipal de Cultura de São Paulo](http://www.prefeitura.sp.gov.br/cidade/secretarias/cultura/).
 
-Projeto desenvolvido para o [Mês da Cultura Independente](http://culturaindependente.org/).
+Projeto desenvolvido para o Circuito SP de Cultura.
 
 ---
 
@@ -20,13 +20,14 @@ Projeto desenvolvido para o [Mês da Cultura Independente](http://culturaindepen
 
  - npm 1.4.x
  - node 0.10.x
+ - mongodb 2.6 ou superior
 
 ## Instalação
 
 Clone a aplicação:
 
 ```
-$ git clone https://github.com/miguelpeixe/mci.git
+$ git clone https://github.com/miguelpeixe/circuitosp.git
 ```
 
 Instale digitando:
@@ -47,57 +48,22 @@ Agora acesse: [http://localhost:8000](http://localhost:8000)
 
 ### Configuração básica
 
-Para alterar a URL da api (padrão é `http://spcultura.prefeitura.sp.gov.br/api`) ou o ID do projeto a ser visualizado altere as seguintes variáveis de ambiente:
-
-```
-$ export MCI_API_URL=<NOVA URL>
-$ export MCI_PROJECT_ID=<NOVO ID>
-```
-
-E rode novamente:
-
-```
-$ npm start
-```
-
-Você pode também alterar as variáveis com um arquivo `.env`, seguindo o [exemplo](.env.example)
+Rode o servidor e acesse: [http://localhost:8000/admin](http://localhost:8000/admin)
 
 ### Configurando o *Na rede*
 
-*Na rede* é um sistema para indexar conteúdo multimídia publicados no **YouTube**, **Instagram** e **Flickr**.
-
-Primeiro, você deve definir as chaves de API:
-
-#### Instagram [(obtenha sua chave aqui)](http://instagram.com/developer/)
-
-```
-$ export MCI_INSTAGRAM_CLIENT_ID=<CHAVE>
-```
-
-#### Flickr [(obtenha sua chave aqui)](https://www.flickr.com/services/api/misc.api_keys.html)
-
-```
-$ export MCI_FLICKR_API_KEY=<CHAVE>
-```
-
-Agora podemos definir a hashtag:
-```
-$ export MCI_HASHTAG=<SUA BUSCA>
-```
-
-Para concluir as alterações, reinicie o servidor.
+A definir.
 
 ### Configurando as notícias
 
-Você deve instalar e ativar o plugin [WP REST API](https://wordpress.org/plugins/json-rest-api/) para que o sistema possa fazer requisições à base de dados do seu WordPress.
-
-Agora definimos a url do blog:
-```
-$ export MCI_WP_URL=http://exemplo.com/wordpress
-```
-
-Reinicie o servidor.
+A definir.
 
 ## Deploy
 
 Em breve.
+
+## API
+
+### Configurações da plataforma
+
+[http://localhost:8000/api/v1/settings](http://localhost:8000/api/v1/settings)

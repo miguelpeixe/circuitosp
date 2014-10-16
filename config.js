@@ -5,6 +5,7 @@ var path = require('path');
 require('dotenv').load();
 
 module.exports = {
+	db: 'mongodb://localhost/circuitosp',
 	root: path.normalize(__dirname),
 	apiUrl: process.env.MCI_API_URL || 'http://spcultura.prefeitura.sp.gov.br/api',
 	projectId: process.env.MCI_PROJECT_ID || 4,

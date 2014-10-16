@@ -5,8 +5,10 @@ var fs = require('fs'),
 	async = require('async'),
 	_ = require('underscore'),
 	moment = require('moment'),
-	tryJSON = require('../lib/tryParseJSON'),
+	tryJSON = require('./lib/tryParseJSON'),
 	config = require('../config');
+
+
 
 module.exports = function(cb) {
 

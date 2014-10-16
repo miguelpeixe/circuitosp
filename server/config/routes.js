@@ -1,8 +1,33 @@
+
+/**
+ * Module dependencies.
+ */
+
 var fs = require('fs');
-
 var config = require('../../config');
+var admin = require('../app/controllers/admin');
+var settings = require('../app/controllers/settings');
+var auth = require('./auth');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
+
+
+	// user routes
+	app.get('/admin/login', admin.login);
+	app.get('/admin/signup', admin.signup);
+	app.get('/admin/logout', admin.logout);
+	app.post('/admin/new', admin.create);
+	app.get('/admin', auth.requiresLogin, admin.index)
+	app.post('/admin/session',
+		passport.authenticate('local', {
+			failureRedirect: 'login',
+			failureFlash: 'Invalid email or password.'
+	}), admin.session);
+	app.post('/admin', auth.requiresLogin, admin.update);
+
+
+	app.get('/api/v1/settings', settings.json);
+
 
 	/*
 	 * News (Connected to WP JSON API PLUGIN)
@@ -55,9 +80,9 @@ module.exports = function (app) {
 				wpUrl: config.wpUrl,
 				hashtag: config.hashtag
 			},
-			options: options,
-			events: app.locals.data.events,
-			spaces: app.locals.data.spaces
+			options: options
+			// events: app.locals.data.events,
+			// spaces: app.locals.data.spaces
 		};
 
 		res.send(data);
