@@ -46,8 +46,19 @@ angular.module('mci.home', [
 			};
 		}
 
-		$scope.isFutureEvents = true;
-		$scope.homeEvents = Event.getFutureEvents(5);
+		var page = 0;
+
+		// $scope.homeEvents = Event.getFutureEvents(5);
+		// $scope.isFutureEvents = true;
+		// if(!$scope.homeEvents.length) {
+			$scope.homeEvents = Event.getEvents().slice(0, 10);
+			$scope.isFutureEvents = false;
+		// }
+
+		$scope.nextPage = function() {
+			page++;
+			$scope.homeEvents = $scope.homeEvents.concat(Event.getEvents().slice(10*page, (10*page) + 10));
+		};
 
 		$scope.allEvents = Event.getEvents();
 		$scope.allSpaces = Event.getSpaces();

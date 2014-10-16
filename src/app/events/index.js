@@ -5,6 +5,7 @@ angular.module('mci.events', [
 	'pickadate',
 	'leaflet-directive',
 	'wu.masonry',
+	'infinite-scroll',
 	'ngDialog'
 ])
 .config([
