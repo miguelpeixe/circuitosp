@@ -8,6 +8,12 @@ exports.json = function(req, res) {
 		if (!settings) settings = new Settings();
 		settings.save(function(err){
 			if (err) return res.render('500');
+
+			// clear db info
+			settings = settings.toObject();
+			delete settings._id;
+			delete settings.__v;
+
 			res.json(settings);
 		})
 	});
