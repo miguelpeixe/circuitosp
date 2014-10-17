@@ -18,12 +18,13 @@ section#home
 
 		a.more-news(href="/noticias") Todas as notícias
 
+
 	section#event-list.box-section(ng-show="homeEvents.length")
 		header.box-section-header
 			.container
 				.twelve.columns
 					h2 Próximos eventos
-		section.box-section-content(infinite-scroll="nextPage()" infinite-scroll-disabled="lastPage")
+		section.box-section-content
 			.container
 				.twelve.columns
 					ul.event-list(masonry ng-controller="EventController")

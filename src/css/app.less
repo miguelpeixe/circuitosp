@@ -54,7 +54,6 @@ h4,
 h5,
 h6 {
 	font-family: "Open Sans", sans-serif;
-	text-transform: uppercase;
 	line-height: 120%;
 }
 
@@ -85,7 +84,7 @@ body {
 		article {
 			margin: 0;
 			padding: 20px;
-			background: #333;
+			background: url(../img/bg-black.jpg);
 			color: #fff;
 			.thumbnail {
 				margin: -20px -20px 20px -20px;
@@ -98,12 +97,40 @@ body {
 			h2,
 			h3 {
 				color: #fff;
+				a {
+					text-decoration: none;
+					color: inherit;
+				}
 			}
 			a {
 				color: #fff;
 			}
 			p {
 				color: #f0f0f0;
+			}
+			.occurrences {
+				.occurrence {
+					display: none;
+					&:first-child {
+						display: block;
+					}
+					.date-info p {
+						background: @red;
+						color: #fff;
+						padding: 10px 0;
+						font-weight: 600;
+						font-size: 120%;
+						.entypo {
+							font-weight: 200;
+						}
+					}
+					.entypo {
+						font-size: 40px;
+						float: left;
+						width: 40px;
+						text-align: center;
+					}
+				}
 			}
 		}
 	}
