@@ -15,6 +15,7 @@ var admin = require('../app/controllers/admin');
 var settings = require('../app/controllers/settings');
 var events = require('../app/controllers/events');
 var social = require('../app/controllers/social');
+var news = require('../app/controllers/news');
 
 module.exports = function (app, passport) {
 
@@ -40,43 +41,8 @@ module.exports = function (app, passport) {
 	 * News (Connected to WP JSON API PLUGIN)
 	 */
 
-	app.get('/api/v1/news', function(req, res) {
-
-		var config = req.app.locals.config;
-
-		if(!config.wordpress.endpoint)
-			res.status(404).send('WordPress API not defined');
-
-		request({
-			url: config.wordpress.endpoint + '/wp-json/posts',
-			qs: req.query
-		}, function(request, response, body) {
-			for(var key in response.headers) {
-				res.setHeader(key, response.headers[key]);
-			}
-			res.send(body);
-		});
-
-	});
-
-	app.get('/api/v1/news/:postId', function(req, res) {
-
-		var config = req.app.locals.config;
-
-		if(!config.wordpress.endpoint)
-			res.status(404).send('WordPress API not defined');
-
-		request({
-			url: config.wordpress.endpoint + '/wp-json/posts/' + req.params.postId,
-			qs: req.body
-		}, function(request, response, body) {
-			for(var key in response.headers) {
-				res.setHeader(key, response.headers[key]);
-			}
-			res.send(body);
-		});
-
-	});
+	app.get('/api/v1/news', news.all);
+	app.get('/api/v1/news/:postId', news.post);
 
 	/*
 	 * Main data
