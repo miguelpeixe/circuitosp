@@ -46,17 +46,7 @@ Agora acesse: [http://localhost:8000](http://localhost:8000)
 
 ## Configuração
 
-### Configuração básica
-
-Rode o servidor e acesse: [http://localhost:8000/admin](http://localhost:8000/admin)
-
-### Configurando o *Na rede*
-
-A definir.
-
-### Configurando as notícias
-
-A definir.
+Rode o servidor e acesse: [http://localhost:8000/admin](http://localhost:8000/admin). Após cadastrar um e-mail e senha de administrador, será possível configurar as API keys do Instagram, Flickr e Twitter, a URL do Wordpress utilizado para publicação de notícias e outras configurações do site. 
 
 ## Deploy
 
@@ -64,6 +54,33 @@ Em breve.
 
 ## API
 
-### Configurações da plataforma
+### GET **/api/v1/settings**
 
-[http://localhost:8000/api/v1/settings](http://localhost:8000/api/v1/settings)
+Retorna:
+
+* hashtag
+* siteUrl
+* mapasculturais.endpoint
+* mapasculturais.projectId
+* wordpress.endpoint
+* instagram.apiKey
+* flickr.apiKey
+* instagram.apiKey
+* twitter.apiKey
+
+
+### GET /api/v1/data
+
+Retorna todos os datos de eventos, espaços e ocorrências.
+
+### GET /api/v1/events/:eventId
+
+Retorna informações sobre um evento.
+
+### GET /api/v1/social
+
+Retorna todos mídias postadas no Instagram, Flickr e Youtube.
+
+
+
+

@@ -4,7 +4,7 @@ var fs = require('fs');
 var request = require('request');
 var _ = require('underscore');
 var moment = require('moment');
-var tryJSON = require('./tryParseJSON')
+var tryJSON = require('../tryParseJSON')
 
 module.exports = function(app, done) {
 

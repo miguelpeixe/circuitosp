@@ -7,10 +7,14 @@ var fs = require('fs');
 var _ = require('underscore');
 var request = require('request');
 var config = require('../../config');
+var auth = require('./auth');
+var sync = require('../lib/sync/data');
+
+// Controllers
 var admin = require('../app/controllers/admin');
 var settings = require('../app/controllers/settings');
-var auth = require('./auth');
-var sync = require('../lib/sync');
+var events = require('../app/controllers/events');
+var social = require('../app/controllers/social');
 
 module.exports = function (app, passport) {
 
@@ -36,7 +40,7 @@ module.exports = function (app, passport) {
 	 * News (Connected to WP JSON API PLUGIN)
 	 */
 
-	app.get('/api/news', function(req, res) {
+	app.get('/api/v1/news', function(req, res) {
 
 		var config = req.app.locals.config;
 
@@ -55,7 +59,7 @@ module.exports = function (app, passport) {
 
 	});
 
-	app.get('/api/news/:postId', function(req, res) {
+	app.get('/api/v1/news/:postId', function(req, res) {
 
 		var config = req.app.locals.config;
 
@@ -80,7 +84,7 @@ module.exports = function (app, passport) {
 
 	var options = fs.existsSync('./options.json') ? JSON.parse(fs.readFileSync('./options.json', 'utf8')) : {};
 
-	app.get('/api/data', function(req, res) {
+	app.get('/api/v1/data', function(req, res) {
 
 		var config = req.app.locals.config;
 
@@ -102,75 +106,7 @@ module.exports = function (app, passport) {
 	 * Single events data
 	 */
 
-	var loadedEvents = [];
-
-	app.get('/api/event/:eventId', function(req, res) {
-
-		var config = req.app.locals.config;
-
-		var eventId = req.params.eventId;
-		var eventSelect = [
-			'id',
-			'location',
-			'name',
-			'_type',
-			'shortDescription',
-			'longDescription',
-			'createTimestamp',
-			'status',
-			'isVerified',
-			'parent',
-			'children',
-			'owner',
-			'emailPublico',
-			'emailPrivado',
-			'telefonePublico',
-			'telefone1',
-			'telefone2',
-			'acessibilidade',
-			'capacidade',
-			'endereco',
-			'site',
-			'twitter',
-			'facebook',
-			'googleplus'
-		];
-		var eventReq = {
-			url: config.mapasCulturais.endpoint + '/event/find',
-			qs: {
-				'@select': eventSelect.join(','),
-				'@files': '(gallery)',
-				'id': 'EQ(' + eventId + ')' 
-			}
-		}
-
-		var loaded = _.find(loadedEvents, function(e) { return e.id == eventId; });
-
-		// 10 minutes cache
-		if(!loaded || (loaded._age + (1000 * 60 * 10)) < new Date().getTime()) {
-			if(loaded) {
-				loadedEvents = _.without(loadedEvents, loaded);
-			}
-			request(eventReq, function(reqErr, reqRes, body) {
-				if(reqErr) {
-					res.send(reqErr);
-				} else {
-					var e = JSON.parse(body)[0];
-					if(!e || typeof e == 'undefined')
-						e = {};
-					else {
-						e._age = new Date().getTime();
-						loadedEvents.push(e);
-					}
-					res.send(e);
-				}
-			});
-
-		} else {
-			res.send(loaded);
-		}
-
-	});
+	app.get('/api/v1/events/:eventId', events.json);
 
 	app.all('/agenda/limpar-cache', auth.requiresLogin, function(req, res) {
 
@@ -178,12 +114,6 @@ module.exports = function (app, passport) {
 		loadedEvents = [];
 
 		res.send('cache cleared');
-
-		// res.render('static/cache-cleared', {
-		// 	time: new Date().toString(),
-		// 	events: emptied
-		// });
-
 	});
 
 
@@ -195,53 +125,11 @@ module.exports = function (app, passport) {
 		sync(app, function(err) {
 			if (err) return res.send('error')
 			res.send('data success');
-
-			// res.render('static/data-success', {time: new Date().toString() });
-
 		});
 
 	});
 
-	/*
-	 * Update social data each 10 minutes
-	 */
-
-	// if(config.hashtag) {
-
-	// 	var social = [];
-	// 	loadSocial(function(data) {
-	// 		social = data;
-	// 	});
-	// 	if(!dev) {
-	// 		setInterval(function() {
-	// 			loadSocial(function(data) {
-	// 				social = data;
-	// 			});
-	// 		}, 1000 * 60 * 10);
-	// 	}
-
-	// 	app.get('/api/social', function(req, res) {
-
-	// 		var perPage = parseInt(req.query.perPage || 20);
-	// 		var page = parseInt(req.query.page || 1);
-	// 		var offset = (page-1) * perPage;
-
-	// 		if(offset > social.length) {
-	// 			res.status(404).send('Not found');
-	// 		} else {
-	// 			res.send({
-	// 				pagination: {
-	// 					currentPage: parseInt(page),
-	// 					perPage: parseInt(perPage),
-	// 					totalPages: Math.floor(social.length/perPage)
-	// 				},
-	// 				data: social.slice(offset, offset+perPage)
-	// 			});
-	// 		}
-
-	// 	});
-
-	// }
+	app.get('/api/v1/social', social.index);
 
 	app.get('/*', function(req, res) {
 		res.sendFile(config.root + '/dist/views/index.html');

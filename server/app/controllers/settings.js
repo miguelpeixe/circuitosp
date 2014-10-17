@@ -20,7 +20,6 @@ exports.json = function(req, res) {
 }
 
 exports.update = function(req, res) {
-	console.log(req.body.settings);
 	Settings.load(function(err, settings){
 		if (err) return res.render('500');
 		if (!settings) settings = new Settings(req.body.settings);

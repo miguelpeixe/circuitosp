@@ -8,8 +8,8 @@ var fs = require('fs');
 var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var sync = require('./lib/sync');
-var loadSocial = require('./social');
+var syncData = require('./lib/sync/data');
+var syncSocial = require('./lib/sync/social');
 var env = process.env.NODE_ENV || 'development';
 
 /* 
@@ -49,11 +49,13 @@ mongoose.connection.on('connected', function(){
 
 		// Init data sync
 		app.locals.data = { events: [], spaces: [] }
-		sync(app);
+		syncData(app);
+		syncSocial(app);
 
 		if (env !== 'development') {
 			setInterval(function() {
-				sync(app);
+				syncData(app);
+				syncSocial(app);
 			}, 1000 * 60 * 10);
 		}
 	});

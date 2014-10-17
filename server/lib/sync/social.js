@@ -1,19 +1,26 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-	request = require('request'),
-	async = require('async'),
-	_ = require('underscore'),
-	moment = require('moment'),
-	tryJSON = require('./lib/tryParseJSON'),
-	config = require('../config');
+var fs = require('fs');
+var request = require('request');
+var async = require('async');
+var _ = require('underscore');
+var moment = require('moment');
+var tryJSON = require('../tryParseJSON');
 
 
+module.exports = function(app, done) {
 
-module.exports = function(cb) {
+	var config = app.locals.config;
 
 	if(!config.hashtag)
 		return false;
+
+	// if callback is not defined, print error to console
+	if (!done) {
+		done = function(err) {
+			if (err) console.log(err);
+		}
+	}
 
 	var storeDir = 'dist/data';
 
@@ -25,14 +32,13 @@ module.exports = function(cb) {
 			url: 'https://api.instagram.com/v1/tags/' + config.hashtag + '/media/recent',
 			qs: {
 				count: 100,
-				client_id: config.socialApiKeys.instagram
+				client_id: config.instagram.apiKey
 			}
 		};
 
 		var get = function(cb) {
 
-			if(!config.socialApiKeys.instagram)
-				return [];
+			if(!config.instagram.apiKey) return cb(null, data);
 
 			request(req, function(err, res, body) {
 
@@ -62,8 +68,8 @@ module.exports = function(cb) {
 
 				data = data.concat(d);
 
-				if(body && body.pagination.next_max_tag_id) {
-					req.qs.max_tag_id = body.pagination.next_max_tag_id;
+				if ((data.length < 500) && body && body.pagination.next_max_id) {
+					req.qs.max_tag_id = body.pagination.next_max_id;
 					get(cb);
 				} else {
 					cb(null, data);
@@ -86,7 +92,7 @@ module.exports = function(cb) {
 			url: 'https://api.flickr.com/services/rest/',
 			qs: {
 				method: 'flickr.photos.search',
-				api_key: config.socialApiKeys.flickr,
+				api_key: config.flickr.apiKey,
 				text: config.hashtag,
 				per_page: 500,
 				format: 'json',
@@ -97,8 +103,7 @@ module.exports = function(cb) {
 
 		var get = function(cb) {
 
-			if(!config.socialApiKeys.flickr)
-				return [];
+			if(!config.flickr.apiKey) return cb(null, data);
 
 			request(req, function(err, res, body) {
 
@@ -180,7 +185,7 @@ module.exports = function(cb) {
 
 					});
 
-				}
+				}				
 
 				data = data.concat(d);
 
@@ -205,14 +210,9 @@ module.exports = function(cb) {
 
 		data = _.sortBy(data, function(item) { return -item.date_posted; });
 
-		fs.writeFile(storeDir + '/social.json', JSON.stringify(data), function(err) {
-			if(err) {
-				console.log(err);
-			} else {
-				if(typeof cb == 'function')
-					cb(data);
-			}
-		});
+		app.locals.social = data;
+
+		done();
 
 	});
 
