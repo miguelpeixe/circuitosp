@@ -1,0 +1,209 @@
+.filters-container {
+	border-right: 1px solid rgba(0,0,0,0.2);
+	float: left;
+	margin-bottom: 40px;
+	.filter-item {
+		float: left;
+		margin: 0;
+		.box-sizing(border-box);
+		height: 40px;
+		border-left: 1px solid rgba(0,0,0,0.2);
+		border-top: 1px solid rgba(0,0,0,0.2);
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		padding: 0 15px;
+		position: relative;
+		line-height: 38px;
+		font-size: 14px;
+		text-transform: uppercase;
+		&.filled {
+			padding: 0 30px 0 15px;
+		}
+		a {
+			text-decoration: none;
+		}
+		input[type="text"] {
+			display: block;
+			color: #444;
+			border: 0;
+			outline: none;
+			margin: 12px 0;
+			padding: 0;
+			width: 150px;
+			background: @header;
+			font-size: 12px;
+		}
+		.clear-filter {
+			position: absolute;
+			display: block;
+			top: 0;
+			right: 10px;
+			z-index: 2;
+			text-decoration: none;
+			line-height: 38px;
+			background: @bg;
+			padding: 0 2px;
+		}
+	}
+	.list-filter {
+		padding: 38px 0 0;
+		position: relative;
+		z-index: 1;
+		min-width: 240px;
+		overflow: hidden;
+		&.filled {
+			padding: 38px 0 0;
+		}
+		&:after {
+			content: '\E75C';
+			position: absolute;
+			font-family: "entypo";
+			font-size: 250%;
+			top: 0;
+			line-height: 38px;
+			right: 10px;
+		}
+		&:hover {
+			overflow: visible;
+			li {
+				display: block;
+			}
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				display: none;
+				margin: 0 -1px;
+				cursor: default;
+				font-size: 12px;
+				text-transform: uppercase;
+				a,
+				&.label {
+					display: block;
+					padding: 0 15px;
+					border-left: 1px solid rgba(0,0,0,0.2);
+					border-right: 1px solid rgba(0,0,0,0.2);
+					line-height: 38px;
+					background: @bg;
+					text-decoration: none;
+				}
+				&.active {
+					position: absolute;
+					top: 2px;
+					left: 2px;
+					display: block;
+					a,
+					&.label {
+						border: 0;
+					}
+				}
+				&.inactive:last-child {
+					border-bottom: 1px solid rgba(0,0,0,0.2);
+				}
+			}
+		}
+	}
+	.date-filter {
+		position: relative;
+		z-index: 3;
+		text-align: center;
+		.box-sizing(border-box);
+		line-height: 38px;
+		font-size: 14px;
+		&.filled {
+			padding: 0 30px 0 10px;
+		}
+		a {
+			text-decoration: none;
+		}
+		.the-date {
+			margin-left: 5px;
+		}
+		.entypo {
+			margin: 0;
+			font-size: 45px;
+			line-height: 38px;
+		}
+		.datepicker-container {
+			position: relative;
+			float: left;
+			text-transform: none;
+			.datepicker {
+				position: absolute;
+				border: 1px solid rgba(0,0,0,0.2);
+				width: 250px;
+				padding: 0 20px 20px;
+				top: 54px;
+				left: -135px;
+				background: @bg;
+				&:before {
+					content: '';
+					position: absolute;
+					top: -5px;
+					left: 50%;
+					margin-left: -5px;
+					width: 10px;
+					height: 10px;
+					.transform(rotate(45deg));
+					background: @bg;
+					border: 1px solid rgba(0,0,0,0.2);
+				}
+				&:after {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 50%;
+					margin-left: -10px;
+					width: 30px;
+					height: 12px;
+					background: @bg;
+				}
+				li {
+					margin: 0;
+					line-height: auto;
+				}
+				a {
+					text-transform: lowercase;
+				}
+				.pickadate-prev {
+					float: left;
+				}
+			}
+			&.date-end {
+				margin-left: 5px;
+			}
+		}
+	}
+	.tick-filter {
+		background: @bg;
+		color: #333;
+		font-size: 13px;
+		cursor: pointer;
+		&.enabled {
+			background: #222;
+			color: @bg;
+			&:before {
+				color: @bg;
+			}
+		}
+		&:hover {
+			background: rgba(0,0,0,0.6);
+		}
+		&:before {
+			content: '\2713';
+			font-family: "entypo";
+			font-size: 250%;
+			line-height: 38px;
+			float: left;
+			margin-right: 5px;
+			color: #ccc;
+		}
+	}
+	.close {
+		float: left;
+		font-size: 100px;
+		line-height: 40px;
+		text-decoration: none;
+		margin: 0 0 0 20px;
+	}
+}

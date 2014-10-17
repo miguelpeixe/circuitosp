@@ -1,7 +1,8 @@
 article.event-list-item
 	.clearfix
-		header(ng-class="{'no-image':!event['@files:header']}")
-			.image(style="background-image:url({{event['@files:header'].url}});")
+		header
+			.thumbnail
+				img(ng-src="{{event['@files:avatar'].url}}" ng-show="event['@files:avatar'].url")
 			.main-info
 				h3
 					a(href="/agenda/{{event.id}}/") {{event.name}}

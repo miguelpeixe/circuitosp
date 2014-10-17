@@ -31,6 +31,8 @@ module.exports = [
 		 * NAVIGATION
 		 */
 
+		$scope.filteredEvents = [];
+
 		var nav = function(list, perPage, listContainer) {
 
 			return {
@@ -44,10 +46,6 @@ module.exports = [
 				nextPage: function() {
 					var self = this;
 					if(this.curPage < this.pageCount()) {
-						if(typeof listContainer !== 'undefined' && $(listContainer).length)
-							$('html,body').animate({
-								scrollTop: $(listContainer).position().top - 40
-							}, 300);
 						this.curPage++;
 						$scope.$broadcast('mci.page.next', self);
 					}
@@ -55,10 +53,6 @@ module.exports = [
 				prevPage: function() {
 					var self = this;
 					if(this.curPage > 0) {
-						if(typeof listContainer !== 'undefined' && $(listContainer).length)
-							$('html,body').animate({
-								scrollTop: $(listContainer).position().top - 40
-							}, 300);
 						this.curPage--;
 						$scope.$broadcast('mci.page.prev', self);
 					}
@@ -86,7 +80,7 @@ module.exports = [
 
 		$scope.$watch('eventNav.curPage', function(page, prevPage) {
 			if(page || prevPage) {
-				$state.go('events.filter', {page:page});
+				//$state.go('events.filter', {page:page});
 			}
 		});
 
