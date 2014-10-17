@@ -6,8 +6,7 @@ var _ = require('underscore');
 var moment = require('moment');
 var tryJSON = require('./tryParseJSON')
 
-
-module.exports = function(app) {
+module.exports = function(app, done) {
 
 	var config = app.locals.config;
 
@@ -16,6 +15,13 @@ module.exports = function(app) {
 	var defaultReq = {
 		method: 'GET'
 	};
+
+	// if callback is not defined, print error to console
+	if (!done) {
+		done = function(err) {
+			if (err) console.log(err);
+		}
+	}
 
 	var eventsReq = {
 		url: config.mapasCulturais.endpoint + '/event/find',
@@ -28,7 +34,7 @@ module.exports = function(app) {
 
 	request(_.extend(defaultReq, eventsReq), function(err, res, body) {
 		if(err) {
-			console.log(err);
+			done(err);
 		} else {
 
 			var events = tryJSON(body);
@@ -61,7 +67,7 @@ module.exports = function(app) {
 
 				if(err) {
 
-					console.log(err);
+					done(err);
 
 				} else {
 
@@ -110,7 +116,7 @@ module.exports = function(app) {
 					request(_.extend(defaultReq, spacesReq), function(err, res, body) {
 
 						if(err) {
-							console.log(err);
+							done(err);
 						} else {
 
 							var spaces = tryJSON(body) || [];
@@ -118,6 +124,7 @@ module.exports = function(app) {
 							app.locals.data.events = events;
 							app.locals.data.occurrences = occurrences;
 							app.locals.data.spaces = spaces;
+							done();
 						}
 					})
 				}
