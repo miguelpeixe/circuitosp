@@ -4,11 +4,13 @@
  */
 
 var fs = require('fs');
+var _ = require('underscore');
+var request = require('request');
 var config = require('../../config');
 var admin = require('../app/controllers/admin');
 var settings = require('../app/controllers/settings');
 var auth = require('./auth');
-var _ = require('underscore');
+var sync = require('../lib/sync');
 
 module.exports = function (app, passport) {
 
@@ -36,11 +38,13 @@ module.exports = function (app, passport) {
 
 	app.get('/api/news', function(req, res) {
 
-		if(!config.wpUrl)
+		var config = req.app.locals.config;
+
+		if(!config.wordpress.endpoint)
 			res.status(404).send('WordPress API not defined');
 
 		request({
-			url: config.wpUrl + '/wp-json/posts',
+			url: config.wordpress.endpoint + '/wp-json/posts',
 			qs: req.query
 		}, function(request, response, body) {
 			for(var key in response.headers) {
@@ -53,11 +57,13 @@ module.exports = function (app, passport) {
 
 	app.get('/api/news/:postId', function(req, res) {
 
-		if(!config.wpUrl)
+		var config = req.app.locals.config;
+
+		if(!config.wordpress.endpoint)
 			res.status(404).send('WordPress API not defined');
 
 		request({
-			url: config.wpUrl + '/wp-json/posts/' + req.params.postId,
+			url: config.wordpress.endpoint + '/wp-json/posts/' + req.params.postId,
 			qs: req.body
 		}, function(request, response, body) {
 			for(var key in response.headers) {
@@ -76,9 +82,11 @@ module.exports = function (app, passport) {
 
 	app.get('/api/data', function(req, res) {
 
+		var config = req.app.locals.config;
+
 		var data = {
 			config: {
-				wpUrl: config.wpUrl,
+				wpUrl: config.wordpress.endpoint,
 				hashtag: config.hashtag
 			},
 			options: options,
@@ -97,6 +105,9 @@ module.exports = function (app, passport) {
 	var loadedEvents = [];
 
 	app.get('/api/event/:eventId', function(req, res) {
+
+		var config = req.app.locals.config;
+
 		var eventId = req.params.eventId;
 		var eventSelect = [
 			'id',
@@ -125,7 +136,7 @@ module.exports = function (app, passport) {
 			'googleplus'
 		];
 		var eventReq = {
-			url: config.apiUrl + '/event/find',
+			url: config.mapasCulturais.endpoint + '/event/find',
 			qs: {
 				'@select': eventSelect.join(','),
 				'@files': '(gallery)',
@@ -161,58 +172,33 @@ module.exports = function (app, passport) {
 
 	});
 
-	app.all('/agenda/limpar-cache', function(req, res) {
+	app.all('/agenda/limpar-cache', auth.requiresLogin, function(req, res) {
 
-		if(config.password && (!req.body.password || req.body.password !== config.password)) {
+		var emptied = loadedEvents.slice(0);
+		loadedEvents = [];
 
-			var resData = {};
+		res.send('cache cleared');
 
-			if(req.body.password) {
-				resData = {
-					error: 'Senha incorreta'
-				};
-			}
-
-			res.render('static/password-protected', resData);
-
-		} else {
-
-			var emptied = loadedEvents.slice(0);
-			loadedEvents = [];
-
-			res.render('static/cache-cleared', {
-				time: new Date().toString(),
-				events: emptied
-			});
-
-		}
+		// res.render('static/cache-cleared', {
+		// 	time: new Date().toString(),
+		// 	events: emptied
+		// });
 
 	});
 
-	app.all('/agenda/atualizar', function(req, res) {
 
-		if(config.password && (!req.body.password || req.body.password !== config.password)) {
 
-			var resData = {};
+	app.all('/agenda/atualizar', auth.requiresLogin, function(req, res) {
 
-			if(req.body.password) {
-				resData = {
-					error: 'Senha incorreta'
-				};
-			}
+		loadedEvents = [];
 
-			res.render('static/password-protected', resData);
+		sync(app, function(err) {
+			if (err) return res.send('error')
+			res.send('data success');
 
-		} else {
+			// res.render('static/data-success', {time: new Date().toString() });
 
-			loadedEvents = [];
-			loadData(function(data) {
-
-				app.locals.data = data;
-				res.render('static/data-success', {time: new Date().toString() });
-
-			});
-		}
+		});
 
 	});
 
@@ -220,42 +206,42 @@ module.exports = function (app, passport) {
 	 * Update social data each 10 minutes
 	 */
 
-	if(config.hashtag) {
+	// if(config.hashtag) {
 
-		var social = [];
-		loadSocial(function(data) {
-			social = data;
-		});
-		if(!dev) {
-			setInterval(function() {
-				loadSocial(function(data) {
-					social = data;
-				});
-			}, 1000 * 60 * 10);
-		}
+	// 	var social = [];
+	// 	loadSocial(function(data) {
+	// 		social = data;
+	// 	});
+	// 	if(!dev) {
+	// 		setInterval(function() {
+	// 			loadSocial(function(data) {
+	// 				social = data;
+	// 			});
+	// 		}, 1000 * 60 * 10);
+	// 	}
 
-		app.get('/api/social', function(req, res) {
+	// 	app.get('/api/social', function(req, res) {
 
-			var perPage = parseInt(req.query.perPage || 20);
-			var page = parseInt(req.query.page || 1);
-			var offset = (page-1) * perPage;
+	// 		var perPage = parseInt(req.query.perPage || 20);
+	// 		var page = parseInt(req.query.page || 1);
+	// 		var offset = (page-1) * perPage;
 
-			if(offset > social.length) {
-				res.status(404).send('Not found');
-			} else {
-				res.send({
-					pagination: {
-						currentPage: parseInt(page),
-						perPage: parseInt(perPage),
-						totalPages: Math.floor(social.length/perPage)
-					},
-					data: social.slice(offset, offset+perPage)
-				});
-			}
+	// 		if(offset > social.length) {
+	// 			res.status(404).send('Not found');
+	// 		} else {
+	// 			res.send({
+	// 				pagination: {
+	// 					currentPage: parseInt(page),
+	// 					perPage: parseInt(perPage),
+	// 					totalPages: Math.floor(social.length/perPage)
+	// 				},
+	// 				data: social.slice(offset, offset+perPage)
+	// 			});
+	// 		}
 
-		});
+	// 	});
 
-	}
+	// }
 
 	app.get('/*', function(req, res) {
 		res.sendFile(config.root + '/dist/views/index.html');
