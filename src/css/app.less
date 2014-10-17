@@ -63,24 +63,48 @@ a {
 
 body {
 	background: @bg;
+	font-size: 16px;
 }
 
 #masthead {
+	margin: 40px 0;
 	h1 {
 		text-indent: -9999px;
+		line-height: 0;
 		img {
 			display: block;
+		}
+	}
+	#mastnav {
+		margin: 40px 0;
+		ul {
+			display: table;
+			width: 100%;
+			li {
+				display: table-cell;
+				margin: 0;
+				text-align: center;
+				a {
+					color: @red;
+					text-decoration: none;
+					text-transform: uppercase;
+					&:hover {
+						color: #000;
+					}
+				}
+			}
 		}
 	}
 }
 
 .event-list {
 	li {
+		.box-sizing(border-box);
 		float: left;
 		width: 25%;
+		min-height: 5px;
 		padding: 0 5px 5px 0;
 		margin: 0;
-		.box-sizing(border-box);
 		&.feat {
 			img {
 				width: 100%;
@@ -114,6 +138,7 @@ body {
 			}
 			p {
 				color: #f0f0f0;
+				font-size: 14px;
 			}
 			.occurrences {
 				.occurrence {
@@ -126,7 +151,7 @@ body {
 						color: #fff;
 						padding: 10px 0;
 						font-weight: 600;
-						font-size: 120%;
+						font-size: 16px;
 						.entypo {
 							font-weight: 200;
 						}
@@ -144,3 +169,5 @@ body {
 }
 
 @import 'filters.less';
+
+@import 'dialog.less';

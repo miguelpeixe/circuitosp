@@ -24,7 +24,6 @@ html(lang='pt-BR')
 						ul
 							li(ng-repeat="item in nav")
 								a(href="{{item.href}}" title="{{item.title}}")
-									span.entypo(ng-bind-html="item.icon")
 									span.label {{item.title}}
 
 		section#content(ui-view, autoscroll='true')

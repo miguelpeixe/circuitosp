@@ -1,80 +1,84 @@
 section#single-event(ng-controller="EventController")
 	header.event-header.main-header.clearfix(ng-class="{'with-image': event['@files:header'].url}")
-		.clearfix
-			.image(style="background-image:url({{event['@files:header'].url}});")
-			h2
-				a(href="/agenda/") Agenda
-			h1 {{event.name}}
+		.container
+			.twelve.columns
+				.image(style="background-image:url({{event['@files:header'].url}});")
+				h2
+					a(href="/agenda/") Agenda
+				h1 {{event.name}}
 
-	.single-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
-		#main-occurrence
-			.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
+	.container
+		.eight.columns
+			.single-content
+				#main-occurrence
+					.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
 
-				.clearfix
-					.date-info
-						p.fromNow(ng-show="featOccur.isFuture")
-							span.entypo &#128340;
-							span(fromnow date="featOccur.timestamp")
-						p.past-event(ng-hide="featOccur.isFuture") Este evento já aconteceu
-						p.date
-							span.entypo &#128197;
-							| {{getFormattedDate(featOccur)}}
-						p.price
-							span.entypo &#127915;
-							| {{featOccur.price}}
-					p.space(ng-controller="MapController" ng-click="openDialog($event, featOccur)")
-						span.entypo &#59172;
-						| {{featOccur.spaceName}}
-						span.address {{featOccur.space.endereco}}
+						.clearfix
+							.date-info
+								p.fromNow(ng-show="featOccur.isFuture")
+									span.entypo &#128340;
+									span(fromnow date="featOccur.timestamp")
+								p.past-event(ng-hide="featOccur.isFuture") Este evento já aconteceu
+								p.date
+									span.entypo &#128197;
+									| {{getFormattedDate(featOccur)}}
+								p.price
+									span.entypo &#127915;
+									| {{featOccur.price}}
+							p.space(ng-controller="MapController" ng-click="openDialog($event, featOccur)")
+								span.entypo &#59172;
+								| {{featOccur.spaceName}}
+								span.address {{featOccur.space.endereco}}
 
-				//.map(ng-controller="MapController" ng-init="initMap(featOccur, mapOptions)")
-				//	leaflet#main-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
-				//		p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
+						//.map(ng-controller="MapController" ng-init="initMap(featOccur, mapOptions)")
+						//	leaflet#main-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
+						//		p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
 
-			p.past-event(ng-hide="featOccur") Este evento já aconteceu
+					p.past-event(ng-hide="featOccur") Este evento já aconteceu
 
-		section#event-description.event-content.main-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
-			p(ng-show="description") {{description}}
+				section#event-description.event-content.main-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
+					p(ng-show="description") {{description}}
 
-		section#gallery(ng-show="event['@files:gallery']")
-			h2 Galeria de fotos
-			ul(masonry)
-				li.masonry-brick(ng-repeat="photo in event['@files:gallery']")
-					img(ng-src="{{photo.url}}")
-	aside#event-sidebar
-		#social
-		
-			.fb-like(data-layout="standard" data-action="like" data-show-faces="false" data-share="true" data-width="200")
+				section#gallery(ng-show="event['@files:gallery']")
+					h2 Galeria de fotos
+					ul(masonry)
+						li.masonry-brick(ng-repeat="photo in event['@files:gallery']")
+							img(ng-src="{{photo.url}}")
+		.four.columns
+			aside#event-sidebar
+				#social
+				
+					.fb-like(data-layout="standard" data-action="like" data-show-faces="false" data-share="true" data-width="200")
 
-			a(href="https://twitter.com/share" class="twitter-share-button" data-via="mcifest") Tweet
-			script.
-				!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-		#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
-			h2 Agenda
-			ul
-				li.clearfix(ng-repeat="occur in event.occurrences | occurrenceOrder" ng-class="{future:occur.isFuture}")
-					.date-info.clearfix
-						p.fromNow
-							span.entypo &#128340;
-							span(fromnow date="occur.timestamp")
-						p.date
-							span.entypo &#128197;
-							| {{getFormattedDate(occur)}}
-					p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
-						span.entypo &#59172;
-						| {{occur.spaceName}}
-					p.price
-						span.entypo &#127915;
-						| {{occur.price}}
+					a(href="https://twitter.com/share" class="twitter-share-button" data-via="mcifest") Tweet
+					script.
+						!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+				#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
+					h2 Agenda
+					ul
+						li.clearfix(ng-repeat="occur in event.occurrences | occurrenceOrder" ng-class="{future:occur.isFuture}")
+							.date-info.clearfix
+								p.fromNow
+									span.entypo &#128340;
+									span(fromnow date="occur.timestamp")
+								p.date
+									span.entypo &#128197;
+									| {{getFormattedDate(occur)}}
+							p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
+								span.entypo &#59172;
+								| {{occur.spaceName}}
+							p.price
+								span.entypo &#127915;
+								| {{occur.price}}
 
-		#event-tags(ng-show="event.terms.tag")
-			.tag(ng-repeat="tag in event.terms.tag" ng-show="service.getTagDescription(tag)")
-				h3
-					a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
-				p {{service.getTagDescription(tag)}}
+				#event-tags(ng-show="event.terms.tag")
+					.tag(ng-repeat="tag in event.terms.tag" ng-show="service.getTagDescription(tag)")
+						h3
+							a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
+						p {{service.getTagDescription(tag)}}
 
-			p.all-tags
-				| Tags: 
-				span(ng-repeat="tag in event.terms.tag" ng-hide="service.getTagDescription(tag)")
-					a(href="javascript:void(0);" ng-click="accessTag(tag)") {{tag}}
-					| {{$last ? '' : ', '}}
+					p.all-tags
+						| Tags: 
+						span(ng-repeat="tag in event.terms.tag" ng-hide="service.getTagDescription(tag)")
+							a(href="javascript:void(0);" ng-click="accessTag(tag)") {{tag}}
+							| {{$last ? '' : ', '}}
