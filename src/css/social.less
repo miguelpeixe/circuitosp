@@ -1,0 +1,68 @@
+/*
+ * SOCIAL
+ */
+
+#social {
+	.items {
+		li {
+			width: 33.33%;
+			max-width: 600px;
+			min-width: 100px;
+			padding-right: 20px;
+			.box-sizing(border-box);
+			.item-content {
+				background: #fff;
+				padding: 10px;
+				img {
+					width: 100%;
+					height: auto;
+					display: block;
+				}
+				.media-type {
+					font-family: "entypo-social";
+					font-size: 60px;
+					line-height: 40px;
+					color: @red;
+					background: #fff;
+					width: 45px;
+					height: 45px;
+					margin: -20px auto 0;
+					position: relative;
+					z-index: 2;
+					padding: 10px;
+					text-align: center;
+					.transform(rotate(45deg));
+					&.icon {
+						font-family: "entypo";
+					}
+				}
+				.author {
+					color: #999;
+					text-align: center;
+					font-style: italic;
+					position: relative;
+					z-index: 2;
+				}
+				.link {
+					text-align:center;
+					font-size: 12px;
+					margin: -10px 0 20px;
+					text-transform: lowercase;
+					a {
+						color: #333;
+						text-decoration: none;
+						&:hover {
+							color: #222;
+						}
+					}
+				}
+			}
+		}
+	}
+	.end {
+		margin: 40px 0;
+		text-align: center;
+		font-style: italic;
+		color: #999;
+	}
+}

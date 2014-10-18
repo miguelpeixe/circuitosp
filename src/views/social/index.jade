@@ -1,13 +1,17 @@
 section#social
-	header.main-header.clearfix
-		h1 Na rede
+	header.main-header.row
+		.container
+			.twelve.columns
+				h1 Na rede
 	section.main-content(infinite-scroll="nextPage()" infinite-scroll-disabled="lastPage")
-		ul.items(masonry)
-			li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
-				.item-content
-					.media(ng-bind-html="getMedia(item)")
-					p.media-type(ng-bind-html="getMediaIcon(item)" ng-class="{icon: item.media_provider == 'youtube'}")
-					p.author {{item.author}}
-					p.link
-						a(href="{{item.original_url}}" target="_blank") Ver original
-		p.end(ng-show="lastPage") Isso é tudo!
+		.container
+			.twelve.columns
+				ul.items(masonry)
+					li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
+						.item-content
+							.media(ng-bind-html="getMedia(item)")
+							p.media-type(ng-bind-html="getMediaIcon(item)" ng-class="{icon: item.media_provider == 'youtube'}")
+							p.author {{item.author}}
+							p.link
+								a(href="{{item.original_url}}" target="_blank") Ver original
+				p.end(ng-show="lastPage") Isso é tudo!

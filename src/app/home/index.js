@@ -48,7 +48,7 @@ angular.module('mci.home', [
 
 		var page = 0;
 
-		$scope.homeEvents = Event.getFutureEvents(5);
+		$scope.homeEvents = Event.getFutureEvents(8);
 		$scope.isFutureEvents = true;
 		if(!$scope.homeEvents.length) {
 			$scope.homeEvents = Event.getEvents().slice(0, 10);
