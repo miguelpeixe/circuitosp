@@ -11,7 +11,7 @@ module.exports = [
 
 			$http({
 				method: 'GET',
-				url: '/api/social',
+				url: '/api/v1/social',
 				params: {
 					page: page,
 					perPage: perPage
