@@ -39,11 +39,25 @@ angular.module('mci.home', [
 	'$scope',
 	function(NewsData, Event, $scope) {
 
-		if(NewsData) {
-			$scope.news = {
-				first: NewsData.data[0],
-				second: NewsData.data[1]
-			};
+		if(NewsData)
+			$scope.news = NewsData.data.slice(0,5);
+
+		$scope.current = 0;
+
+		$scope.nextArticle = function() {
+			if($scope.news[$scope.current+1]) {
+				$scope.current++;
+			} else {
+				$scope.current = 0;
+			}
+		}
+
+		$scope.prevArticle = function() {
+			if($scope.news[$scope.current-1]) {
+				$scope.current--;
+			} else {
+				$scope.current = $scope.news.length-1;
+			}
 		}
 
 		var page = 0;

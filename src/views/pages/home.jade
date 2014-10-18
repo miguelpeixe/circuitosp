@@ -1,36 +1,35 @@
 section#home
-	section#news.clearfix(ng-controller="NewsController" ng-show="news")
+	section#news.row(ng-controller="NewsController" ng-show="news")
 		.container
 			.twelve.columns
 
-				article(style="background-image:url({{getFeaturedImage(news.first)}})")
-					.post-content
-						header
-							h2
-								a(href="/noticias/{{news.first.ID}}/" ng-bind-html="getTitle(news.first)")
-						section.excerpt(ng-bind-html="getExcerpt(news.first)")
+				.news-container
 
-				article(style="background-image:url({{getFeaturedImage(news.second)}})")
-					.post-content
-						header
-							h2
-								a(href="/noticias/{{news.second.ID}}/" ng-bind-html="getTitle(news.second)")
+					article(ng-repeat="article in news" style="background-image:url({{getFeaturedImage(article)}})" ng-show="current == news.indexOf(article)")
+						.post-content
+							header
+								h2
+									a(href="/noticias/{{article.ID}}/" ng-bind-html="getTitle(article)")
+							section.excerpt(ng-bind-html="getExcerpt(article)")
 
-				a.more-news(href="/noticias") Todas as notícias
+					a(ng-click="prevArticle()" href="javascript:void(0);" class="prev") &#59237;
+					a(ng-click="nextArticle()" href="javascript:void(0);" class="next") &#59238;
 
-	section#event-list.box-section(ng-show="homeEvents.length")
-		header.box-section-header
+					a.more-news(href="/noticias") Todas as notícias
+
+	section#event-list.row(ng-show="homeEvents.length")
+		header
 			.container
 				.twelve.columns
 					h2 Próximos eventos
-		section.box-section-content
+		section
 			.container
 				.twelve.columns
 					ul.event-list(masonry ng-controller="EventController")
 						li.masonry-brick(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
 							include ../events/partials/event-list-item
 
-	section#social
+	section#social.row
 		h3 Acompanhe pelas redes sociais
 		p
 			a(href="https://www.facebook.com/culturaindependente" target="_blank" title="Facebook" class="entypo-social fb") &#62222;

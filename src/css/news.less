@@ -1,14 +1,23 @@
 #home {
 	#news {
+		.news-container {
+			position: relative;
+			&:hover {
+				.next,
+				.prev {
+					opacity: 1;
+				}
+			}
+		}
 		article {
-			height: 500px;
+			height: 550px;
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
 			position: relative;
 			.post-content {
 				background: #fff;
-				padding: 20px 0 0;
+				padding: 40px 0 0;
 				position: absolute;
 				bottom: 0;
 				width: 100%;
@@ -18,6 +27,28 @@
 					}
 				}
 			}
+		}
+		.next,
+		.prev {
+			.entypo;
+			position: absolute;
+			top: 30%;
+			color: #000;
+			background: #fff;
+			opacity: 0;
+			font-size: 60px;
+			line-height: 60px;
+			height: 60px;
+			text-decoration: none;
+			margin: 0;
+			padding: 0 10px;
+			display: block;
+		}
+		.prev {
+			left: 0;
+		}
+		.next {
+			right: 0;
 		}
 	}
 }

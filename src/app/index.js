@@ -170,11 +170,6 @@ angular.module('mci', [
 				icon: $sce.trustAsHtml('&#127748;')
 			},
 			{
-				title: 'Imprensa',
-				href: '/imprensa/',
-				icon: $sce.trustAsHtml('&#127908;')
-			},
-			{
 				title: 'Sobre',
 				href: '/sobre/',
 				icon: $sce.trustAsHtml('&#8505;')
