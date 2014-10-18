@@ -19,7 +19,7 @@ module.exports = [
 			var loadId = Loading.add();
 
 			$.ajax({
-				url: '/api/news',
+				url: '/api/v1/news',
 				data: query,
 				dataType: 'json',
 				cache: true,
@@ -123,7 +123,7 @@ module.exports = [
 
 				var loadId = Loading.add();
 				$.ajax({
-					url: '/api/news/' + postId,
+					url: '/api/v1/news/' + postId,
 					dataType: 'json',
 					cache: true,
 					success: function(data, text, xhr) {
