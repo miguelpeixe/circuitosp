@@ -5,13 +5,14 @@
 #social {
 	.items {
 		li {
-			width: 33.33%;
+			width: 33.3333%;
 			max-width: 600px;
 			min-width: 100px;
-			padding-right: 20px;
+			padding-right: 5px;
+			margin: 0 0 5px;
 			.box-sizing(border-box);
 			.item-content {
-				background: #fff;
+				background: url(../img/bg-black.jpg);
 				padding: 10px;
 				img {
 					width: 100%;
@@ -23,21 +24,19 @@
 					font-size: 60px;
 					line-height: 40px;
 					color: @red;
-					background: #fff;
 					width: 45px;
 					height: 45px;
-					margin: -20px auto 0;
+					margin: 0 auto 0;
 					position: relative;
 					z-index: 2;
 					padding: 10px;
 					text-align: center;
-					.transform(rotate(45deg));
 					&.icon {
 						font-family: "entypo";
 					}
 				}
 				.author {
-					color: #999;
+					color: #fff;
 					text-align: center;
 					font-style: italic;
 					position: relative;
@@ -49,10 +48,10 @@
 					margin: -10px 0 20px;
 					text-transform: lowercase;
 					a {
-						color: #333;
+						color: #999;
 						text-decoration: none;
 						&:hover {
-							color: #222;
+							color: #fff;
 						}
 					}
 				}

@@ -26,11 +26,9 @@ html(lang='pt-BR')
 								a(href="{{item.href}}" title="{{item.title}}")
 									span.label {{item.title}}
 
-		section#content(ui-view, autoscroll='false')
+		section#content.row(ui-view, autoscroll='false')
 
-		.clear
-
-		footer#mastfoot
+		footer#mastfoot.row
 			#by
 				h3 Realização
 				img(alt="Secretaria Municipal de Cultura de São Paulo" src="/img/logos/secult.jpg")

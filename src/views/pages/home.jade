@@ -1,25 +1,22 @@
 section#home
 	section#news.clearfix(ng-controller="NewsController" ng-show="news")
+		.container
+			.twelve.columns
 
-		article#featured.feat
-			.thumbnail
-				img(ng-src="{{getFeaturedImage(news.first)}}")
-			.post-content
-				header
-					h2
-						a(href="/noticias/{{news.first.ID}}/" ng-bind-html="getTitle(news.first)")
-				section.excerpt(ng-bind-html="getExcerpt(news.first)")
+				article(style="background-image:url({{getFeaturedImage(news.first)}})")
+					.post-content
+						header
+							h2
+								a(href="/noticias/{{news.first.ID}}/" ng-bind-html="getTitle(news.first)")
+						section.excerpt(ng-bind-html="getExcerpt(news.first)")
 
-		article#second.feat
-			.thumbnail
-				img(ng-src="{{getFeaturedImage(news.second)}}")
-			.post-content
-				header
-					h2
-						a(href="/noticias/{{news.second.ID}}/" ng-bind-html="getTitle(news.second)")
+				article(style="background-image:url({{getFeaturedImage(news.second)}})")
+					.post-content
+						header
+							h2
+								a(href="/noticias/{{news.second.ID}}/" ng-bind-html="getTitle(news.second)")
 
-		a.more-news(href="/noticias") Todas as notícias
-
+				a.more-news(href="/noticias") Todas as notícias
 
 	section#event-list.box-section(ng-show="homeEvents.length")
 		header.box-section-header
