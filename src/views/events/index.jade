@@ -6,7 +6,7 @@ section#list-event(ng-class="{tag: tag}")
 				.clearfix
 					h2(ng-show="tag || space")
 						a(href="/agenda/") Agenda
-					h1
+					h1(ng-class="{tag: tag || space}")
 						span(ng-hide="tag || space") Agenda
 						span.tag(ng-show="tag || space") {{tag || space.name}}
 					include partials/filters

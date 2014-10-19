@@ -39,7 +39,6 @@ module.exports = [
 		};
 
 		$scope.gCalUrl = function(occurrence, event) {
-			console.log(event);
 			var space = Event.getOccurrenceSpace(occurrence);
 			var start = occurrence.moment.clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
 			var end = moment(occurrence.moment.format()).add(occurrence.duration, 'minutes').clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');

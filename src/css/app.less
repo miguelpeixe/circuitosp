@@ -140,13 +140,29 @@ body {
 }
 
 .main-header {
-	h1,
 	h2 {
+		font-size: 18px;
+		line-height: 30px;
+		margin: 0;
+		float: none;
+		text-transform: uppercase;
+		a {
+			text-decoration: none;
+		}
+	}
+	h1 {
 		float: left;
 		font-size: 30px;
 		line-height: 40px;
 		margin: 0 40px 0 0;
 		text-transform: uppercase;
+		&.tag {
+			font-size: 40px;
+			line-height: 50px;
+			text-transform: none;
+			float: none;
+			margin: 0 0 20px;
+		}
 	}
 }
 
