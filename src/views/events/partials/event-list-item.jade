@@ -22,3 +22,6 @@ article.event-list-item
 				p.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
 					span.entypo &#59172;
 					| {{occur.spaceName}}
+				p.add-to-calendar
+					span.entypo &#9733;
+					a(href="{{gCalUrl(occur, event)}}" target="_blank") Adicionar no Google Calendar

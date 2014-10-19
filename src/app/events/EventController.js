@@ -38,5 +38,14 @@ module.exports = [
 			return occurrence.moment.calendar(today);
 		};
 
+		$scope.gCalUrl = function(occurrence, event) {
+			console.log(event);
+			var space = Event.getOccurrenceSpace(occurrence);
+			var start = occurrence.moment.clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
+			var end = moment(occurrence.moment.format()).add(occurrence.duration, 'minutes').clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
+			var url = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + event.name + '&dates=' + start + '/' + end + '&details=' + event.shortDescription + '&location=' + space.endereco + '&sf=true&output=xml';
+			return url;
+		}
+
 	}
 ];

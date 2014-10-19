@@ -10,7 +10,7 @@ require('angular-masonry/angular-masonry');
 require('angular-dialog/js/ngDialog');
 require('angular-infiniteScroll/build/ng-infinite-scroll');
 
-window.moment = require('moment');
+window.moment = require('moment-timezone');
 require('moment/locale/pt-br');
 moment.locale('pt-br');
 moment.locale('pt-br', {
@@ -22,4 +22,4 @@ moment.locale('pt-br', {
 		lastWeek: 'DD/MM [às] LT',
 		sameElse: 'DD/MM [às] LT'
 	},
-})
+});

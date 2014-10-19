@@ -19,7 +19,7 @@ module.exports = [
 		// Populate events occurrences with timestamp and moment
 		_.each(events, function(e) {
 			_.each(e.occurrences, function(occur) {
-				occur.moment = moment(occur.startsOn + ' ' + occur.startsAt, 'YYYY-MM-DD HH:mm');
+				occur.moment = moment.tz(occur.startsOn + ' ' + occur.startsAt, 'YYYY-MM-DD HH:mm', 'America/Sao_Paulo');
 				occur.timestamp = occur.moment.unix();
 				occur.isFuture = occur.timestamp >= today.unix();
 				occurrences.push(occur);
