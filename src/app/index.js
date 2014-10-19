@@ -8,6 +8,7 @@ require('./helpers');
 
 require('./home');
 require('./events');
+require('./spaces');
 require('./news');
 require('./social');
 
@@ -22,6 +23,7 @@ angular.module('mci', [
 	'FacebookPluginDirectives',
 	'mci.home',
 	'mci.events',
+	'mci.spaces',
 	'mci.news',
 	'mci.social'
 ])
@@ -158,6 +160,10 @@ angular.module('mci', [
 				title: 'Agenda',
 				href: '/agenda/',
 				icon: $sce.trustAsHtml('&#128197;')
+			},
+			{
+				title: 'Locais',
+				href: '/locais/'
 			},
 			{
 				title: 'Notícias',

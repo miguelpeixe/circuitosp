@@ -1,0 +1,81 @@
+section#list-space(ng-class="{tag: tag}")
+	.ui-view(autoscroll='false')
+	header.list-header.main-header.row
+		.container
+			.twelve.columns
+				.clearfix
+					h2(ng-show="tag")
+						a(href="/agenda/") Espaços
+					h1
+						span(ng-hide="tag") Espaços
+						span.tag(ng-show="tag") {{tag || space.name}}
+					nav
+						.filters-container
+							.filter-item.text-filter
+								input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
+				.clearfix
+					p(ng-show="tag") {{service.getTagDescription(tag)}}
+
+	section#space-list.main-content
+		section.space-results(infinite-scroll="spaceNav.nextPage()" infinite-scroll-disabled="!spaceNav.hasNextPage()")
+			.container
+				.twelve.columns
+					ul.space-list(masonry preserve-order reload-on-show="true" ng-show="filteredSpaces.length")
+						li.masonry-brick(ng-repeat="space in (filteredSpaces = (spaces | filter:spaceSearch:strict)) | orderBy: '_distance' | limitTo: (spaceNav.perPage + (spaceNav.perPage * spaceNav.curPage))")
+							article.space(ng-controller="EventController")
+								header
+									h3
+										a(href="javascript:void(0);" ng-click="accessSpace(space.id)") {{space.name}}
+									.meta
+										p.distance(ng-show="space._distance && space._distance < 60000")
+											span.entypo &#127919;
+											strong {{space.kmDistance}} km 
+											| de você
+										div(ng-controller="MapController" ng-init="initData(space)")
+											p.map(ng-click="openDialog($event, space)")
+												a(href="javascript:void(0);")
+													span.entypo &#59172;
+													| Mapa
+											p.route
+												a(href="https://www.google.com/maps/dir/{{routeFrom}}/{{routeTo}}/" target="_blank")
+													span.entypo &#10146;
+													| Como chegar
+
+					p.not-found(ng-hide="filteredSpaces.length") Nenhum evento foi encontrado
+		//
+			#spaces.box-section
+
+				header.box-section-header.spaces-header.clearfix
+					h2 Espaços
+
+				section.box-section-content.spaces-content
+
+					input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
+
+					ul.space-list
+						li(ng-repeat="space in (filteredSpaces = (spaces | filter:spaceSearch:strict)) | orderBy: '_distance' | offset: spaceNav.perPage * spaceNav.curPage | limitTo: spaceNav.perPage")
+							article.space(ng-controller="EventController")
+								header
+									h3
+										a(href="javascript:void(0);" ng-click="accessSpace(space.id)") {{space.name}}
+									.clearfix
+										p.distance(ng-show="space._distance && space._distance < 60000")
+											span.entypo &#127919;
+											strong {{space.kmDistance}} km 
+											| de você
+										div(ng-controller="MapController" ng-init="initData(space)")
+											p.map(ng-click="openDialog($event, space)")
+												a(href="javascript:void(0);")
+													span.entypo &#59172;
+													| Mapa
+											p.route
+												a(href="https://www.google.com/maps/dir/{{routeFrom}}/{{routeTo}}/" target="_blank")
+													span.entypo &#10146;
+													| Como chegar
+					nav#pagination.clearfix
+						a.prev(ng-click="spaceNav.prevPage()" ng-show="spaceNav.hasPrevPage()" href="javascript:void(0);")
+							| página anterior
+							.entypo &#59233;
+						a.next(ng-click="spaceNav.nextPage()" ng-show="spaceNav.hasNextPage()" href="javascript:void(0);")
+							| próxima página
+							.entypo &#59234;

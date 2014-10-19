@@ -17,22 +17,19 @@ section#home
 
 					a.more-news(href="/noticias") Todas as notícias
 
-	section#event-list.row(ng-show="homeEvents.length")
-		header
+	section#event-featured.row(ng-controller="EventFeaturedController" ng-show="featured.type == 'near'")
+		.container
+			.twelve.columns
+				include ../events/partials/featured
+
+	section#event-list.page-section.row(ng-show="homeEvents.length")
+		header.page-section-header.row
 			.container
 				.twelve.columns
 					h2 Próximos eventos
-		section
+		section.page-section-content
 			.container
 				.twelve.columns
 					ul.event-list(masonry ng-controller="EventController")
 						li.masonry-brick(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
 							include ../events/partials/event-list-item
-
-	section#social.row
-		h3 Acompanhe pelas redes sociais
-		p
-			a(href="https://www.facebook.com/culturaindependente" target="_blank" title="Facebook" class="entypo-social fb") &#62222;
-		p
-			a(href="https://twitter.com/mcifest" target="_blank" title="Twitter" class="entypo-social tw") &#62217;
-		.clear

@@ -98,6 +98,47 @@ body {
 	}
 }
 
+.page-section {
+	padding: 40px 0 0;
+	border-top: 1px solid #ddd;
+	.page-section-header {
+		h1,
+		h2 {
+			font-size: 30px;
+			line-height: 40px;
+			float: left;
+			margin: 0 40px 0 0;
+			text-transform: uppercase;
+		}
+	}
+}
+
+
+#social-links {
+	text-align: center;
+	border-top: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	padding: 40px 0;
+	h3 {
+		font-size: 18px;
+		color: #666;
+		text-transform: uppercase;
+		margin: 0 0 40px;
+	}
+	p {
+		margin: 0 0 0 20px;
+		display: inline;
+		font-weight: 200;
+		a {
+			text-decoration: none;
+		}
+		.entypo-social {
+			float: none;
+			font-size: 100px;
+		}
+	}
+}
+
 .main-header {
 	h1,
 	h2 {
@@ -109,7 +150,8 @@ body {
 	}
 }
 
-.event-list {
+.event-list,
+.space-list {
 	li {
 		.box-sizing(border-box);
 		float: left;
@@ -140,6 +182,7 @@ body {
 			h2,
 			h3 {
 				color: #fff;
+				margin-bottom: 20px;
 				a {
 					text-decoration: none;
 					color: inherit;
@@ -152,30 +195,35 @@ body {
 				color: #f0f0f0;
 				font-size: 14px;
 			}
-			.occurrences {
-				.occurrence {
-					display: none;
-					&:first-child {
-						display: block;
-					}
-					.date-info p {
-						background: @red;
-						color: #fff;
-						padding: 10px 0;
-						font-weight: 600;
-						font-size: 16px;
-						.entypo {
-							font-weight: 200;
-							height: auto;
-						}
-					}
+			.occurrences .occurrence {
+				display: none;
+				&:first-child {
+					display: block;
+				}
+			}
+			.occurrences .occurrence,
+			.meta {
+				.date-info p {
+					background: @red;
+					color: #fff;
+					padding: 10px 0;
+					font-weight: 600;
+					font-size: 16px;
 					.entypo {
-						font-size: 40px;
-						float: left;
-						width: 40px;
-						height: 40px;
-						text-align: center;
+						font-weight: 200;
+						height: auto;
 					}
+				}
+				.entypo {
+					font-size: 40px;
+					float: left;
+					width: 40px;
+					height: 40px;
+					text-align: center;
+				}
+				a {
+					text-decoration: none;
+					color: #f0f0f0;
 				}
 			}
 		}
@@ -202,6 +250,8 @@ body {
 }
 
 @import 'news.less';
+
+@import 'featured-events.less';
 
 @import 'social.less';
 

@@ -34,7 +34,7 @@ module.exports = [
 
 			$scope.map = _.extend({
 				defaults: {
-					tileLayer: 'http://{s}.sm.mapstack.stamen.com/($f7f7f7[@p],(buildings,$ec008b[hsl-color]),parks,mapbox-water,(streets-and-labels,$38a2a2[hsl-color]))/{z}/{x}/{y}.png',
+					tileLayer: 'http://{s}.sm.mapstack.stamen.com/(toner,$fff[@60],$d42d30[hsl-color])/{z}/{x}/{y}.png',
 					maxZoom: 16
 				},
 				center: {

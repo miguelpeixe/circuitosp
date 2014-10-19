@@ -42,6 +42,7 @@ angular.module('mci.events', [
 .factory('EventService', require('./EventService'))
 .controller('EventController', require('./EventController'))
 .controller('EventIndexController', require('./EventIndexController'))
+.controller('EventFeaturedController', require('./EventFeaturedController'))
 .controller('EventSingleController', require('./EventSingleController'))
 .controller('MapController', require('./MapController'));
 
