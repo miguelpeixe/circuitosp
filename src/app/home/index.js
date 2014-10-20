@@ -36,8 +36,9 @@ angular.module('mci.home', [
 .controller('HomeController', [
 	'NewsData',
 	'EventService',
+	'$interval',
 	'$scope',
-	function(NewsData, Event, $scope) {
+	function(NewsData, Event, $interval, $scope) {
 
 		if(NewsData)
 			$scope.news = NewsData.data.slice(0,5);
@@ -50,6 +51,8 @@ angular.module('mci.home', [
 			} else {
 				$scope.current = 0;
 			}
+			$interval.cancel(rotate);
+			rotate = $interval($scope.nextArticle, 8000);
 		}
 
 		$scope.prevArticle = function() {
@@ -58,7 +61,11 @@ angular.module('mci.home', [
 			} else {
 				$scope.current = $scope.news.length-1;
 			}
+			$interval.cancel(rotate);
+			rotate = $interval($scope.nextArticle, 8000);
 		}
+
+		var rotate = $interval($scope.nextArticle, 8000);
 
 		var page = 0;
 
