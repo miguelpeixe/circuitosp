@@ -3,25 +3,11 @@ var mongoose = require('mongoose');
 var Settings = mongoose.model('Settings');
 
 exports.json = function(req, res) {
-	Settings.findOne({}, function(err, settings){
-		if (err) return res.render('500');
-		if (!settings) settings = new Settings();
-		settings.save(function(err){
-			if (err) return res.render('500');
-
-			// clear db info
-			settings = settings.toObject();
-			delete settings._id;
-			delete settings.__v;
-			delete settings.smtp;
-
-			res.json(settings);
-		})
-	});
+	res.json(req.app.locals.config);
 }
 
 exports.update = function(req, res) {
-	Settings.load(function(err, settings){
+	Settings.findOne({}, function(err, settings){
 		if (err) return res.render('500');
 		if (!settings) settings = new Settings(req.body.settings);
 		else settings = _.extend(settings, req.body.settings);
@@ -30,6 +16,15 @@ exports.update = function(req, res) {
 
 		settings.save(function(err){
 			if (err) return res.render('500');
+
+			// clear unwanted info
+			settings = settings.toObject();
+			delete settings._id;
+			delete settings.__v;
+			delete settings.smtp;
+	
+			req.app.locals.config = settings;
+
 			res.render('admin/index', {settings: settings});
 		});
 	});

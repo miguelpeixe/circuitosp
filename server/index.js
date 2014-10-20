@@ -45,10 +45,11 @@ mongoose.connection.on('connected', function(){
 	// Start update process
 	mongoose.model('Settings').load(function(err, settings){
 		if (err) console.log('Error loading settings.');
-		app.locals.config = settings;
+		
 
 		// Init data sync
 		app.locals.data = { events: [], spaces: [] }
+		app.locals.config = settings;
 		syncData(app);
 		syncSocial(app);
 
