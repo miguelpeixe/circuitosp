@@ -22,7 +22,7 @@ module.exports = function (app, passport) {
 
 	// user routes
 	app.get('/admin/login', admin.login);
-	app.get('/admin/signup', admin.signup);
+	app.get('/admin/signup', auth.adminIsNotDefined, admin.signup);
 	app.get('/admin/logout', admin.logout);
 	app.post('/admin/new', admin.create);
 	app.get('/admin', auth.requiresLogin, admin.index)
