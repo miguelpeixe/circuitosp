@@ -13,6 +13,7 @@ exports.json = function(req, res) {
 			settings = settings.toObject();
 			delete settings._id;
 			delete settings.__v;
+			delete settings.smtp;
 
 			res.json(settings);
 		})
