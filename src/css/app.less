@@ -31,6 +31,7 @@
 	font-size: 250%;
 	float: left;
 	margin-right: 5px;
+	font-weight: 200 !important;
 }
 
 .entypo-social {
@@ -254,6 +255,138 @@ body {
 			.add-to-calendar:hover {
 				.entypo {
 					color: yellow;
+				}
+			}
+		}
+	}
+}
+
+#single-event {
+	.main-header {
+		border-bottom: 2px solid #ddd;
+		h1 {
+			font-size: 60px;
+			line-height: 70px;
+			text-transform: none;
+			margin: 0 0 40px;
+		}
+	}
+	#main-occurrence {
+		.past-event {
+			font-style: italic;
+			color: #999;
+		}
+		.next-occurrence {
+			.entypo {
+				float: left;
+				width: 30px;
+				text-align: center;
+			}
+			.date-info {
+				p {
+					float: left;
+					margin: 0 20px 20px 0;
+				}
+				.fromNow {
+					font-weight: 600;
+					font-size: 20px;
+					background: @red;
+					color: #fff;
+					padding: 10px 15px;
+					margin-top: -10px;
+					.entypo {
+						margin-right: 10px;
+					}
+				}
+			}
+			p.space {
+				font-weight: 600;
+				cursor: pointer;
+				&:hover {
+					color: @red;
+					.entypo {
+						color: #000;
+					}
+				}
+				.entypo {
+					font-weight: 200;
+				}
+				.address {
+					color: #999;
+					font-size: 14px;
+					&:before {
+						content: ' (';
+					}
+					&:after {
+						content: ')';
+					}
+				}
+			}
+			p.add-to-calendar {
+				border-top: 1px solid #ddd;
+				border-bottom: 1px solid #ddd;
+				padding: 20px 0;
+				margin: 0;
+			}
+			a {
+				text-decoration: none;
+				&:hover {
+					color: @red;
+				}
+			}
+		}
+	}
+	.main-content {
+		font-size: 20px;
+		line-height: 150%;
+		p {
+			font-size: 20px;
+			line-height: 150%;
+		}
+	}
+	#event-sidebar {
+		border-left: 2px solid #ddd;
+		padding-left: 40px;
+		#social {
+			> a,
+			> .fb-like {
+				display: block;
+				margin: 0 0 5px;
+			}
+		}
+		h2 {
+			font-size: 16px;
+			text-transform: uppercase;
+			font-weight: 600;
+			margin: 0 0 30px;
+		}
+		#event-agenda {
+			li {
+				margin: 0 0 20px;
+				opacity: 0.7;
+				&.future {
+					opacity: 1;
+				}
+				p {
+					margin: 0 0 14px;
+				}
+				p.space:hover {
+					color: @red;
+					cursor: pointer;
+					.entypo {
+						color: #000;
+					}
+				}
+				.entypo {
+					width: 25px;
+					height: 25px;
+					text-align: center;
+				}
+				.date-info {
+					p {
+						float: left;
+						margin-right: 20px;
+					}
 				}
 			}
 		}

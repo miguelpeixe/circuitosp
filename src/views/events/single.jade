@@ -1,8 +1,8 @@
 section#single-event(ng-controller="EventController")
-	header.event-header.main-header.clearfix(ng-class="{'with-image': event['@files:header'].url}")
+	header.event-header.main-header.row(ng-class="{'with-image': event['@files:header'].url}")
 		.container
 			.twelve.columns
-				.image(style="background-image:url({{event['@files:header'].url}});")
+				.image(style="background-image:url({{event['@files:header'].url}});" ng-show="event['@files:header'].url")
 				h2
 					a(href="/agenda/") Agenda
 				h1 {{event.name}}
@@ -10,7 +10,7 @@ section#single-event(ng-controller="EventController")
 	.container
 		.eight.columns
 			.single-content
-				#main-occurrence
+				#main-occurrence.row
 					.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
 
 						.clearfix
@@ -25,10 +25,14 @@ section#single-event(ng-controller="EventController")
 								p.price
 									span.entypo &#127915;
 									| {{featOccur.price}}
+							.clear
 							p.space(ng-controller="MapController" ng-click="openDialog($event, featOccur)")
 								span.entypo &#59172;
 								| {{featOccur.spaceName}}
 								span.address {{featOccur.space.endereco}}
+							p.add-to-calendar
+								span.entypo &#9733;
+								a(href="{{gCalUrl(featOccur, event)}}" target="_blank") Adicionar no Google Calendar
 
 						//.map(ng-controller="MapController" ng-init="initMap(featOccur, mapOptions)")
 						//	leaflet#main-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
@@ -36,34 +40,35 @@ section#single-event(ng-controller="EventController")
 
 					p.past-event(ng-hide="featOccur") Este evento já aconteceu
 
-				section#event-description.event-content.main-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
+				section#event-description.event-content.main-content.row(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
 					p(ng-show="description") {{description}}
 
-				section#gallery(ng-show="event['@files:gallery']")
+				section#gallery.row(ng-show="event['@files:gallery']")
 					h2 Galeria de fotos
 					ul(masonry)
 						li.masonry-brick(ng-repeat="photo in event['@files:gallery']")
 							img(ng-src="{{photo.url}}")
 		.four.columns
-			aside#event-sidebar
-				#social
+			aside#event-sidebar.row
+				#social.row
 				
 					.fb-like(data-layout="standard" data-action="like" data-show-faces="false" data-share="true" data-width="200")
 
 					a(href="https://twitter.com/share" class="twitter-share-button" data-via="mcifest") Tweet
 					script.
 						!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-				#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
-					h2 Agenda
+				#event-agenda.event-occurrences.row(ng-show="event.occurrences.length>1")
+					h2 Agenda completa
 					ul
 						li.clearfix(ng-repeat="occur in event.occurrences | occurrenceOrder" ng-class="{future:occur.isFuture}")
-							.date-info.clearfix
+							.date-info
 								p.fromNow
 									span.entypo &#128340;
 									span(fromnow date="occur.timestamp")
 								p.date
 									span.entypo &#128197;
 									| {{getFormattedDate(occur)}}
+							.clear
 							p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
 								span.entypo &#59172;
 								| {{occur.spaceName}}
@@ -71,7 +76,7 @@ section#single-event(ng-controller="EventController")
 								span.entypo &#127915;
 								| {{occur.price}}
 
-				#event-tags(ng-show="event.terms.tag")
+				#event-tags.row(ng-show="event.terms.tag")
 					.tag(ng-repeat="tag in event.terms.tag" ng-show="service.getTagDescription(tag)")
 						h3
 							a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
