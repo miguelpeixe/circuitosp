@@ -18,12 +18,12 @@ exports.update = function(req, res) {
 			if (err) return res.render('500');
 
 			// clear unwanted info
-			settings = settings.toObject();
-			delete settings._id;
-			delete settings.__v;
-			delete settings.smtp;
+			clearedSettings = settings.toObject();
+			delete clearedSettings._id;
+			delete clearedSettings.__v;
+			delete clearedSettings.smtp;
 	
-			req.app.locals.config = settings;
+			req.app.locals.config = clearedSettings;
 
 			res.render('admin/index', {settings: settings});
 		});

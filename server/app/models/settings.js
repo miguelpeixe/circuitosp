@@ -22,9 +22,10 @@ var SettingsSchema = new Schema({
 		analyticsId: String
 	},
 	facebook: {
-		apiKey: String
+		pageId: String
 	},
 	twitter: {
+		username: String,
 		apiKey: String
 	},
 	flickr: {

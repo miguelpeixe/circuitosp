@@ -60,7 +60,7 @@
         </div>
       </div>      
 
-      <h2>Radar de Redes Sociais (Na Rede)</h2>
+      <h2>Redes Sociais (Na Rede)</h2>
 
       <div class="form-group">
         <label for="hashtag" class="col-sm-2 control-label">Hashtag</label>
@@ -69,12 +69,21 @@
         </div>
       </div>
 
-      <h3>Chaves de API</h3>
+      <h3>Facebook</h3>
 
       <div class="form-group">
-        <label for="tags" class="col-sm-2 control-label">Facebook</label>
+        <label for="tags" class="col-sm-2 control-label">Id da Página</label>
         <div class="col-sm-10">
-          <input id="facebook" class="form-control" type="text" name="settings[facebook][apiKey]" value="{{ settings.facebook.apiKey }}">
+          <input id="facebookPageId" class="form-control" type="text" name="settings[facebook][pageId]" value="{{ settings.facebook.pageId }}">
+        </div>
+      </div>
+
+      <h3>Twitter</h3>
+
+      <div class="form-group">
+        <label for="tags" class="col-sm-2 control-label">Nome de usuário</label>
+        <div class="col-sm-10">
+          <input id="twitterUsername" class="form-control" type="text" name="settings[twitter][username]" value="{{ settings.twitter.username }}">
         </div>
       </div>
 
@@ -85,6 +94,7 @@
         </div>
       </div>
 
+      <h3>Instagram</h3>
       <div class="form-group">
         <label for="tags" class="col-sm-2 control-label">Instagram</label>
         <div class="col-sm-10">
@@ -92,6 +102,7 @@
         </div>
       </div>
 
+      <h3>Flickr</h3>
       <div class="form-group">
         <label for="tags" class="col-sm-2 control-label">Flickr</label>
         <div class="col-sm-10">
