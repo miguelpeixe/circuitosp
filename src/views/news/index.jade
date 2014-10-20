@@ -12,28 +12,21 @@ section#news
 							a.clear-filter(href="javascript:void(0)" ng-click="search = ''" title="Limpar busca" ng-show="search") &#10060;
 							input(type="text" ng-model="search" placeholder="Digite uma busca...")
 
-	section.main-content.news-list(ng-controller="NewsController")
-		article.row(ng-repeat="post in items")
-			.container
-				.twelve.columns
-					.image(ng-show="post.featured_image" style="background-image:url({{getFeaturedImage(post)}})")
-				.six.columns
-					section.post-meta
-						p.date
-							span.entypo &#128340;
-							| {{getDate(post)}}
-						p.comments
-							//a(href="/noticias/{{post.ID}}/#comments" disqus data-disqus-identifier="{{post.ID}}")
-				.six.columns
-					header.post-header
-						h2
-							a(href="/noticias/{{post.ID}}/" ng-bind-html="getTitle(post)")
-					section.post-content(ng-bind-html="getExcerpt(post)")
-
-		nav#pagination.clearfix(ng-hide="(firstPage && lastPage) || !items.length")
-			a.prev(ng-click="prevPage()" ng-hide="firstPage" href="javascript:void(0);")
-				| página anterior
-				.entypo &#59233;
-			a.next(ng-click="nextPage()" ng-hide="lastPage" href="javascript:void(0);")
-				| próxima página
-				.entypo &#59234;
+	section.main-content.news-list(infinite-scroll="nextPage()" infinite-scroll-disabled="!hasNextPage()")
+		div(ng-controller="NewsController")
+			article.row(ng-repeat="post in items")
+				.container
+					.twelve.columns
+						.image(ng-show="post.featured_image" style="background-image:url({{getFeaturedImage(post)}})")
+					.four.columns
+						section.post-meta
+							p.date
+								span.entypo &#128340;
+								| {{getDate(post)}}
+							p.comments
+								//a(href="/noticias/{{post.ID}}/#comments" disqus data-disqus-identifier="{{post.ID}}")
+					.six.columns
+						header.post-header
+							h2
+								a(href="/noticias/{{post.ID}}/" ng-bind-html="getTitle(post)")
+						section.post-content(ng-bind-html="getExcerpt(post)")

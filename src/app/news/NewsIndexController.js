@@ -11,16 +11,16 @@ module.exports = [
 
 		$scope.query = NewsData;
 
+		$scope.items = $scope.query.data.slice(0);
+
 		$scope.$on('$stateChangeSuccess', function(event, toState) {
 			if(toState.name == 'news')
 				$scope.query = NewsData;
 		});
 
 		$scope.$watch('query', function(query) {
+			$scope.query = query;
 			$scope.items = query.data;
-			$scope.currentPage = query.currentPage();
-			$scope.firstPage = $scope.currentPage == 1;
-			$scope.lastPage = query.totalPages() == $scope.currentPage;
 		});
 
 		$scope.getExcerpt = function(post) {
@@ -56,16 +56,13 @@ module.exports = [
 		}, 400));
 
 		$scope.nextPage = function() {
-			var state = 'news';
-			if($state.current.name.indexOf('search') != -1)
-				state = 'news.search';
-			$state.go(state + '.paging', { page: $scope.query.currentPage() + 1 });
+			$scope.query.nextPage().then(function(items) {
+				$scope.items = $scope.items.concat(items);
+			});
 		};
-		$scope.prevPage = function() {
-			var state = 'news';
-			if($state.current.name.indexOf('search') != -1)
-				state = 'news.search';
-			$state.go(state + '.paging', { page: $scope.query.currentPage() - 1 });
+
+		$scope.hasNextPage = function() {
+			return $scope.query.totalPages() > $scope.query.currentPage(); 
 		};
 
 	}

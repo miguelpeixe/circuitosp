@@ -26,6 +26,10 @@
 						text-decoration: none;
 					}
 				}
+				p {
+					font-size: 18px;
+					line-height: 150%;
+				}
 			}
 		}
 		.next,
@@ -62,9 +66,31 @@
 }
 
 #news {
-	.main-content {
+	.news-list {
+		.image {
+			height: 300px;
+			background-size: cover;
+			background-position: center;
+			margin: 0 0 40px;
+		}
 		.post-meta {
+			padding-top: 10px;
+			.entypo {
+				float: right;
+				margin: 0 0 0 10px;
+			}
 			text-align: right;
+		}
+		.post-header {
+			a {
+				text-decoration: none;
+			}
+		}
+		.post-content {
+			p {
+				font-size: 18px;
+				line-height: 150%;
+			}
 		}
 	}
 }
