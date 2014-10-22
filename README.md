@@ -58,15 +58,18 @@ Em breve.
 
 Retorna:
 
-* hashtag
-* siteUrl
-* mapasculturais.endpoint
-* mapasculturais.projectId
-* wordpress.endpoint
-* instagram.apiKey
-* flickr.apiKey
-* instagram.apiKey
-* twitter.apiKey
+* *siteUrl*: url do site;
+* *hashtag*: termo buscado nas redes sociais;
+* *footerImgPath*: caminho para a imagem de rodapé;
+* *mapasCulturais.endpoint*: url para api do Mapas Culturais;
+* *mapasCulturais.projectId*: id dos projetos buscados no mapas culturais;
+* *google.analyticsId*: id para Google Analytics;
+* *facebook.pageId*: id da página de Facebook do Circuito SP;
+* *twitter.username*: usuário do Circuito SP do Twitter 
+* *twitter.apiKey*: api key para buscas no Twitter;
+* *flickr.apiKey*: api key para buscas no Flickr;
+* *instagram.apiKey*: api key para buscas no Instagram;
+* *wordpress.endpoint*: url da api da instância wordpress para notícias;
 
 
 ### GET /api/v1/data

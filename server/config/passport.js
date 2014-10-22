@@ -27,9 +27,6 @@ module.exports = function (passport, config) {
 	passport.use(new LocalStrategy(
 		function(username, password, done) {
 			Admin.findOne({}, function (err, admin) {
-				console.log(err);
-				console.log(admin);
-
 				if (err) return done(err)
 
 				if (!admin) {

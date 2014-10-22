@@ -1,168 +1,179 @@
 {% extends '../layouts/default.html' %}
 
 {% block main %}
-  <h1>Área administrativa</h1>
+	<h1>Área administrativa</h1>
 {% endblock %}
 
 {% block content %}
 
-  <div class="col-md-2"></div>
-  
-  <div class="col-md-8">
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-8">
 
-    <form action="/admin" method="post" role="form" class="form-horizontal">
-      <input type="hidden" name="_csrf" value="{{ csrf_token }}">
-      
-      <input type="hidden" id="username" name="username" value="admin">
+		<form action="/admin" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
+			<input type="hidden" name="_csrf" value="{{ csrf_token }}">
+			
+			<input type="hidden" id="username" name="username" value="admin">
 
-      <p class="col-sm-offset-2 error">
-        {{ message }}
-      </p>
+			<p class="col-sm-offset-2 error">
+				{{ message }}
+			</p>
 
-      <h2>Configurações Gerais</h2>
+			<h2>Configurações Gerais</h2>
 
-      <div class="form-group">
-        <label for="siteUrl" class="col-sm-2 control-label">URL do site</label>
-        <div class="col-sm-10">
-          <input id="siteUrl" class="form-control" type="text" name="settings[siteUrl]" value="{{ settings.siteUrl }}"">
-        </div>
-      </div>      
+			<div class="form-group">
+				<label for="siteUrl" class="col-sm-2 control-label">URL do site</label>
+				<div class="col-sm-10">
+					<input id="siteUrl" class="form-control" type="text" name="settings[siteUrl]" value="{{ settings.siteUrl }}"">
+				</div>
+			</div>      
 
-      <div class="form-group">
-        <label for="google-analytics" class="col-sm-2 control-label">Google Analytics Key</label>
-        <div class="col-sm-10">
-          <input id="google-analytics" class="form-control" type="text" name="settings[google][analyticsId]" value="{{ settings.google.analyticsId }}">
-        </div>
-      </div>      
+			<div class="form-group">
+				<label for="google-analytics" class="col-sm-2 control-label">Google Analytics Key</label>
+				<div class="col-sm-10">
+					<input id="google-analytics" class="form-control" type="text" name="settings[google][analyticsId]" value="{{ settings.google.analyticsId }}">
+				</div>
+			</div>      
 
-      <div class="form-group">
-        <label for="wordpress-endpoint" class="col-sm-2 control-label">Wordpress Endpoint</label>
-        <div class="col-sm-10">
-          <input id="wordpress-endpoint" class="form-control" type="text" name="settings[wordpress][endpoint]" value="{{ settings.wordpress.endpoint }}">
-        </div>
-      </div>      
+			<div class="form-group">
+				<label for="wordpress-endpoint" class="col-sm-2 control-label">Wordpress Endpoint</label>
+				<div class="col-sm-10">
+					<input id="wordpress-endpoint" class="form-control" type="text" name="settings[wordpress][endpoint]" value="{{ settings.wordpress.endpoint }}">
+				</div>
+			</div>      
 
-      <h2>Mapas Culturais</h2>
+			<h2>Mapas Culturais</h2>
 
-      <p>Configurações de conexão com a API do Mapas Culturais:</p>
+			<p>Configurações de conexão com a API do Mapas Culturais:</p>
 
-      <div class="form-group">
-        <label for="mc-endpoint" class="col-sm-2 control-label">URL da API</label>
-        <div class="col-sm-10">
-          <input id="mc-endpoint" class="form-control" type="text" name="settings[mapasCulturais][endpoint]" value="{{ settings.mapasCulturais.endpoint }}">
-        </div>
-      </div>  
+			<div class="form-group">
+				<label for="mc-endpoint" class="col-sm-2 control-label">URL da API</label>
+				<div class="col-sm-10">
+					<input id="mc-endpoint" class="form-control" type="text" name="settings[mapasCulturais][endpoint]" value="{{ settings.mapasCulturais.endpoint }}">
+				</div>
+			</div>  
 
-      <div class="form-group">
-        <label for="mc-project-id" class="col-sm-2 control-label">ID do projeto</label>
-        <div class="col-sm-10">
-          <input id="mc-project-id" class="form-control" type="text" name="settings[mapasCulturais][projectId]" value="{{ settings.mapasCulturais.projectId }}">
-        </div>
-      </div>      
+			<div class="form-group">
+				<label for="mc-project-id" class="col-sm-2 control-label">ID do projeto</label>
+				<div class="col-sm-10">
+					<input id="mc-project-id" class="form-control" type="text" name="settings[mapasCulturais][projectId]" value="{{ settings.mapasCulturais.projectId }}">
+				</div>
+			</div>      
 
-      <h2>Redes Sociais (Na Rede)</h2>
+			<div class="form-group">
+				<label for="mc-project-footer" class="col-sm-2 control-label">Imagem de rodapé</label>				
+				<div class="col-sm-10">
+					{% if settings.footerImgPath %}
+						<a href="{{settings.footerImgPath}}" target="blank">Ver imagem atual</a>
+					{% endif %}
+					<input id="mc-project-footer" class="form-control" type="file" name="footerImage">
+				</div>
+			</div>      
 
-      <div class="form-group">
-        <label for="hashtag" class="col-sm-2 control-label">Hashtag</label>
-        <div class="col-sm-10">
-          <input id="hashtag" class="form-control" type="text" name="settings[hashtag]" value="{{ settings.hashtag }}">
-        </div>
-      </div>
+			<h2>Redes Sociais (Na Rede)</h2>
 
-      <h3>Facebook</h3>
+			<div class="form-group">
+				<label for="hashtag" class="col-sm-2 control-label">Hashtag</label>
+				<div class="col-sm-10">
+					<input id="hashtag" class="form-control" type="text" name="settings[hashtag]" value="{{ settings.hashtag }}">
+				</div>
+			</div>
 
-      <div class="form-group">
-        <label for="tags" class="col-sm-2 control-label">Id da Página</label>
-        <div class="col-sm-10">
-          <input id="facebookPageId" class="form-control" type="text" name="settings[facebook][pageId]" value="{{ settings.facebook.pageId }}">
-        </div>
-      </div>
+			<h3>Facebook</h3>
 
-      <h3>Twitter</h3>
+			<div class="form-group">
+				<label for="tags" class="col-sm-2 control-label">Id da Página</label>
+				<div class="col-sm-10">
+					<input id="facebookPageId" class="form-control" type="text" name="settings[facebook][pageId]" value="{{ settings.facebook.pageId }}">
+				</div>
+			</div>
 
-      <div class="form-group">
-        <label for="tags" class="col-sm-2 control-label">Nome de usuário</label>
-        <div class="col-sm-10">
-          <input id="twitterUsername" class="form-control" type="text" name="settings[twitter][username]" value="{{ settings.twitter.username }}">
-        </div>
-      </div>
+			<h3>Twitter</h3>
 
-      <div class="form-group">
-        <label for="tags" class="col-sm-2 control-label">Twitter</label>
-        <div class="col-sm-10">
-          <input id="twitter" class="form-control" type="text" name="settings[twitter][apiKey]" value="{{ settings.twitter.apiKey }}">
-        </div>
-      </div>
+			<div class="form-group">
+				<label for="tags" class="col-sm-2 control-label">Nome de usuário</label>
+				<div class="col-sm-10">
+					<input id="twitterUsername" class="form-control" type="text" name="settings[twitter][username]" value="{{ settings.twitter.username }}">
+				</div>
+			</div>
 
-      <h3>Instagram</h3>
-      <div class="form-group">
-        <label for="tags" class="col-sm-2 control-label">Instagram</label>
-        <div class="col-sm-10">
-          <input id="instagram" class="form-control" type="text" name="settings[instagram][apiKey]" value="{{ settings.instagram.apiKey }}">
-        </div>
-      </div>
+			<div class="form-group">
+				<label for="tags" class="col-sm-2 control-label">Twitter</label>
+				<div class="col-sm-10">
+					<input id="twitter" class="form-control" type="text" name="settings[twitter][apiKey]" value="{{ settings.twitter.apiKey }}">
+				</div>
+			</div>
 
-      <h3>Flickr</h3>
-      <div class="form-group">
-        <label for="tags" class="col-sm-2 control-label">Flickr</label>
-        <div class="col-sm-10">
-          <input id="flickr" class="form-control" type="text" name="settings[flickr][apiKey]" value="{{ settings.flickr.apiKey }}">
-        </div>
-      </div>
+			<h3>Instagram</h3>
+			<div class="form-group">
+				<label for="tags" class="col-sm-2 control-label">Instagram</label>
+				<div class="col-sm-10">
+					<input id="instagram" class="form-control" type="text" name="settings[instagram][apiKey]" value="{{ settings.instagram.apiKey }}">
+				</div>
+			</div>
 
-      <h2>Envio de e-mail</h2>
-
-      <p>Configure um servidor de e-mail para que o adminstrador possa recuperar sua senha:</p>
-
-      <div class="form-group">
-        <label for="stmp-host" class="col-sm-2 control-label">Servidor</label>
-        <div class="col-sm-10">
-          <input id="smtp-host" class="form-control" type="text" name="settings[smtp][host]" value="{{ settings.smtp.host }}">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="smtp-secureConnection" class="col-sm-2 control-label">SSL</label>
-        <div class="col-sm-10">
-          <input id="smtp-secureConnection" class="form-control" type="checkbox" name="settings[smtp][secureConnection]"  {% if settings.smtp.secureConnection %}checked{% endif %}>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="smtp-port" class="col-sm-2 control-label">Porta</label>
-        <div class="col-sm-10">
-          <input id="smtp-port" class="form-control" type="text" name="settings[smtp][port]" value="{{ settings.smtp.port }}">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="smtp-user" class="col-sm-2 control-label">Usuário</label>
-        <div class="col-sm-10">
-          <input id="smtp-user" class="form-control" type="text" name="settings[smtp][user]" value="{{ settings.smtp.user }}">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="smtp-password" class="col-sm-2 control-label">Senha</label>
-        <div class="col-sm-10">
-          <input id="smtp-password" class="form-control" type="text" name="settings[smtp][password]" value="{{ settings.smtp.password }}">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button class="btn btn-primary" type="submit">Salvar</button>
-        </div>
-      </div>
-
-      <p>
-        <a href="admin/logout" title="logout">Logout</a>
-      </p>
+			<h3>Flickr</h3>
+			<div class="form-group">
+				<label for="tags" class="col-sm-2 control-label">Flickr</label>
+				<div class="col-sm-10">
+					<input id="flickr" class="form-control" type="text" name="settings[flickr][apiKey]" value="{{ settings.flickr.apiKey }}">
+				</div>
+			</div>
 
 
-    </form>
-  </div>
-  
-  <div class="col-md-2"></div>
+			<h2>Envio de e-mail</h2>
+
+			<p>Configure um servidor de e-mail para que o adminstrador possa recuperar sua senha:</p>
+
+			<div class="form-group">
+				<label for="stmp-host" class="col-sm-2 control-label">Servidor</label>
+				<div class="col-sm-10">
+					<input id="smtp-host" class="form-control" type="text" name="settings[smtp][host]" value="{{ settings.smtp.host }}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="smtp-secureConnection" class="col-sm-2 control-label">SSL</label>
+				<div class="col-sm-10">
+					<input id="smtp-secureConnection" class="form-control" type="checkbox" name="settings[smtp][secureConnection]"  {% if settings.smtp.secureConnection %}checked{% endif %}>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="smtp-port" class="col-sm-2 control-label">Porta</label>
+				<div class="col-sm-10">
+					<input id="smtp-port" class="form-control" type="text" name="settings[smtp][port]" value="{{ settings.smtp.port }}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="smtp-user" class="col-sm-2 control-label">Usuário</label>
+				<div class="col-sm-10">
+					<input id="smtp-user" class="form-control" type="text" name="settings[smtp][user]" value="{{ settings.smtp.user }}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="smtp-password" class="col-sm-2 control-label">Senha</label>
+				<div class="col-sm-10">
+					<input id="smtp-password" class="form-control" type="text" name="settings[smtp][password]" value="{{ settings.smtp.password }}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button class="btn btn-primary" type="submit">Salvar</button>
+				</div>
+			</div>
+
+			<p>
+				<a href="admin/logout" title="logout">Logout</a>
+			</p>
+
+
+		</form>
+	</div>
+	
+	<div class="col-md-2"></div>
 
 {% endblock %}

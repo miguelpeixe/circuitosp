@@ -4,8 +4,6 @@ exports.all = function(req, res) {
 
 	var config = req.app.locals.config;
 
-	console.log(config);
-
 	if(!config.wordpress.endpoint)
 		return res.status(404).send('WordPress API not defined');
 
