@@ -4,7 +4,7 @@ section#single-event(ng-controller="EventController")
 			.twelve.columns
 				.image(style="background-image:url({{event['@files:header'].url}});" ng-show="event['@files:header'].url")
 				h2
-					a(href="/agenda/") Agenda
+					a(href="/agenda/") Programação
 				h1 {{event.name}}
 
 	.container
@@ -42,6 +42,11 @@ section#single-event(ng-controller="EventController")
 
 				section#event-description.event-content.main-content.row(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
 					p(ng-show="description") {{description}}
+
+					p
+						span.entypo &#59141; 
+						strong Classificação: 
+						| {{event.classificacaoEtaria}}
 
 				section#gallery.row(ng-show="event['@files:gallery']")
 					h2 Galeria de fotos

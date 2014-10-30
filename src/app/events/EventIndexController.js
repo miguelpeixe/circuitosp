@@ -26,6 +26,7 @@ module.exports = [
 
 		$scope.linguagens = Event.getTaxTerms('linguagem');
 		$scope.tags = Event.getTaxTerms('tag');
+		$scope.classificacoes = Event.getPropVals('classificacaoEtaria');
 
 		/*
 		 * NAVIGATION
@@ -92,6 +93,13 @@ module.exports = [
 			}
 		}, true);
 
+		// update terms filter and state
+		$scope.$watch('eventSearch.classificacao', function(classificacao, prev) {
+			if(classificacao || prev) {
+				$state.go('events.filter', {classificacao:classificacao});
+			}
+		}, true);
+
 		// update text search filter and clear pagination (parent object watch doesnt get search text changes)
 		$scope.$watch('eventSearch.$', function(text, oldText) {
 			$scope.eventFilter.$ = text;
@@ -109,6 +117,7 @@ module.exports = [
 				$scope.eventSearch.$ ||
 				$scope.eventSearch.terms ||
 				$scope.eventSearch.startDate ||
+				$scope.eventSearch.classificacao ||
 				$scope.eventSearch.endDate ||
 				$scope.eventSearch.isFuture
 			);
@@ -218,6 +227,7 @@ module.exports = [
 			$scope.eventSearch = {
 				$: toParams.search || '',
 				terms: toParams.linguagem || '',
+				classificacao: toParams.classificacao || '',
 				startDate: toParams.startDate || '',
 				endDate: toParams.endDate || '',
 				isFuture: toParams.future || ''

@@ -16,6 +16,20 @@ angular.module('mci.events')
 	}
 ])
 
+.filter('classificacaoEvents', [
+	'EventService',
+	function(Event) {
+		return function(input, classificacao) {
+			if(classificacao) {
+				return _.filter(input, function(e) {
+					return e.classificacaoEtaria == classificacao;
+				});
+			}
+			return input;
+		}
+	}
+])
+
 .filter('spaceEvents', [
 	'EventService',
 	function(Event) {

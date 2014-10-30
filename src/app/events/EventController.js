@@ -35,14 +35,19 @@ module.exports = [
 		};
 
 		$scope.getFormattedDate = function(occurrence) {
-			return occurrence.moment.calendar(today);
+			if(occurrence) {
+				return occurrence.moment.calendar(today);
+			}
 		};
 
 		$scope.gCalUrl = function(occurrence, event) {
-			var space = Event.getOccurrenceSpace(occurrence);
-			var start = occurrence.moment.clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
-			var end = moment(occurrence.moment.format()).add(occurrence.duration, 'minutes').clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
-			var url = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + event.name + '&dates=' + start + '/' + end + '&details=' + event.shortDescription + '&location=' + space.endereco + '&sf=true&output=xml';
+			var url = '';
+			if(occurrence) {
+				var space = Event.getOccurrenceSpace(occurrence);
+				var start = occurrence.moment.clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
+				var end = moment(occurrence.moment.format()).add(occurrence.duration, 'minutes').clone().tz('GMT').format('YYYYMMDD[T]HHmmss[Z]');
+				url = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + event.name + '&dates=' + start + '/' + end + '&details=' + event.shortDescription + '&location=' + space.endereco + '&sf=true&output=xml';
+			}
 			return url;
 		}
 

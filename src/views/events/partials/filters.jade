@@ -34,6 +34,13 @@ nav
 				li(ng-repeat="linguagem in linguagens" ng-class="{active:linguagem==eventSearch.terms,inactive:linguagem!=eventSearch.terms}")
 					a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
 
+		.filter-item.list-filter(ng-class="{filled:eventSearch.classificacao}" ng-hide="tag")
+			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.classificacao = ''" title="Limpar filtro por classificação" ng-show="eventSearch.classificacao") &#10060;
+			ul.classificacao-list
+				li.label(ng-hide="eventSearch.classificacao" ng-class="{active:!eventSearch.classificacao}") Classificão etária
+				li(ng-repeat="classificacao in classificacoes" ng-class="{active:classificacao==eventSearch.classificacao,inactive:classificacao!=eventSearch.classificacao}")
+					a(href="javascript:void(0);" ng-click="eventSearch.classificacao = classificacao") {{classificacao}}
+
 		.filter-item.text-filter(ng-class="{filled:eventSearch.$}")
 
 			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.$ = ''" title="Limpar busca" ng-show="eventSearch.$") &#10060;
@@ -44,4 +51,4 @@ nav
 
 
 
-	a.close.entypo(href="javascript:void(0)" ng-click="eventSearch = {}" ng-show="isEventFiltering()" title="Fechar busca") &#10060;
+	a.close.entypo(href="/agenda/" ng-show="isEventFiltering()" title="Fechar busca") &#10060;

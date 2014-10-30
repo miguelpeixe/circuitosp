@@ -5,9 +5,9 @@ section#list-event(ng-class="{tag: tag}")
 			.twelve.columns
 				.clearfix
 					h2(ng-show="tag || space")
-						a(href="/agenda/") Agenda
+						a(href="/agenda/") Programação
 					h1(ng-class="{tag: tag || space}")
-						span(ng-hide="tag || space") Agenda
+						span(ng-hide="tag || space") Programação
 						span.tag(ng-show="tag || space") {{tag || space.name}}
 					include partials/filters
 				.clearfix
@@ -21,7 +21,7 @@ section#list-event(ng-class="{tag: tag}")
 						//
 							li.masonry-brick.feat
 								img(src="/img/agenda.gif")
-						li.masonry-brick(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict | tagEvents:tag | spaceEvents:space | futureEvents:isFutureEvents | byDateEvents:eventSearch.startDate:eventSearch.endDate)) | limitTo: (eventNav.perPage + (eventNav.perPage * eventNav.curPage))" ng-controller="EventController")
+						li.masonry-brick(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict | tagEvents:tag | classificacaoEvents:eventSearch.classificacao | spaceEvents:space | futureEvents:isFutureEvents | byDateEvents:eventSearch.startDate:eventSearch.endDate)) | limitTo: (eventNav.perPage + (eventNav.perPage * eventNav.curPage))" ng-controller="EventController")
 							include partials/event-list-item
 
 					p.not-found(ng-hide="filteredEvents.length") Nenhum evento foi encontrado

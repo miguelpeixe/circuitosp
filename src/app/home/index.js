@@ -80,7 +80,7 @@ angular.module('mci.home', [
 		$scope.isFutureEvents = true;
 		$scope.eventsTitle = 'Próximos eventos';
 		if(!$scope.homeEvents.length) {
-			$scope.homeEvents = Event.getEvents().slice(0, 10);
+			$scope.homeEvents = Event.getEvents().slice(0, 8);
 			$scope.isFutureEvents = false;
 			$scope.eventsTitle = 'Últimos eventos';
 		}

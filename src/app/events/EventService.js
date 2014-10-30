@@ -121,6 +121,13 @@ module.exports = [
 				});
 				return _.sortBy(_.uniq(terms), function(t) { if(t == 'Outros') return 'zzzzzzz'; else return t; });
 			},
+			getPropVals: function(prop) {
+				var vals = [];
+				_.each(this.getEvents(), function(e) {
+					vals.push(e[prop]);
+				});
+				return _.sortBy(_.uniq(vals), function(v) { return v; });
+			},
 			initUserLocation: function() {
 				var deferred = $q.defer();
 				getUserCoords().then(function(coords) {
