@@ -71,9 +71,11 @@ angular.module('mci.home', [
 
 		$scope.homeEvents = Event.getFutureEvents(8);
 		$scope.isFutureEvents = true;
+		$scope.eventsTitle = 'Próximos eventos';
 		if(!$scope.homeEvents.length) {
 			$scope.homeEvents = Event.getEvents().slice(0, 10);
 			$scope.isFutureEvents = false;
+			$scope.eventsTitle = 'Últimos eventos';
 		}
 
 		$scope.nextPage = function() {
