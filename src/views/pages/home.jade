@@ -15,7 +15,34 @@ section#home
 					a(ng-click="prevArticle()" href="javascript:void(0);" class="prev") &#59237;
 					a(ng-click="nextArticle()" href="javascript:void(0);" class="next") &#59238;
 
-					a.more-news(href="/noticias") Todas as notícias
+					a.more(href="/noticias") Todas as notícias
+
+	//
+		section#event-featured.row(ng-controller="EventFeaturedController" ng-show="featured.type == 'near'")
+			.container
+				.twelve.columns
+					include ../events/partials/featured
+
+	section#social.page-section.row(ng-show="socialItems.length")
+		header.page-section-header.row
+			.container
+				.twelve.columns
+					h1
+						| Últimas na rede 
+						span.lighten #circuitosp
+		section.page-section-content
+			.container
+				.twelve.columns
+					ul.items(masonry)
+						li.masonry-brick(ng-repeat="item in socialItems" class="{{item.media_provider}} {{item.media_type}}")
+							.item-content(ng-controller="SocialController")
+								.media(ng-bind-html="getMedia(item)")
+								p.media-type(ng-bind-html="getMediaIcon(item)" ng-class="{icon: item.media_provider == 'youtube'}")
+								p.author {{item.author}}
+								p.link
+									a(href="{{item.original_url}}" target="_blank") Ver original
+
+					a.more(href="/na-rede") Veja mais da cobertura colaborativa #circuitosp
 
 	section#event-list.page-section.row(ng-show="homeEvents.length")
 		header.page-section-header.row

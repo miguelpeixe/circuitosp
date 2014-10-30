@@ -2,11 +2,8 @@
 
 module.exports = [
 	'$sce',
-	'SocialData',
 	'$scope',
-	function($sce, SocialData, $scope) {
-
-		$scope.items = SocialData.data;
+	function($sce, $scope) {
 
 		$scope.getMedia = function(item) {
 
@@ -40,16 +37,6 @@ module.exports = [
 
 			return $sce.trustAsHtml(icon);
 
-		};
-
-		$scope.nextPage = function() {
-			SocialData.nextPage().then(function(data) {
-				if(data) {
-					if(data.pagination.currentPage == data.pagination.totalPages)
-						$scope.lastPage = true;
-					$scope.items = $scope.items.concat(data.data);
-				}
-			});
 		};
 
 	}

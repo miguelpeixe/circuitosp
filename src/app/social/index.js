@@ -13,7 +13,7 @@ angular.module('mci.social', [
 		$stateProvider
 			.state('social', {
 				url: '/na-rede/',
-				controller: 'SocialController',
+				controller: 'SocialIndexController',
 				templateUrl: '/views/social/index.html',
 				resolve: {
 					'SocialData': [
@@ -28,4 +28,5 @@ angular.module('mci.social', [
 	}
 ])
 .factory('SocialService', require('./SocialService'))
+.controller('SocialIndexController', require('./SocialIndexController'))
 .controller('SocialController', require('./SocialController'));

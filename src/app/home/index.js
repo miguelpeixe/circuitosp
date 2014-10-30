@@ -27,6 +27,12 @@ angular.module('mci.home', [
 							}
 
 						}
+					],
+					SocialData: [
+						'SocialService',
+						function(Social) {
+							return Social.get(3);
+						}
 					]
 				}
 			});
@@ -35,10 +41,11 @@ angular.module('mci.home', [
 ])
 .controller('HomeController', [
 	'NewsData',
+	'SocialData',
 	'EventService',
 	'$interval',
 	'$scope',
-	function(NewsData, Event, $interval, $scope) {
+	function(NewsData, SocialData, Event, $interval, $scope) {
 
 		if(NewsData)
 			$scope.news = NewsData.data.slice(0,5);
@@ -67,7 +74,7 @@ angular.module('mci.home', [
 
 		var rotate = $interval($scope.nextArticle, 8000);
 
-		var page = 0;
+		$scope.socialItems = SocialData.data;
 
 		$scope.homeEvents = Event.getFutureEvents(8);
 		$scope.isFutureEvents = true;

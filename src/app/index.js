@@ -152,33 +152,28 @@ angular.module('mci', [
 
 		$scope.nav = [
 			{
-				title: 'Página inicial',
-				href: '/',
-				icon: $sce.trustAsHtml('&#8962;')
+				title: 'Programação',
+				href: '/agenda/'
 			},
 			{
-				title: 'Agenda',
-				href: '/agenda/',
-				icon: $sce.trustAsHtml('&#128197;')
+				title: 'Notícias',
+				href: '/noticias/'
 			},
 			{
 				title: 'Locais',
 				href: '/locais/'
 			},
 			{
-				title: 'Notícias',
-				href: '/noticias/',
-				icon: $sce.trustAsHtml('&#128196;')
+				title: 'Na rede',
+				href: '/na-rede/'
 			},
 			{
-				title: 'Na rede',
-				href: '/na-rede/',
-				icon: $sce.trustAsHtml('&#127748;')
+				title: 'Inscrições',
+				href: '/inscricoes/'
 			},
 			{
 				title: 'Sobre',
-				href: '/sobre/',
-				icon: $sce.trustAsHtml('&#8505;')
+				href: '/sobre/'
 			}
 		];
 
