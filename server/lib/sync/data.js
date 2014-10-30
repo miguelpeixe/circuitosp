@@ -107,7 +107,6 @@ module.exports = function(app, done) {
 						url: config.mapasCulturais.endpoint + '/space/find',
 						qs: {
 							'@select': 'id,name,shortDescription,endereco,location',
-							'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
 							'id': 'in(' + spaceIds + ')',
 							'@order': 'name'
 						}
