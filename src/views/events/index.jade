@@ -6,6 +6,7 @@ section#list-event(ng-class="{tag: tag}")
 				.clearfix
 					h2(ng-show="tag || space")
 						a(href="/agenda/") Programação
+					a.head-button(ng-show="space" href="http://spcultura.prefeitura.sp.gov.br/espaco/{{space.id}}/" target="_blank" title="Veja {{space.name}} no SPCultura") Espaço no SPCultura
 					h1(ng-class="{tag: tag || space}")
 						span(ng-hide="tag || space") Programação
 						span.tag(ng-show="tag || space") {{tag || space.name}}

@@ -5,6 +5,7 @@ section#single-event(ng-controller="EventController")
 				.image(style="background-image:url({{event['@files:header'].url}});" ng-show="event['@files:header'].url")
 				h2
 					a(href="/agenda/") Programação
+				a.head-button(href="http://spcultura.prefeitura.sp.gov.br/evento/{{event.id}}/" target="_blank" title="Veja {{space.name}} no SPCultura") Evento no SPCultura
 				h1 {{event.name}}
 
 	.container

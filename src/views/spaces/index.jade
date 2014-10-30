@@ -5,10 +5,8 @@ section#list-space(ng-class="{tag: tag}")
 			.twelve.columns
 				.clearfix
 					h2(ng-show="tag")
-						a(href="/agenda/") Espaços
-					h1
-						span(ng-hide="tag") Espaços
-						span.tag(ng-show="tag") {{tag || space.name}}
+						a(href="/agenda/") Locais
+					h1 Locais
 					nav
 						.filters-container
 							.filter-item.text-filter
@@ -46,7 +44,7 @@ section#list-space(ng-class="{tag: tag}")
 			#spaces.box-section
 
 				header.box-section-header.spaces-header.clearfix
-					h2 Espaços
+					h2 Locais
 
 				section.box-section-content.spaces-content
 
