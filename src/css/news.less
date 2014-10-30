@@ -117,5 +117,21 @@
 			font-size: 20px;
 			line-height: 150%;		
 		}
+		.gallery {
+			&:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
+			.gallery-item {
+				max-width: calc(20% - 4px);
+				float: left;
+				margin: 0 4px 4px 0;
+				position: relative;
+				font-size: 12px;
+				img {
+					display: block;
+					margin: 0 0 4px;
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
 	}
 }
