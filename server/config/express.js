@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var winston = require('winston');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 var methodOverride = require('method-override');
 var csrf = require('csurf');
 var swig = require('swig');
@@ -65,6 +66,7 @@ module.exports = function (app, passport) {
 	// bodyParser should be above methodOverride
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(multer());
 	app.use(methodOverride(function (req, res) {
 		if (req.body && typeof req.body === 'object' && '_method' in req.body) {
 			// look in urlencoded POST bodies and delete it

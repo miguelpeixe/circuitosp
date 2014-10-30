@@ -29,7 +29,7 @@ exports.signup = function(req, res) {
 
 exports.logout = function (req, res) {
   req.logout();
-  res.redirect('admin/login');
+  res.redirect('/admin/login');
 };
 
 exports.index = function (req, res) {

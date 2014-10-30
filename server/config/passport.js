@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
-var User = mongoose.model('Admin');
+var Admin = mongoose.model('Admin');
 
 /**
  * Expose
@@ -13,32 +13,29 @@ var User = mongoose.model('Admin');
 
 module.exports = function (passport, config) {
 	// serialize sessions
-	passport.serializeUser(function(user, done) {
-		done(null, user.id)
+	passport.serializeUser(function(admin, done) {
+		done(null, admin.id)
 	})
 
 	passport.deserializeUser(function(id, done) {
-		User.findOne({ _id: id }, function (err, user) {
-			done(err, user);
+		Admin.findOne({ _id: id }, function (err, admin) {
+			done(err, admin);
 		})
 	})
 
 	// use these strategies
 	passport.use(new LocalStrategy(
 		function(username, password, done) {
-			User.findOne({}, function (err, user) {
-				console.log(err);
-				console.log(user);
-
+			Admin.findOne({}, function (err, admin) {
 				if (err) return done(err)
 
-				if (!user) {
-					return done(null, false, { message: 'Unknown user' });
+				if (!admin) {
+					return done(null, false, { message: 'Unknown admin' });
 				}
-				if (!user.authenticate(password)) {
+				if (!admin.authenticate(password)) {
 					return done(null, false, { message: 'Invalid password' });
 				}
-				return done(null, user);
+				return done(null, admin);
 			});
 		})
 	);

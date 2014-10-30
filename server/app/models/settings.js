@@ -14,6 +14,7 @@ var
 var SettingsSchema = new Schema({
 	siteUrl: String,
 	hashtag: String,
+	footerImgPath: String,
 	mapasCulturais: {
 		endpoint: {type: String, default: 'http://spcultura.prefeitura.sp.gov.br/api'},
 		projectId: { type: String, default: '11'}
@@ -22,9 +23,10 @@ var SettingsSchema = new Schema({
 		analyticsId: String
 	},
 	facebook: {
-		apiKey: String
+		pageId: String
 	},
 	twitter: {
+		username: String,
 		apiKey: String
 	},
 	flickr: {
@@ -48,17 +50,28 @@ var SettingsSchema = new Schema({
 SettingsSchema.statics = {
 	load: function(done) {
 		var self = this;
+
+
+		function clearSettingsAndDone(settings) {
+			// clear db info
+			settings = settings.toObject();
+			delete settings._id;
+			delete settings.__v;
+			delete settings.smtp;
+			done(null, settings);
+		}
 		
 		self.findOne(function(err, settings){
-			if (err) done(err)
+			if (err) return done(err)
 			else
 				if (!settings){
 					settings = new self();
 					settings.save(function(err){
-						done(err, settings);
+						if (err) return done(err)
+						clearSettingsAndDone(settings);
 					});
 				} else {
-					done(null, settings);
+					clearSettingsAndDone(settings);
 				}
  		})
 	}
