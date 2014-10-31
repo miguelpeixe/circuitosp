@@ -1,5 +1,5 @@
 
-/** 
+/**
  * Module dependencies
  */
 
@@ -8,13 +8,12 @@ var fs = require('fs');
 var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var syncData = require('./lib/sync/data');
 var syncSocial = require('./lib/sync/social');
 var env = process.env.NODE_ENV || 'development';
 
-/* 
+/*
  * Init server
- */ 
+ */
 
 // Connect to mongodb
 var connect = function () {
@@ -36,6 +35,8 @@ var app = express();
 // When mongoose is ready
 mongoose.connection.on('connected', function(){
 
+  var syncData = require('./lib/sync/data');
+
 	// Set flag for defined admin
 	mongoose.model('Admin').findOne(function(err, admin){
 		if (err) return console.log('error loading admin info');
@@ -45,7 +46,6 @@ mongoose.connection.on('connected', function(){
 	// Start update process
 	mongoose.model('Settings').load(function(err, settings){
 		if (err) console.log('Error loading settings.');
-		
 
 		// Init data sync
 		app.locals.data = { events: [], spaces: [] }
