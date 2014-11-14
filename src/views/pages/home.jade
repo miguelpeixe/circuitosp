@@ -23,6 +23,18 @@ section#home
 				.twelve.columns
 					include ../events/partials/featured
 
+	section#event-list.page-section.row(ng-show="homeEvents.length")
+		header.page-section-header.row
+			.container
+				.twelve.columns
+					h2 {{eventsTitle}}
+		section.page-section-content
+			.container
+				.twelve.columns
+					ul.event-list(masonry ng-controller="EventController")
+						li.masonry-brick(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
+							include ../events/partials/event-list-item
+
 	section#social.page-section.row(ng-show="socialItems.length")
 		header.page-section-header.row
 			.container
@@ -43,15 +55,3 @@ section#home
 									a(href="{{item.original_url}}" target="_blank") Ver original
 
 					a.more(href="/na-rede") Veja mais da cobertura colaborativa #circuitosp
-
-	section#event-list.page-section.row(ng-show="homeEvents.length")
-		header.page-section-header.row
-			.container
-				.twelve.columns
-					h2 {{eventsTitle}}
-		section.page-section-content
-			.container
-				.twelve.columns
-					ul.event-list(masonry ng-controller="EventController")
-						li.masonry-brick(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
-							include ../events/partials/event-list-item
