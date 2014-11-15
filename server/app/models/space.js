@@ -20,15 +20,13 @@ var
  */
 
 var SpaceSchema = new Schema({
-  space: { type: Schema.ObjectId, ref: 'Space'},
-  startsAt: String,
-  endsAt: String,
-  duration: Number,
-  frequency: String,
-  startsOn: Date,
-  until: Date,
-  description: String,
-  price: String
+  _id: {type: Number, index: true},
+  name: String,
+  shortDescription: String,
+  address: String,
+  location: { lat: Number, lon: Number},
+  '@files:avatar.viradaSmall': {},
+  '@files:avatar.viradaBig': {}
 });
 
 /**

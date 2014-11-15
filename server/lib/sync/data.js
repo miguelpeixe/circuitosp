@@ -40,6 +40,9 @@ module.exports = function(app, done) {
 
 		request(_.extend(defaultReq, projectReq), function(err, res, body) {
 			if(err) return doneFetchProjects(err);
+
+			console.log(body);
+
 			var projectsIds = [];
 
 			_.each(tryJSON(body).childrenIds, function(id){
@@ -131,7 +134,7 @@ module.exports = function(app, done) {
 
 			async.parallel([function(doneParallel){
 					parseOccurrences(occurrences, doneParallel);
-			}, function(){
+			}, function(doneParallel){
 					console.log(spaceIds);
 					doneParallel();
 			}], doneFetchOccurrences);
