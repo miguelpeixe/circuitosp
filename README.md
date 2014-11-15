@@ -46,11 +46,7 @@ Agora acesse: [http://localhost:8000](http://localhost:8000)
 
 ## Configuração
 
-Rode o servidor e acesse: [http://localhost:8000/admin](http://localhost:8000/admin). Após cadastrar um e-mail e senha de administrador, será possível configurar as API keys do Instagram, Flickr e Twitter, a URL do Wordpress utilizado para publicação de notícias e outras configurações do site. 
-
-## Deploy
-
-Em breve.
+Rode o servidor e acesse: [http://localhost:8000/admin](http://localhost:8000/admin). Após cadastrar um e-mail e senha de administrador, será possível configurar as API keys do Instagram, Flickr e Twitter, a URL do Wordpress utilizado para publicação de notícias e outras configurações do site.
 
 ## API
 
@@ -65,7 +61,7 @@ Retorna:
 * *mapasCulturais.projectId*: id dos projetos buscados no mapas culturais;
 * *google.analyticsId*: id para Google Analytics;
 * *facebook.pageId*: id da página de Facebook do Circuito SP;
-* *twitter.username*: usuário do Circuito SP do Twitter 
+* *twitter.username*: usuário do Circuito SP do Twitter
 * *twitter.apiKey*: api key para buscas no Twitter;
 * *flickr.apiKey*: api key para buscas no Flickr;
 * *instagram.apiKey*: api key para buscas no Instagram;
@@ -83,7 +79,3 @@ Retorna informações sobre um evento.
 ### GET /api/v1/social
 
 Retorna todos mídias postadas no Instagram, Flickr e Youtube.
-
-
-
-
