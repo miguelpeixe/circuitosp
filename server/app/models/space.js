@@ -23,8 +23,8 @@ var SpaceSchema = new Schema({
   _id: {type: Number, index: true},
   name: String,
   shortDescription: String,
-  address: String,
-  location: { lat: Number, lon: Number},
+  endereco: String,
+  location: { },
   '@files:avatar.viradaSmall': {},
   '@files:avatar.viradaBig': {}
 });
