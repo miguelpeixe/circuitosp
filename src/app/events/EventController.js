@@ -6,8 +6,9 @@ module.exports = [
 	'$timeout',
 	'$state',
 	'EventService',
+	'RelativeDateService',
 	'$scope',
-	function($q, $interval, $timeout, $state, Event, $scope) {
+	function($q, $interval, $timeout, $state, Event, RelativeDate, $scope) {
 
 		// Change state to single event
 		$scope.accessEvent = function(e) {
@@ -50,6 +51,8 @@ module.exports = [
 			}
 			return url;
 		}
+
+		$scope.relativeDate = RelativeDate.wich;
 
 	}
 ];

@@ -12,18 +12,19 @@ nav
 
 					a.button(ng-click="datepicker.start.toggle()" href="javascript:void(0);")
 						span.entypo &#128197;
-						span.the-date(ng-show="eventSearch.startDate") {{datepicker.start.view}} 
-						
-					span.until(ng-show="eventSearch.startDate") até
+						span.the-date(ng-show="eventSearch.startDate && datepicker.relative") {{datepicker.relative}} 
+						span.the-date(ng-show="eventSearch.startDate && !datepicker.relative") {{datepicker.start.view}} 
+
+					span.until(ng-hide="!eventSearch.startDate || (datepicker.relative && eventSearch.endDate)") até
 
 					.datepicker(pickadate ng-model="eventSearch.startDate" ng-show="datepicker.start.opened" min-date="datepicker.start.minDate" max-date="datepicker.start.maxDate" default-date="datepicker.start.minDate" prev-label="'anterior'" next-label="'próximo'")
 
-				.date-end.datepicker-container(ng-show="eventSearch.startDate")
+				.date-end.datepicker-container(ng-hide="!eventSearch.startDate || (datepicker.relative && eventSearch.endDate)")
 
 					a.button(ng-click="datepicker.end.toggle()" href="javascript:void(0);")
 						span.entypo &#128197;
 						span.the-date(ng-show="eventSearch.endDate") {{datepicker.end.view}}
-						span.the-date(ng-hide="eventSearch.endDate") {{datepicker.start.view}}
+						span.the-date(ng-hide="eventSearch.endDate") ...
 
 					.datepicker(pickadate ng-model="eventSearch.endDate" ng-show="datepicker.end.opened" min-date="datepicker.end.minDate" max-date="datepicker.end.maxDate" default-date="eventSearch.startDate" prev-label="'anterior'" next-label="'próximo'")
 

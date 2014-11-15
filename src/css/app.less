@@ -69,6 +69,8 @@ body {
 }
 
 #masthead {
+	position: relative;
+	z-index: 100;
 	padding-top: 40px;
 	h1 {
 		text-indent: -9999px;
@@ -79,19 +81,46 @@ body {
 	}
 	#mastnav {
 		margin: 40px 0;
-		ul {
+		ul.nav {
 			display: table;
 			width: 100%;
-			li {
+			> li {
 				display: table-cell;
 				margin: 0;
-				text-align: center;
-				a {
+				text-align: left;
+				position: relative;
+				> a {
 					color: @red;
 					text-decoration: none;
 					text-transform: uppercase;
 					&:hover {
 						color: #000;
+					}
+				}
+				ul {
+					display: none;
+					position: absolute;
+					top: 15px;
+					left: 0;
+					width: 200px;
+					padding: 10px 0 0;
+					margin: 0;
+					li {
+						margin: 0;
+						padding: 0;
+						background: @red;
+						text-align: left;
+						a {
+							text-decoration: none;
+							padding: 10px;
+							display: block;
+							color: #fff;
+						}
+					}
+				}
+				&:hover {
+					ul {
+						display: block;
 					}
 				}
 			}
@@ -204,8 +233,8 @@ a.more {
 		.box-sizing(border-box);
 		float: left;
 		width: 25%;
-		min-height: 5px;
-		padding: 0 5px 5px 0;
+		min-height: 10px;
+		padding: 0 10px 10px 0;
 		margin: 0;
 		&.feat {
 			img {
@@ -231,6 +260,7 @@ a.more {
 			h3 {
 				color: #fff;
 				margin-bottom: 20px;
+				font-size: 24px;
 				a {
 					text-decoration: none;
 					color: inherit;
