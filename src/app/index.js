@@ -146,9 +146,11 @@ angular.module('mci', [
 ])
 
 .controller('NavCtrl', [
+	'RelativeDateService',
+	'$state',
 	'$scope',
 	'$sce',
-	function($scope, $sce) {
+	function(RelativeDate, $state, $scope, $sce) {
 
 		$scope.nav = [
 			{
@@ -177,13 +179,15 @@ angular.module('mci', [
 			}
 		];
 
-		$scope.updateHover = function(str) {
+		var relativeDates = RelativeDate.get();
 
-			$scope.currentHover = str;
-
-		};
-
-		$scope.currentHover = '';
+		$scope.nav[0].child = [];
+		for(var slug in relativeDates) {
+			$scope.nav[0].child.push({
+				title: slug,
+				href: $state.href('events.filter', {startDate: relativeDates[slug][0].format('YYYY-MM-DD'), endDate: relativeDates[slug][1].format('YYYY-MM-DD')})
+			});
+		}
 
 	}
 ])

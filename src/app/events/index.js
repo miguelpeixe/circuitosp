@@ -40,6 +40,7 @@ angular.module('mci.events', [
 ])
 
 .factory('EventService', require('./EventService'))
+.factory('RelativeDateService', require('./RelativeDateService'))
 .controller('EventController', require('./EventController'))
 .controller('EventIndexController', require('./EventIndexController'))
 .controller('EventFeaturedController', require('./EventFeaturedController'))

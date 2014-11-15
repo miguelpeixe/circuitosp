@@ -6,8 +6,9 @@ module.exports = [
 	'$timeout',
 	'$state',
 	'EventService',
+	'RelativeDateService',
 	'$scope',
-	function($q, $interval, $timeout, $state, Event, $scope) {
+	function($q, $interval, $timeout, $state, Event, RelativeDate, $scope) {
 
 		$scope.service = Event;
 
@@ -79,12 +80,6 @@ module.exports = [
 			$scope.eventNav.offset = $scope.eventNav.perPage * $scope.eventNav.curPage;
 		}
 
-		$scope.$watch('eventNav.curPage', function(page, prevPage) {
-			if(page || prevPage) {
-				//$state.go('events.filter', {page:page});
-			}
-		});
-
 		// update terms filter and state
 		$scope.$watch('eventSearch.terms', function(terms, prevTerms) {
 			$scope.eventFilter.terms = terms;
@@ -137,8 +132,8 @@ module.exports = [
 		$scope.datepicker = {
 			format: 'dd/MM/yyyy',
 			clear: function() {
-				$scope.eventSearch.startDate = '';
 				$scope.eventSearch.endDate = '';
+				$scope.eventSearch.startDate = '';
 			},
 			start: {
 				minDate: occurrences[0].moment.format('YYYY-MM-DD'),
@@ -169,8 +164,10 @@ module.exports = [
 		};
 
 		$scope.$watch('eventSearch.startDate', function(date, prevDate) {
+			$scope.datepicker.relative = RelativeDate.wich($scope.eventSearch.startDate, $scope.eventSearch.endDate);
 			$scope.datepicker.start.toggle(true);
-			$scope.datepicker.start.view = moment(date).format('DD/MM');
+			$scope.datepicker.start.moment = moment(date);
+			$scope.datepicker.start.view = $scope.datepicker.start.moment.format('DD/MM');
 			if($scope.eventSearch.endDate && date > $scope.eventSearch.endDate) {
 				$scope.eventSearch.endDate = '';
 			}
@@ -181,8 +178,10 @@ module.exports = [
 		});
 
 		$scope.$watch('eventSearch.endDate', function(date, prevDate) {
+			$scope.datepicker.relative = RelativeDate.wich($scope.eventSearch.startDate, $scope.eventSearch.endDate);
 			$scope.datepicker.end.toggle(true);
-			$scope.datepicker.end.view = moment(date).format('DD/MM');
+			$scope.datepicker.end.moment = moment(date);
+			$scope.datepicker.end.view = $scope.datepicker.end.moment.format('DD/MM');
 			if(date || prevDate) {
 				$state.go('events.filter', {endDate: date});
 			}
@@ -249,17 +248,6 @@ module.exports = [
 			}
 
 		};
-
-		/*
-		 * Space nav
-		 */
-
-		$scope.spaceNav = nav('filteredSpaces', 6);
-
-		$scope.$watch('spaceSearch', function() {
-			$scope.spaceNav.curPage = 0;
-			$scope.spaceNav.offset = 0;
-		});
 
 	}
 ];
