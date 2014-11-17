@@ -11,6 +11,21 @@ var Event = mongoose.model('Event');
 var Occurrence = mongoose.model('Occurrence');
 var Space = mongoose.model('Space');
 
+var clearDB = function (done) {
+  async.parallel([
+    function (cb) {
+      Event.collection.remove(cb)
+    },
+    function (cb) {
+      Occurrence.collection.remove(cb)
+    },
+    function (cb) {
+      Space.collection.remove(cb)
+    }
+  ], done)
+}
+
+
 
 module.exports = function(app, done) {
 
@@ -94,9 +109,12 @@ module.exports = function(app, done) {
 	}
 
 	function saveEvents(events, done) {
+		console.log(events[0].occurrences);
+
 		async.eachSeries(events, function(event, doneEach){
 			var occurrences = event.occurrences;
-			event['_id'] = event.id;
+			// event['_id'] = event.id;
+			// console.log(event[0].occurrences);
 			delete event.occurrences;
 			Event.update({_id: event['id']}, event, {upsert:true}, doneEach);
 		}, done)
@@ -147,7 +165,12 @@ module.exports = function(app, done) {
 
 	function saveOccurrences(occurrences, done) {
 		async.eachSeries(occurrences, function(occurrence, doneEach){
-			Occurrence.update({_id: occurrence.id}, occurrence.rule, {upsert: true}, doneEach);
+
+			async.series ([ function(cb) {
+					Occurrence.update({_id: occurrence.id}, occurrence.rule, {upsert: true}, cb);
+				}, function(cb){
+					Event.update({_id: occurrence.eventId}, {$addToSet: {'occurrences': occurrence.id }}, {upsert: true}, cb);
+				}], doneEach);
 		}, done);
 	}
 
@@ -165,7 +188,7 @@ module.exports = function(app, done) {
 			url: config.mapasCulturais.endpoint + '/space/find',
 			qs: {
 				'@select': 'id,name,shortDescription,endereco,location',
-				'@files': '(avatar,header):url',
+				'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
 				'id': 'in(' + spacesIds + ')',
 			}
 		};
@@ -179,14 +202,16 @@ module.exports = function(app, done) {
 
 			// persist spaces to db
 			async.eachSeries(spaces, function(space, doneEach){
-				Space.update({_id: space.id}, space, {upsert: true}, doneEach);
+
+				// space['_id'] = space.id;
+				Space.update({ _id: space.id}, space, {upsert: true}, doneEach);
 			}, doneFetchSpaces);
 		});
 	}
 
-	fetchProjects(function(){
+	clearDB(fetchProjects(function(){
 		console.log('Data sync complete');
-	});
+	}));
 
 };
 

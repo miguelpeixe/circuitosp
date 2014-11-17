@@ -5,6 +5,7 @@
 
 var fs = require('fs');
 var _ = require('underscore');
+var async = require('async');
 var request = require('request');
 var config = require('../../config');
 var auth = require('./auth');
@@ -16,6 +17,10 @@ var settings = require('../app/controllers/settings');
 var events = require('../app/controllers/events');
 var social = require('../app/controllers/social');
 var news = require('../app/controllers/news');
+
+var mongoose = require('mongoose');
+var Spaces = mongoose.model('Space');
+var Events = mongoose.model('Event');
 
 module.exports = function (app, passport) {
 
@@ -50,22 +55,43 @@ module.exports = function (app, passport) {
 
 	var options = fs.existsSync('./options.json') ? JSON.parse(fs.readFileSync('./options.json', 'utf8')) : {};
 
+	/*
+	* Expose data
+	*/
+
+
 	app.get('/api/v1/data', function(req, res) {
 
 		var config = req.app.locals.config;
+		var spaces;
+		var events;
 
-		var data = {
-			config: {
-				wpUrl: config.wordpress.endpoint,
-				hashtag: config.hashtag
-			},
-			options: options,
-			events: req.app.locals.data.events,
-			spaces: req.app.locals.data.spaces
-		};
+		var loadData = function(doneLoadData) {
+			async.parallel([function(doneLoadEvents){
+				Events.find({}).populate('id occurrences').lean().exec(function(err, results){
+					events = results;
+					doneLoadEvents(err)
+				});
+			}, function(doneLoadSpaces){
+				Spaces.find({}).lean().exec(function(err, results){
+					spaces = results;
+					doneLoadSpaces(err)
+				});
+			}], doneLoadData);
+		}
 
-		res.send(data);
-
+		loadData(function(){
+			var data = {
+				config: {
+					wpUrl: config.wordpress.endpoint,
+					hashtag: config.hashtag
+				},
+				options: options,
+				events: events,
+				spaces: spaces
+			};
+			res.json(data);
+		})
 	});
 
 	/*
