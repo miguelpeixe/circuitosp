@@ -28,6 +28,12 @@ nav
 
 					.datepicker(pickadate ng-model="eventSearch.endDate" ng-show="datepicker.end.opened" min-date="datepicker.end.minDate" max-date="datepicker.end.maxDate" default-date="eventSearch.startDate" prev-label="'anterior'" next-label="'próximo'")
 
+		.filter-item.text-filter(ng-class="{filled:eventSearch.$}")
+
+			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.$ = ''" title="Limpar busca" ng-show="eventSearch.$") &#10060;
+
+			input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
+
 		.filter-item.list-filter(ng-class="{filled:eventSearch.terms}" ng-hide="tag")
 			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.terms = ''" title="Limpar filtro por linguagem" ng-show="eventSearch.terms") &#10060;
 			ul.linguagem-list
@@ -35,18 +41,12 @@ nav
 				li(ng-repeat="linguagem in linguagens" ng-class="{active:linguagem==eventSearch.terms,inactive:linguagem!=eventSearch.terms}")
 					a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
 
-		.filter-item.list-filter(ng-class="{filled:eventSearch.classificacao}" ng-hide="tag")
+		.filter-item.list-filter.rate(ng-class="{filled:eventSearch.classificacao}" ng-hide="tag")
 			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.classificacao = ''" title="Limpar filtro por classificação" ng-show="eventSearch.classificacao") &#10060;
 			ul.classificacao-list
 				li.label(ng-hide="eventSearch.classificacao" ng-class="{active:!eventSearch.classificacao}") Classificão etária
 				li(ng-repeat="classificacao in classificacoes" ng-class="{active:classificacao==eventSearch.classificacao,inactive:classificacao!=eventSearch.classificacao}")
 					a(href="javascript:void(0);" ng-click="eventSearch.classificacao = classificacao") {{classificacao}}
-
-		.filter-item.text-filter(ng-class="{filled:eventSearch.$}")
-
-			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.$ = ''" title="Limpar busca" ng-show="eventSearch.$") &#10060;
-
-			input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
 
 		.filter-item.tick-filter(ng-show="!eventSearch.startDate && service.isHappening()" ng-class="{enabled:isFutureEvents}" ng-click="toggleFutureEvents()") Eventos futuros
 

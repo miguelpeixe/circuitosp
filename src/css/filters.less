@@ -27,7 +27,7 @@
 			outline: none;
 			margin: 12px 0;
 			padding: 0;
-			width: 150px;
+			width: 120px;
 			background: @bg;
 			font-size: 12px;
 		}
@@ -49,6 +49,9 @@
 		z-index: 1;
 		min-width: 240px;
 		overflow: hidden;
+		&.rate {
+			min-width: 170px;
+		}
 		&.filled {
 			padding: 38px 0 0;
 		}
@@ -133,14 +136,13 @@
 				width: 250px;
 				padding: 0 20px 20px;
 				top: 54px;
-				left: -135px;
+				left: -17px;
 				background: @bg;
 				&:before {
 					content: '';
 					position: absolute;
 					top: -5px;
-					left: 50%;
-					margin-left: -5px;
+					left: 22px;
 					width: 10px;
 					height: 10px;
 					.transform(rotate(45deg));
@@ -151,8 +153,7 @@
 					content: '';
 					position: absolute;
 					top: 0;
-					left: 50%;
-					margin-left: -10px;
+					left: 22px;
 					width: 30px;
 					height: 12px;
 					background: @bg;

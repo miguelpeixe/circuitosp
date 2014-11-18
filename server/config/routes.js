@@ -68,7 +68,7 @@ module.exports = function (app, passport) {
 
 		var loadData = function(doneLoadData) {
 			async.parallel([function(doneLoadEvents){
-				Events.find({}).populate('id occurrences').lean().exec(function(err, results){
+				Events.find({}).populate('occurrences').lean().exec(function(err, results){
 					events = results;
 					doneLoadEvents(err)
 				});

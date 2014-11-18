@@ -164,7 +164,8 @@ module.exports = [
 		};
 
 		$scope.$watch('eventSearch.startDate', function(date, prevDate) {
-			$scope.datepicker.relative = RelativeDate.wich($scope.eventSearch.startDate, $scope.eventSearch.endDate);
+			console.log(date);
+			$scope.datepicker.relative = RelativeDate.wich(date, $scope.eventSearch.endDate);
 			$scope.datepicker.start.toggle(true);
 			$scope.datepicker.start.moment = moment(date);
 			$scope.datepicker.start.view = $scope.datepicker.start.moment.format('DD/MM');
@@ -178,7 +179,7 @@ module.exports = [
 		});
 
 		$scope.$watch('eventSearch.endDate', function(date, prevDate) {
-			$scope.datepicker.relative = RelativeDate.wich($scope.eventSearch.startDate, $scope.eventSearch.endDate);
+			$scope.datepicker.relative = RelativeDate.wich($scope.eventSearch.startDate, date);
 			$scope.datepicker.end.toggle(true);
 			$scope.datepicker.end.moment = moment(date);
 			$scope.datepicker.end.view = $scope.datepicker.end.moment.format('DD/MM');
