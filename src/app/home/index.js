@@ -44,32 +44,35 @@ angular.module('mci.home', [
 	'SocialData',
 	'EventService',
 	'$interval',
+	'$timeout',
 	'$scope',
-	function(NewsData, SocialData, Event, $interval, $scope) {
+	function(NewsData, SocialData, Event, $interval, $timeout, $scope) {
 
 		if(NewsData)
 			$scope.news = NewsData.data.slice(0,5);
 
 		$scope.current = 0;
 
-		$scope.nextArticle = function() {
-			if($scope.news[$scope.current+1]) {
-				$scope.current++;
-			} else {
-				$scope.current = 0;
-			}
+		$scope.setArticle = function(id) {
+			$scope.current = id;
 			$interval.cancel(rotate);
 			rotate = $interval($scope.nextArticle, 8000);
+		};
+
+		$scope.nextArticle = function() {
+			if($scope.news[$scope.current+1]) {
+				$scope.setArticle($scope.current+1);
+			} else {
+				$scope.setArticle(0);
+			}
 		}
 
 		$scope.prevArticle = function() {
 			if($scope.news[$scope.current-1]) {
-				$scope.current--;
+				$scope.setArticle($scope.current-1);
 			} else {
-				$scope.current = $scope.news.length-1;
+				$scope.setArticle($scope.news.length-1);
 			}
-			$interval.cancel(rotate);
-			rotate = $interval($scope.nextArticle, 8000);
 		}
 
 		var rotate = $interval($scope.nextArticle, 8000);

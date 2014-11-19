@@ -25,13 +25,13 @@ module.exports = [
 
 			switch(item.media_provider) {
 				case 'youtube':
-					icon = '&#127916;';
+					icon = 'video';
 					break;
 				case 'instagram':
-					icon = '&#62253;';
+					icon = 'instagram';
 					break;
 				case 'flickr':
-					icon = '&#62211;';
+					icon = 'flickr';
 					break;
 			}
 

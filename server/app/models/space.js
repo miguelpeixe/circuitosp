@@ -15,6 +15,7 @@ var SpaceSchema = new Schema({
   name: String,
   shortDescription: String,
   endereco: String,
+  acessibilidade: String,
   location: {},
   avatar: { }
 }, { strict: false });

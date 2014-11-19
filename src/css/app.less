@@ -1,43 +1,8 @@
 @import "functions.less";
 
-/*
- * FONTS
- */
+@import "icons.css";
 
-@font-face {
-	font-family: 'entypo';
-	src: url('../font/entypo.eot');
-	src: url('../font/entypo.eot?#iefix') format('embedded-opentype'),
-		 url('../font/entypo.woff') format('woff'),
-		 url('../font/entypo.ttf') format('truetype'),
-		 url('../font/entypo.svg#entypo') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'entypo-social';
-	src: url('../font/entypo-social.eot');
-	src: url('../font/entypo-social.eot?#iefix') format('embedded-opentype'),
-		 url('../font/entypo-social.woff') format('woff'),
-		 url('../font/entypo-social.ttf') format('truetype'),
-		 url('../font/entypo-social.svg#entypo-social') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-.entypo {
-	font-family: "entypo";
-	font-size: 250%;
-	float: left;
-	margin-right: 5px;
-	font-weight: 200 !important;
-}
-
-.entypo-social {
-	font-family: "entypo-social";
-	font-size: 250%;
-	float: left;
+[class^="icon-"], [class*=" icon-"] {
 	margin-right: 5px;
 }
 
@@ -178,9 +143,9 @@ a.more {
 		a {
 			text-decoration: none;
 		}
-		.entypo-social {
+		[class^="icon-"], [class*=" icon-"] {
 			float: none;
-			font-size: 100px;
+			font-size: 40px;
 		}
 	}
 }
@@ -224,9 +189,10 @@ a.more {
 		.close {
 			display: block;
 			float: right;
-			font-size: 80px;
+			font-size: 60px;
 			line-height: 40px;
 			text-decoration: none;
+			margin: 0;
 		}
 	}
 }
@@ -288,7 +254,7 @@ a.more {
 						}
 						padding-bottom: 15px;
 						vertical-align: middle;
-						.entypo {
+						[class^="icon-"], [class*=" icon-"] {
 							text-align: center;
 							height: auto;
 							float: none !important;
@@ -313,13 +279,13 @@ a.more {
 					padding: 8px 0;
 					font-weight: 600;
 					font-size: 14px;
-					.entypo {
+					[class^="icon-"], [class*=" icon-"] {
 						font-weight: 200;
 						height: auto;
 					}
 				}
-				.entypo {
-					font-size: 40px;
+				[class^="icon-"], [class*=" icon-"] {
+					font-size: 20px;
 					float: left;
 					width: 40px;
 					height: 40px;
@@ -338,12 +304,12 @@ a.more {
 			}
 			.space:hover {
 				cursor: pointer;
-				.entypo {
+				[class^="icon-"], [class*=" icon-"] {
 					color: yellow;
 				}
 			}
 			.add-to-calendar:hover {
-				.entypo {
+				[class^="icon-"], [class*=" icon-"] {
 					color: yellow;
 				}
 			}
@@ -367,9 +333,10 @@ a.more {
 			color: #999;
 		}
 		.next-occurrence {
-			.entypo {
+			[class^="icon-"], [class*=" icon-"] {
 				float: left;
 				width: 30px;
+				margin-right: 5px;
 				text-align: center;
 			}
 			.date-info {
@@ -379,13 +346,13 @@ a.more {
 				}
 				.fromNow {
 					font-weight: 600;
-					font-size: 18px;
+					font-size: 16px;
 					background: @red;
 					color: #fff;
-					padding: 8px 10px;
-					margin-top: -8px;
-					.entypo {
-						margin-right: 10px;
+					padding: 6px 10px;
+					margin-top: -6px;
+					[class^="icon-"], [class*=" icon-"] {
+						margin-right: 6px;
 					}
 				}
 			}
@@ -394,12 +361,9 @@ a.more {
 				cursor: pointer;
 				&:hover {
 					color: @red;
-					.entypo {
+					[class^="icon-"], [class*=" icon-"] {
 						color: #000;
 					}
-				}
-				.entypo {
-					font-weight: 200;
 				}
 				.address {
 					color: #999;
@@ -429,9 +393,14 @@ a.more {
 	.main-content {
 		font-size: 20px;
 		line-height: 150%;
+		overflow-y: hidden;
 		p {
 			font-size: 20px;
 			line-height: 150%;
+			[class^="icon-"], [class*=" icon-"] {
+				font-size: 100%;
+				margin-right: 10px;
+			}
 		}
 	}
 	#event-sidebar {
@@ -463,11 +432,11 @@ a.more {
 				p.space:hover {
 					color: @red;
 					cursor: pointer;
-					.entypo {
+					[class^="icon-"], [class*=" icon-"] {
 						color: #000;
 					}
 				}
-				.entypo {
+				[class^="icon-"], [class*=" icon-"] {
 					width: 25px;
 					height: 25px;
 					text-align: center;

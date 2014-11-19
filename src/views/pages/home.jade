@@ -12,8 +12,8 @@ section#home
 									a(href="/noticias/{{article.ID}}/" ng-bind-html="getTitle(article)")
 							section.excerpt(ng-bind-html="getExcerpt(article)")
 
-					a(ng-click="prevArticle()" href="javascript:void(0);" class="prev") &#59237;
-					a(ng-click="nextArticle()" href="javascript:void(0);" class="next") &#59238;
+					a.prev.icon-arrow-left7(ng-click="prevArticle()" href="javascript:void(0);")
+					a.next.icon-uniE6D8(ng-click="nextArticle()" href="javascript:void(0);")
 
 					a.more(href="/noticias") Todas as notícias
 
@@ -49,7 +49,7 @@ section#home
 						li.masonry-brick(ng-repeat="item in socialItems" class="{{item.media_provider}} {{item.media_type}}")
 							.item-content(ng-controller="SocialController")
 								.media(ng-bind-html="getMedia(item)")
-								p.media-type(ng-bind-html="getMediaIcon(item)" ng-class="{icon: item.media_provider == 'youtube'}")
+								p(class="icon-{{getMediaIcon(item)}}")
 								p.author {{item.author}}
 								p.link
 									a(href="{{item.original_url}}" target="_blank") Ver original

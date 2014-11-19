@@ -2,10 +2,11 @@
 	#news {
 		.news-container {
 			position: relative;
+			height: 640px;
 			&:hover {
 				.next,
 				.prev {
-					opacity: 1;
+					opacity: .4;
 				}
 			}
 		}
@@ -15,6 +16,23 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			position: relative;
+			&.ng-hide-remove,
+			&.ng-hide-add {
+				.transition(all .5s linear);
+				display: block !important;
+			}
+			&.ng-hide-remove,
+			&.ng-hide-add.ng-hide-add-active {
+				opacity: 0;
+			}
+			&.ng-hide-add,
+			&.ng-hide-remove.ng-hide-remove-active {
+				opacity: 1;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
 			.post-content {
 				background: #fff;
 				padding: 40px 0 0;
@@ -34,19 +52,21 @@
 		}
 		.next,
 		.prev {
-			.entypo;
 			position: absolute;
 			top: 30%;
 			color: #000;
 			background: #fff;
 			opacity: 0;
-			font-size: 60px;
+			font-size: 40px;
 			line-height: 60px;
 			height: 60px;
 			text-decoration: none;
 			margin: 0;
-			padding: 0 10px;
+			padding: 10px;
 			display: block;
+			&:hover {
+				opacity: 1 !important;
+			}
 		}
 		.prev {
 			left: 0;
@@ -67,7 +87,7 @@
 		}
 		.post-meta {
 			padding-top: 10px;
-			.entypo {
+			[class^="icon-"], [class*=" icon-"] {
 				float: right;
 				margin: 0 0 0 10px;
 			}
@@ -116,7 +136,7 @@
 		font-size: 20px;
 		line-height: 150%;
 		.date {
-			.entypo {
+			[class^="icon-"], [class*=" icon-"] {
 				margin-right: 10px;
 			}
 			color: #999;
@@ -129,7 +149,7 @@
 		.gallery {
 			&:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
 			.gallery-item {
-				max-width: calc(20% - 4px);
+				max-width: calc(~"20% - 4px");
 				float: left;
 				margin: 0 4px 4px 0;
 				position: relative;

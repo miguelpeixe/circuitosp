@@ -62,6 +62,7 @@
   },
   "napa": {
     "angular-i18n": "angular/bower-angular-i18n",
+    "angular-animate": "angular/bower-angular-animate#v1.3.0",
     "angular-pickadate": "miguelpeixe/angular-pickadate",
     "angular-leaflet": "tombatossals/angular-leaflet-directive",
     "angular-masonry": "passy/angular-masonry",

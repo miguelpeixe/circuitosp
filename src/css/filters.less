@@ -14,9 +14,6 @@
 		line-height: 38px;
 		font-size: 14px;
 		text-transform: uppercase;
-		&.filled {
-			padding: 0 30px 0 15px;
-		}
 		a {
 			text-decoration: none;
 		}
@@ -38,29 +35,29 @@
 			right: 10px;
 			z-index: 2;
 			text-decoration: none;
+			font-size: 14px !important;
 			line-height: 38px;
 			background: @bg;
 			padding: 0 2px;
+			margin: 0;
 		}
 	}
 	.list-filter {
 		padding: 38px 0 0;
 		position: relative;
 		z-index: 1;
-		min-width: 240px;
+		min-width: 250px;
 		overflow: hidden;
 		&.rate {
-			min-width: 170px;
+			min-width: 180px;
 		}
 		&.filled {
 			padding: 38px 0 0;
 		}
-		&:after {
-			content: '\E75C';
+		&:before {
 			position: absolute;
-			font-family: "entypo";
-			font-size: 250%;
 			top: 0;
+			float: none;
 			line-height: 38px;
 			right: 10px;
 		}
@@ -121,15 +118,18 @@
 		.the-date {
 			margin-left: 5px;
 		}
-		.entypo {
+		[class^="icon-"], [class*=" icon-"] {
 			margin: 0;
-			font-size: 45px;
-			line-height: 38px;
+			font-size: 20px;
 		}
 		.datepicker-container {
 			position: relative;
 			float: left;
 			text-transform: none;
+			.icon-calendar {
+				line-height: 36px;
+				float: left;
+			}
 			.datepicker {
 				position: absolute;
 				border: 1px solid rgba(0,0,0,0.2);
@@ -190,9 +190,6 @@
 			background: rgba(0,0,0,0.6);
 		}
 		&:before {
-			content: '\2713';
-			font-family: "entypo";
-			font-size: 250%;
 			line-height: 38px;
 			float: left;
 			margin-right: 5px;
@@ -201,7 +198,6 @@
 	}
 	.close {
 		float: left;
-		font-size: 100px;
 		line-height: 40px;
 		text-decoration: none;
 		margin: 0 0 0 20px;

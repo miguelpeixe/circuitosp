@@ -14,22 +14,22 @@ article.event-list-item
 						span.entypo &#128340;
 						span(fromnow date="occur.timestamp")
 					p.date(ng-hide="showFromNow(occur)")
-						span.entypo &#128197;
+						span.icon-calendar
 						| {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
 				table
 					tr.price
 						td 
-							span.entypo &#127915;
+							span.icon-ticket
 						td {{occur.price}}
 					tr.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
 						td
-							span.entypo &#59172;
+							span.icon-location
 						td
 							| {{occur.spaceName}}
 							br
 							span.endereco {{getOccurSpace(occur).endereco}}
 					tr.add-to-calendar
 						td
-							span.entypo &#9733;
+							span.icon-star
 						td
 							a(href="{{gCalUrl(occur, event)}}" target="_blank") Adicionar no Google Calendar
