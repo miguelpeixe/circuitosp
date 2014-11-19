@@ -95,7 +95,14 @@ angular.module('mci', [
 		 * Store nav history
 		 */
 		$window.mci.history = [];
-		$rootScope.$on('$stateChangeSuccess', function() {
+		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
+
+			if(toState.name.indexOf(fromState.name) == -1 && toState.name.indexOf('.') == -1) {
+				console.log('should scroll');
+				$('html,body').animate({
+					scrollTop: 0
+				}, 500);
+			}
 
 			if($window._gaq) {
 				$window._gaq.push(['_trackPageview', $location.path()]);

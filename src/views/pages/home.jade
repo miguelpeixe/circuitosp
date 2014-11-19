@@ -32,7 +32,7 @@ section#home
 			.container
 				.twelve.columns
 					ul.event-list(masonry ng-controller="EventController")
-						li.masonry-brick(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
+						li.masonry-brick(ng-repeat="event in homeEvents")
 							include ../events/partials/event-list-item
 
 	section#social.page-section.row(ng-show="socialItems.length")
