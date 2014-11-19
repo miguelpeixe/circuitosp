@@ -7,15 +7,18 @@ article.event-list-item
 				h3
 					a(href="/agenda/{{event.id}}/") {{event.name}}
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
-		section.occurrences
-			.occurrence.clearfix(ng-repeat="occur in event.occurrences | spaceOccurrences:space | byDateOccurrences:eventSearch.startDate:eventSearch.endDate | futureOccurrences:isFutureEvents | occurrenceOrder")
+		section.occurrences(occurrence-slider)
+			.navigate(ng-show="filteredOccurs.length > 1")
+				span.icon-arrow-left7(ng-click="prevOccur()")
+				span.icon-uniE6D8(ng-click="nextOccur()")
+			.occurrence.clearfix(ng-repeat="occur in filteredOccurs = (event.occurrences | spaceOccurrences:space | byDateOccurrences:eventSearch.startDate:eventSearch.endDate | futureOccurrences:isFutureEvents) | occurrenceOrder" ng-hide="current != filteredOccurs.indexOf(occur)")
 				.date-info(ng-class="{'showing-from-now': showFromNow(occur)}")
 					p.fromNow(ng-show="showFromNow(occur)")
 						span.entypo &#128340;
-						span(fromnow date="occur.timestamp")
+						span.value(fromnow date="occur.timestamp")
 					p.date(ng-hide="showFromNow(occur)")
 						span.icon-calendar
-						| {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
+						span.value {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
 				table
 					tr.price
 						td 
