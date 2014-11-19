@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = [
+	'MetaService',
 	'$q',
 	'$interval',
 	'$timeout',
@@ -8,7 +9,10 @@ module.exports = [
 	'EventService',
 	'RelativeDateService',
 	'$scope',
-	function($q, $interval, $timeout, $state, Event, RelativeDate, $scope) {
+	function(Meta, $q, $interval, $timeout, $state, Event, RelativeDate, $scope) {
+
+		Meta.setTitle('Programação');
+		Meta.setTags(false);
 
 		$scope.service = Event;
 

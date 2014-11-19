@@ -1,13 +1,17 @@
 'use strict';
 
 module.exports = [
+	'MetaService',
 	'$sce',
 	'$state',
 	'$stateParams',
 	'NewsData',
 	'NewsService',
 	'$scope',
-	function($sce, $state, $stateParams, NewsData, News, $scope) {
+	function(Meta, $sce, $state, $stateParams, NewsData, News, $scope) {
+
+		Meta.setTitle('Notícias');
+		Meta.setTags(false);
 
 		$scope.query = NewsData;
 

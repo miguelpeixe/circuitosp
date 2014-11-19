@@ -1,9 +1,13 @@
 'use strict';
 
 module.exports = [
+	'MetaService',
 	'SocialData',
 	'$scope',
-	function(SocialData, $scope) {
+	function(Meta, SocialData, $scope) {
+
+		Meta.setTitle('Na Rede');
+		Meta.setTags(false);
 
 		$scope.items = SocialData.data;
 

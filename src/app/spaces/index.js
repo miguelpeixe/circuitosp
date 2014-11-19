@@ -35,13 +35,17 @@ angular.module('mci.spaces', [
 ])
 
 .controller('SpaceIndexController', [
+	'MetaService',
 	'$q',
 	'$interval',
 	'$timeout',
 	'$state',
 	'EventService',
 	'$scope',
-	function($q, $interval, $timeout, $state, Event, $scope) {
+	function(Meta, $q, $interval, $timeout, $state, Event, $scope) {
+
+		Meta.setTitle('Locais');
+		Meta.setTags(false);
 
 		$scope.service = Event;
 

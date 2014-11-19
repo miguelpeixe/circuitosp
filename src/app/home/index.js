@@ -40,13 +40,19 @@ angular.module('mci.home', [
 	}
 ])
 .controller('HomeController', [
+	'MetaService',
 	'NewsData',
 	'SocialData',
 	'EventService',
 	'$interval',
 	'$timeout',
 	'$scope',
-	function(NewsData, SocialData, Event, $interval, $timeout, $scope) {
+	function(Meta, NewsData, SocialData, Event, $interval, $timeout, $scope) {
+
+		Meta.setTitle(false);
+		Meta.setTags({
+			'description': 'Uma nova política de programação cultural que integra todas as regiões de São Paulo por meio da Música, Dança, Teatro, Circo e atrações artísticas para o público infantil. A cidade conectada pela arte.'
+		});
 
 		if(NewsData)
 			$scope.news = NewsData.data.slice(0,5);

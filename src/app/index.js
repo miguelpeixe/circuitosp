@@ -299,6 +299,67 @@ angular.module('mci', [
 			}
 		};
 	}
+])
+
+/*
+ * Meta tags
+ */
+
+.factory('MetaService', [
+	function() {
+
+		var baseTitle = 'Circuito São Paulo de Cultura';
+		var defaultTags = {
+			'description': 'Uma nova política de programação cultural que integra todas as regiões de São Paulo por meio da Música, Dança, Teatro, Circo e atrações artísticas para o público infantil. A cidade conectada pela arte.'
+		};
+
+		var title = false;
+		var tags = {};
+
+		return {
+			getTitle: function() {
+				if(title)
+					return title + ' - ' + baseTitle;
+				else
+					return baseTitle;
+			},
+			setTitle: function(str) {
+				title = str;
+				return this.getTitle();
+			},
+			getTags: function() {
+				if(!tags || _.isEmpty(tags))
+					return defaultTags;
+				else
+					return tags;
+			},
+			setTags: function(obj) {
+				tags = obj;
+				return tags;
+			}
+		}
+
+	}
+])
+
+.controller('MetaController', [
+	'MetaService',
+	'$scope',
+	function(Meta, $scope) {
+
+		$scope.$watch(function() {
+			return Meta.getTitle();
+		}, function(title) {
+			$scope.title = title;
+		});
+
+		$scope.$watch(function() {
+			return Meta.getTags();
+		}, function(tags) {
+			$scope.tags = tags;
+		});
+
+	}
 ]);
 
 $(document).ready(function() {

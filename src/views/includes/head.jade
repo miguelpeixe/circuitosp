@@ -1,5 +1,6 @@
-head
-	title Circuito São Paulo de Cultura
+head(ng-controller="MetaController")
+	title {{title}}
+	meta(ng-repeat="(name, content) in tags" name="{{name}}" content="{{content}}")
 	meta(name="viewport" content="width=device-width,initial-scale=1.0")
 	link(rel='stylesheet', href='/css/base.css')
 	link(rel='stylesheet', href='/css/skeleton.css')

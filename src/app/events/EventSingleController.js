@@ -1,13 +1,14 @@
 'use strict';
 
 module.exports = [
+	'MetaService',
 	'$state',
 	'$stateParams',
 	'EventService',
 	'EventData',
 	'leafletData',
 	'$scope',
-	function($state, $stateParams, Event, EventData, leafletData, $scope) {
+	function(Meta, $state, $stateParams, Event, EventData, leafletData, $scope) {
 
 		$scope.service = Event;
 
@@ -35,6 +36,9 @@ module.exports = [
 
 		$scope.event = EventData;
 		$scope.description = $scope.getDescription($scope.event);
+
+		Meta.setTitle($scope.event.name);
+		Meta.setTags({'description': $scope.description});
 
 		$scope.featOccur = $scope.getFeaturedOccurrence($scope.event);
 
