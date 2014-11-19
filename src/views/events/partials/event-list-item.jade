@@ -16,12 +16,20 @@ article.event-list-item
 					p.date(ng-hide="showFromNow(occur)")
 						span.entypo &#128197;
 						| {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
-				p.price
-					span.entypo &#127915;
-					| {{occur.price}}
-				p.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
-					span.entypo &#59172;
-					| {{occur.spaceName}}
-				p.add-to-calendar
-					span.entypo &#9733;
-					a(href="{{gCalUrl(occur, event)}}" target="_blank") Adicionar no Google Calendar
+				table
+					tr.price
+						td 
+							span.entypo &#127915;
+						td {{occur.price}}
+					tr.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
+						td
+							span.entypo &#59172;
+						td
+							| {{occur.spaceName}}
+							br
+							span.endereco {{getOccurSpace(occur).endereco}}
+					tr.add-to-calendar
+						td
+							span.entypo &#9733;
+						td
+							a(href="{{gCalUrl(occur, event)}}" target="_blank") Adicionar no Google Calendar

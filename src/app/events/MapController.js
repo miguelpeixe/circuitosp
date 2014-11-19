@@ -13,6 +13,10 @@ module.exports = [
 
 		}
 
+		$scope.getOccurSpace = function(occur) {
+			return Event.getOccurrenceSpace(occur);
+		}
+
 		$scope.initMap = function(occur, options) {
 
 			options = options || {};

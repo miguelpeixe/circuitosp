@@ -273,9 +273,28 @@ a.more {
 			a {
 				color: #fff;
 			}
-			p {
+			p,
+			td {
 				color: #f0f0f0;
 				font-size: 14px;
+			}
+			table {
+				width: 100%;
+				tr {
+					td {
+						&:first-child {
+							text-align: center;
+							width: 40px;
+						}
+						padding-bottom: 15px;
+						vertical-align: middle;
+						.entypo {
+							text-align: center;
+							height: auto;
+							float: none !important;
+						}
+					}
+				}
 			}
 			.occurrences .occurrence {
 				display: none;
@@ -309,6 +328,12 @@ a.more {
 				a {
 					text-decoration: none;
 					color: #f0f0f0;
+				}
+			}
+			.space {
+				.endereco {
+					font-size: 80%;
+					color: rgba(255,255,255,0.6);
 				}
 			}
 			.space:hover {
