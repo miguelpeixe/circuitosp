@@ -56,11 +56,13 @@ module.exports = [
 		}, 400));
 
 		$scope.nextPage = function() {
-			$scope.loading = true;
-			$scope.query.nextPage().then(function(items) {
-				$scope.loading = false;
-				$scope.items = $scope.items.concat(items);
-			});
+			if(!$scope.loading) {
+				$scope.loading = true;
+				$scope.query.nextPage().then(function(items) {
+					$scope.loading = false;
+					$scope.items = $scope.items.concat(items);
+				});
+			}
 		};
 
 		$scope.hasNextPage = function() {

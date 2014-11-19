@@ -22,7 +22,6 @@ module.exports = [
 				url: '/api/v1/news',
 				data: query,
 				dataType: 'json',
-				cache: true,
 				success: function(data, text, xhr) {
 
 					$rootScope.$apply(function() {
@@ -125,7 +124,6 @@ module.exports = [
 				$.ajax({
 					url: '/api/v1/news/' + postId,
 					dataType: 'json',
-					cache: true,
 					success: function(data, text, xhr) {
 
 						Loading.remove(loadId);

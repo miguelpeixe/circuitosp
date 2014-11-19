@@ -10,6 +10,7 @@ require('./home');
 require('./events');
 require('./spaces');
 require('./news');
+require('./pages');
 require('./social');
 
 require('./facebook');
@@ -26,6 +27,7 @@ angular.module('mci', [
 	'mci.events',
 	'mci.spaces',
 	'mci.news',
+	'mci.pages',
 	'mci.social'
 ])
 
@@ -155,10 +157,11 @@ angular.module('mci', [
 
 .controller('NavCtrl', [
 	'RelativeDateService',
+	'PagesService',
 	'$state',
 	'$scope',
 	'$sce',
-	function(RelativeDate, $state, $scope, $sce) {
+	function(RelativeDate, Page, $state, $scope, $sce) {
 
 		$scope.nav = [
 			{
@@ -176,16 +179,22 @@ angular.module('mci', [
 			{
 				title: 'Na rede',
 				href: '/na-rede/'
-			},
-			{
-				title: 'Inscrições',
-				href: '/inscricoes/'
-			},
-			{
-				title: 'Sobre',
-				href: '/sobre/'
 			}
 		];
+
+
+		Page.get().then(function(data) {
+
+			_.each(data, function(page) {
+
+				$scope.nav.push({
+					title: page.title,
+					href: '/p/' + page.ID
+				});
+
+			});
+			
+		});
 
 		var relativeDates = RelativeDate.get();
 

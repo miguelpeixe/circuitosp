@@ -17,6 +17,7 @@ var settings = require('../app/controllers/settings');
 var events = require('../app/controllers/events');
 var social = require('../app/controllers/social');
 var news = require('../app/controllers/news');
+var pages = require('../app/controllers/pages');
 
 var mongoose = require('mongoose');
 var Spaces = mongoose.model('Space');
@@ -48,6 +49,13 @@ module.exports = function (app, passport) {
 
 	app.get('/api/v1/news', news.all);
 	app.get('/api/v1/news/:postId', news.post);
+
+
+	/*
+	 * Pages (Connected to WP JSON API PLUGIN)
+	 */
+
+	app.get('/api/v1/pages', pages.all);
 
 	/*
 	 * Main data
