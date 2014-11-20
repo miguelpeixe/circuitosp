@@ -430,6 +430,8 @@ a.more {
 			p.space {
 				font-weight: 600;
 				cursor: pointer;
+				float: left;
+				margin: 0 20px 0 0;
 				&:hover {
 					color: @red;
 					[class^="icon-"], [class*=" icon-"] {
@@ -446,6 +448,10 @@ a.more {
 						content: ')';
 					}
 				}
+			}
+			p.accessibility {
+				float: left;
+				font-size: 80%;
 			}
 			p.add-to-calendar {
 				border-top: 1px solid #ddd;
@@ -494,11 +500,18 @@ a.more {
 			li {
 				margin: 0 0 20px;
 				opacity: 0.7;
+				font-size: 14px;
+				padding: 20px 20px 10px 20px;
+				.box-shadow(0 0 2px rgba(0,0,0,0.3));
 				&.future {
 					opacity: 1;
 				}
 				p {
 					margin: 0 0 14px;
+				}
+				p.space {
+					float: left;
+					margin-right: 20px;
 				}
 				p.space:hover {
 					color: @red;
@@ -507,10 +520,16 @@ a.more {
 						color: #000;
 					}
 				}
+				p.accessibility {
+					float: left;
+					font-size: 80%;
+				}
 				[class^="icon-"], [class*=" icon-"] {
 					width: 25px;
 					height: 25px;
 					text-align: center;
+					margin-right: 10px;
+					float: left;
 				}
 				.date-info {
 					p {

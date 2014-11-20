@@ -42,8 +42,10 @@ module.exports = [
 
 		$scope.featOccur = $scope.getFeaturedOccurrence($scope.event);
 
-		if($scope.featOccur)
+		if($scope.featOccur) {
 			$scope.featOccur.space = Event.getOccurrenceSpace($scope.featOccur);
+			console.log($scope.featOccur.space);
+		}
 
 		_.each($scope.event.occurrences, function(occur) {
 			occur.space = Event.getOccurrenceSpace(occur);

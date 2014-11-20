@@ -31,6 +31,11 @@ section#single-event(ng-controller="EventController")
 								span.icon-location
 								| {{featOccur.spaceName}}
 								span.address {{featOccur.space.endereco}}
+							p.accessibility
+								span.icon-accessibility
+								strong Acessibilidade: 
+								| {{featOccur.space.acessibilidade || 'Não informado'}}
+							.clear
 							p.add-to-calendar
 								span.icon-star
 								a(href="{{gCalUrl(featOccur, event)}}" target="_blank") Adicionar no Google Calendar
@@ -68,17 +73,21 @@ section#single-event(ng-controller="EventController")
 					ul
 						li.clearfix(ng-repeat="occur in event.occurrences | occurrenceOrder" ng-class="{future:occur.isFuture}")
 							.date-info
-								p.fromNow
+								p.fromNow(title="Horário")
 									span.icon-clock
 									span(fromnow date="occur.timestamp")
-								p.date
+								p.date(title="Data")
 									span.icon-calendar
 									| {{getFormattedDate(occur)}}
 							.clear
-							p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
+							p.space(ng-controller="MapController" ng-click="openDialog($event, occur)" title="Local")
 								span.icon-location
 								| {{occur.spaceName}}
-							p.price
+							p.accessibility(title="Acessibilidade")
+								span.icon-accessibility
+								| {{occur.space.acessibilidade || 'Não informado'}}
+							.clear
+							p.price(title="Preço")
 								span.icon-ticket
 								| {{occur.price}}
 
