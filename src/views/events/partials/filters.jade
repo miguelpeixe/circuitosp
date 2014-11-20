@@ -34,14 +34,14 @@ nav
 
 			input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
 
-		.filter-item.list-filter.icon-arrow-down5(ng-class="{filled:eventSearch.terms}" ng-hide="tag")
+		.filter-item.list-filter(ng-class="{filled:eventSearch.terms}" ng-hide="tag")
 			a.clear-filter.icon-cross(href="javascript:void(0)" ng-click="eventSearch.terms = ''" title="Limpar filtro por linguagem" ng-show="eventSearch.terms")
 			ul.linguagem-list
 				li.label(ng-hide="eventSearch.terms" ng-class="{active:!eventSearch.terms}") Selecione uma linguagem
 				li(ng-repeat="linguagem in linguagens" ng-class="{active:linguagem==eventSearch.terms,inactive:linguagem!=eventSearch.terms}")
 					a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
 
-		.filter-item.list-filter.rate.icon-arrow-down5(ng-class="{filled:eventSearch.classificacao}" ng-hide="tag")
+		.filter-item.list-filter.rate(ng-class="{filled:eventSearch.classificacao}" ng-hide="tag")
 			a.clear-filter.icon-cross(href="javascript:void(0)" ng-click="eventSearch.classificacao = ''" title="Limpar filtro por classificação" ng-show="eventSearch.classificacao")
 			ul.classificacao-list
 				li.label(ng-hide="eventSearch.classificacao" ng-class="{active:!eventSearch.classificacao}") Classificão etária
