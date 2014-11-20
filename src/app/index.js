@@ -99,8 +99,7 @@ angular.module('mci', [
 		$window.mci.history = [];
 		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
 
-			if(toState.name.indexOf(fromState.name) == -1 && toState.name.indexOf('.') == -1) {
-				console.log('should scroll');
+			if(fromState && toState.name.indexOf('.') == -1) {
 				$('html,body').animate({
 					scrollTop: 0
 				}, 500);
