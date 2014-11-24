@@ -17,7 +17,7 @@ nav
 
 					span.until(ng-hide="!eventSearch.startDate || (datepicker.relative && eventSearch.endDate)") até
 
-					.datepicker(pickadate ng-model="eventSearch.startDate" ng-show="datepicker.start.opened" min-date="datepicker.start.minDate" max-date="datepicker.start.maxDate" default-date="datepicker.start.minDate" prev-label="'anterior'" next-label="'próximo'")
+					.datepicker(pickadate ng-model="eventSearch.startDate" ng-show="datepicker.start.opened" min-date="datepicker.start.minDate" max-date="datepicker.start.maxDate" prev-label="'anterior'" next-label="'próximo'")
 
 				.date-end.datepicker-container(ng-hide="!eventSearch.startDate || (datepicker.relative && eventSearch.endDate)")
 
