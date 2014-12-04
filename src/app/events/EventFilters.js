@@ -76,7 +76,7 @@ angular.module('mci.events')
 			if(future) {
 				var now = Event.getToday().unix();
 				return _.filter(input, function(e) {
-					if(e.occurrences[e.occurrences.length-1].timestamp > now) {
+					if(e.occurrences && e.occurrences[e.occurrences.length-1].timestamp > now) {
 						return true;
 					} else {
 						return false;
