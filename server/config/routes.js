@@ -71,18 +71,18 @@ module.exports = function (app, passport) {
 	app.get('/api/v1/data', function(req, res) {
 
 		var config = req.app.locals.config;
-		var spaces;
-		var events;
+		var spacesData;
+		var eventsData;
 
 		var loadData = function(doneLoadData) {
 			async.parallel([function(doneLoadEvents){
 				Events.find({}).populate('occurrences').lean().exec(function(err, results){
-					events = results;
+					eventsData = results;
 					doneLoadEvents(err)
 				});
 			}, function(doneLoadSpaces){
 				Spaces.find({}).lean().exec(function(err, results){
-					spaces = results;
+					spacesData = results;
 					doneLoadSpaces(err)
 				});
 			}], doneLoadData);
@@ -95,8 +95,8 @@ module.exports = function (app, passport) {
 					hashtag: config.hashtag
 				},
 				options: options,
-				events: events,
-				spaces: spaces
+				events: eventsData,
+				spaces: spacesData
 			};
 			res.json(data);
 		})
