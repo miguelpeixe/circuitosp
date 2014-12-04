@@ -59,7 +59,7 @@ mongoose.connection.on('connected', function(){
         console.log('Data sync started.')
 				syncData(app);
 				syncSocial(app);
-			}, 1000 * 30);
+			}, 1000 * 60 * 10);
 		}
 	});
 });
