@@ -59,7 +59,7 @@ module.exports = function(app, done) {
 		};
 
 		request(_.extend(defaultReq, projectReq), function(err, res, body) {
-			if(err) return doneFetchProjects(err);
+			if (err) return doneFetchProjects(err);
 
 			var projectsIds = [];
 
@@ -109,12 +109,8 @@ module.exports = function(app, done) {
 	}
 
 	function saveEvents(events, done) {
-		console.log(events[0].occurrences);
-
 		async.eachSeries(events, function(event, doneEach){
 			var occurrences = event.occurrences;
-			// event['_id'] = event.id;
-			// console.log(event[0].occurrences);
 			delete event.occurrences;
 			Event.update({_id: event['id']}, event, {upsert:true}, doneEach);
 		}, done)
@@ -209,8 +205,11 @@ module.exports = function(app, done) {
 		});
 	}
 
-	clearDB(fetchProjects(function(){
-		console.log('Data sync complete');
+	clearDB(fetchProjects(function(err){
+    if (err) {
+      console.log('Data sync had errors:');
+      console.log(err);
+    } else console.log('Data sync completed.');
 	}));
 
 };

@@ -50,11 +50,13 @@ mongoose.connection.on('connected', function(){
 		// Init data sync
 		app.locals.data = { events: [], spaces: [] }
 		app.locals.config = settings;
+    console.log('Data sync started.')
 		syncData(app);
 		syncSocial(app);
 
 		if (env !== 'development') {
 			setInterval(function() {
+        console.log('Data sync started.')
 				syncData(app);
 				syncSocial(app);
 			}, 1000 * 60 * 10);
