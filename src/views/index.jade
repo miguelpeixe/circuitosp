@@ -32,7 +32,7 @@ html(lang='pt-BR')
 
 		section#content.row(ui-view, autoscroll='false')
 
-		section#social-links.row(ng-controller="SocialLinksCtrl" ng-show="facebook && twitter")
+		section#social-links.row(ng-controller="SocialLinksCtrl" ng-show="facebook || twitter")
 			.container
 				.twelve.columns
 					h3 Acompanhe pelas redes sociais
