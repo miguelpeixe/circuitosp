@@ -110,6 +110,20 @@ angular.module('mci', [
 			}
 			$window.mci.history.push($window.location.pathname);
 
+			setTimeout(function() {
+				$('.show-mobile').hide();
+				$('.hide-mobile').hide();
+			}, 300);
+			if(WURFL.is_mobile) {
+				setTimeout(function() {
+					$('.show-mobile').show();
+				}, 500);
+			} else {
+				setTimeout(function() {
+					$('.hide-mobile').show();
+				}, 500);
+			}
+
 		});
 
 	}
