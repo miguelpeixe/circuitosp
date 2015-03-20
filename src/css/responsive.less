@@ -1,3 +1,7 @@
+.show-mobile {
+	display: none;
+}
+
 @media only screen and (min-width: 700px) and (max-width: 1010px) {	
 	.event-list,
 	.space-list {
@@ -50,6 +54,14 @@
 	#single-event #event-sidebar {
 		padding-left: 0;
 		border-left: 0;
+	}
+
+	.show-mobile {
+		display: block;
+	}
+
+	.hide-mobile {
+		display: none !important;
 	}
 }
 
