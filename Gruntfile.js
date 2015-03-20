@@ -27,8 +27,7 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'dist/css/app.css': 'src/css/app.less',
-					'dist/css/responsive.css': 'src/css/responsive.less'
+					'dist/css/app.css': 'src/css/app.less'
 				}
 			}
 		},

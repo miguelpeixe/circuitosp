@@ -1,0 +1,92 @@
+@media only screen and (min-width: 700px) and (max-width: 1010px) {	
+	.event-list,
+	.space-list {
+		li {
+			width: 50%;
+		}
+	}
+
+	#social {
+		.items {
+			li {
+				width: 100%;
+			}
+		}
+	}
+}
+@media only screen and (max-width: 767px) {
+	.event-list,
+	.space-list {
+		li {
+			width: 100%;
+		}
+	}
+
+	#social {
+		.items {
+			li {
+				width: 100%;
+			}
+		}
+	}
+	#single-event #event-sidebar {
+		padding-left: 0;
+		border-left: 0;
+	}
+}
+
+@media only screen and (max-width: 959px) {
+	#masthead {
+		#mastnav {
+			margin: 0;
+			ul.nav {
+				display: block;
+				li {
+					text-align: right;
+					display: block;
+				}
+			}
+		}
+	}
+	nav {
+		.filters-container {
+			float: none;
+			border: 0;
+		}
+		.filter-item {
+			float: none;
+			width: 100%;
+			margin: 0 0 10px;
+			border: 1px solid rgba(0,0,0,0.2);
+			input[type=text] {
+				width: 100%;
+			}
+			&:hover {
+				position: relative;
+				z-index: 9999;
+			}
+		}
+		.date-filter-content:before {
+			content: 'Selecione uma data';
+			float: left;
+			font-size: 13px;
+			line-height: 38px;
+			margin-right: 10px;
+		}
+		.filled {
+			.date-filter-content:before {
+				display: none;
+			}
+		}
+		.close {
+			position: absolute;
+			top: 40px;
+			right: 40px;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	.ngdialog.ngdialog-theme-default .ngdialog-content {
+		width: 90%;
+	}
+}
