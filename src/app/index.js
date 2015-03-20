@@ -373,12 +373,22 @@ angular.module('mci', [
 		});
 
 	}
+])
+
+.controller('SocialLinksCtrl', [
+	'$window',
+	'$scope',
+	function($window, $scope) {
+		$scope.facebook = $window.mci.config.facebook;
+		$scope.twitter = $window.mci.config.twitter;
+	}
 ]);
 
 $(document).ready(function() {
 	$('#loading').addClass('active');
 	$.get('/api/v1/data', function(data) {
 		window.mci = data;
+		console.log(mci);
 		$('#loading').removeClass('active');
 		angular.bootstrap(document, ['mci']);
 	}, 'json');

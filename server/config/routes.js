@@ -92,7 +92,9 @@ module.exports = function (app, passport) {
 			var data = {
 				config: {
 					wpUrl: config.wordpress.endpoint,
-					hashtag: config.hashtag
+					hashtag: config.hashtag,
+					facebook: config.facebook.pageId,
+					twitter: config.twitter.username
 				},
 				options: options,
 				events: eventsData,

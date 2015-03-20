@@ -32,14 +32,14 @@ html(lang='pt-BR')
 
 		section#content.row(ui-view, autoscroll='false')
 
-		section#social-links.row
+		section#social-links.row(ng-controller="SocialLinksCtrl" ng-show="facebook && twitter")
 			.container
 				.twelve.columns
 					h3 Acompanhe pelas redes sociais
-					p
-						a.icon-facebook3(href="https://www.facebook.com/culturaindependente" target="_blank" title="Facebook")
-					p
-						a.icon-twitter(href="https://twitter.com/mcifest" target="_blank" title="Twitter" class="entypo-social tw")
+					p(ng-show="facebook")
+						a.icon-facebook3(href="{{facebook}}" target="_blank" title="Facebook")
+					p(ng-show="twitter")
+						a.icon-twitter(href="https://twitter.com/{{twitter}}" target="_blank" title="Twitter" class="entypo-social tw")
 
 		footer#mastfoot.row
 			img(src="/img/footer.jpg")
