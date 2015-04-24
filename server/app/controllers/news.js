@@ -14,9 +14,9 @@ exports.all = function(req, res) {
 	request({
 		url: config.wordpress.endpoint + '/wp-json/posts',
 		qs: req.query
-	}, function(request, response, body) {
+	}, function(error, response, body) {
 
-		if(!body) {
+		if(error) {
 
 			res.send([]);
 
@@ -67,9 +67,9 @@ exports.post = function(req, res) {
 	request({
 		url: config.wordpress.endpoint + '/wp-json/posts/' + req.params.postId,
 		qs: req.body
-	}, function(request, response, body) {
+	}, function(error, response, body) {
 
-		if(!body) {
+		if(error) {
 
 			res.send({});
 

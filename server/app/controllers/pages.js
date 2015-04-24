@@ -14,10 +14,10 @@ exports.all = function(req, res) {
 	request({
 		url: config.wordpress.endpoint + '/wp-json/pages',
 		qs: req.query
-	}, function(request, response, body) {
+	}, function(error, response, body) {
 
 
-		if(!body) {
+		if(error) {
 
 			res.send([]);
 
