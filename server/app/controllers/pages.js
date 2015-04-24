@@ -19,7 +19,7 @@ exports.all = function(req, res) {
 
 		if(!body) {
 
-			res.send({});
+			res.send([]);
 
 		} else {
 			var send = false;
