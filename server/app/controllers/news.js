@@ -16,26 +16,33 @@ exports.all = function(req, res) {
 		qs: req.query
 	}, function(request, response, body) {
 
-		var send = false;
+		if(!body) {
 
-		if(!cache[key]) {
-			send = true;
-			cache[key] = {};
-		}
+			res.send({});
 
-		cache[key].body = body;
-		cache[key].headers = {};
+		} else {
 
-		if(response && response.headers) {
-			for(var headerKey in response.headers) {
-				if(send)
-					res.setHeader(headerKey, response.headers[headerKey]);
-				cache[key].headers[headerKey] = response.headers[headerKey];
+			var send = false;
+
+			if(!cache[key]) {
+				send = true;
+				cache[key] = {};
 			}
-		}
 
-		if(send)
-			res.send(body);
+			cache[key].body = body;
+			cache[key].headers = {};
+
+			if(response && response.headers) {
+				for(var headerKey in response.headers) {
+					if(send)
+						res.setHeader(headerKey, response.headers[headerKey]);
+					cache[key].headers[headerKey] = response.headers[headerKey];
+				}
+			}
+
+			if(send)
+				res.send(body);
+		}
 
 	});
 
@@ -62,24 +69,34 @@ exports.post = function(req, res) {
 		qs: req.body
 	}, function(request, response, body) {
 
-		var send = false;
+		if(!body) {
 
-		if(!cache[key]) {
-			send = true;
-			cache[key] = {};
-		}
+			res.send({});
 
-		cache[key].body = body;
-		cache[key].headers = {};
+		} else {
 
-		for(var headerKey in response.headers) {
+			var send = false;
+
+			if(!cache[key]) {
+				send = true;
+				cache[key] = {};
+			}
+
+			cache[key].body = body;
+			cache[key].headers = {};
+
+			if(response && response.headers) {
+				for(var headerKey in response.headers) {
+					if(send)
+						res.setHeader(headerKey, response.headers[headerKey]);
+					cache[key].headers[headerKey] = response.headers[headerKey];
+				}
+			}
+
 			if(send)
-				res.setHeader(headerKey, response.headers[headerKey]);
-			cache[key].headers[headerKey] = response.headers[headerKey];
-		}
+				res.send(body);
 
-		if(send)
-			res.send(body);
+		}
 	});
 
 	if(cache[key]) {

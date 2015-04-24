@@ -16,26 +16,33 @@ exports.all = function(req, res) {
 		qs: req.query
 	}, function(request, response, body) {
 
-		var send = false;
 
-		if(!cache[key]) {
-			send = true;
-			cache[key] = {};
-		}
+		if(!body) {
 
-		cache[key].body = body;
-		cache[key].headers = {};
+			res.send({});
 
-		if(response && response.headers) {
-			for(var headerKey in response.headers) {
-				if(send)
-					res.setHeader(headerKey, response.headers[headerKey]);
-				cache[key].headers[headerKey] = response.headers[headerKey];
+		} else {
+			var send = false;
+
+			if(!cache[key]) {
+				send = true;
+				cache[key] = {};
 			}
-		}
 
-		if(send)
-			res.send(body);
+			cache[key].body = body;
+			cache[key].headers = {};
+
+			if(response && response.headers) {
+				for(var headerKey in response.headers) {
+					if(send)
+						res.setHeader(headerKey, response.headers[headerKey]);
+					cache[key].headers[headerKey] = response.headers[headerKey];
+				}
+			}
+
+			if(send)
+				res.send(body);
+		}
 
 	});
 
