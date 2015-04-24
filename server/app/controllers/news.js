@@ -26,10 +26,12 @@ exports.all = function(req, res) {
 		cache[key].body = body;
 		cache[key].headers = {};
 
-		for(var headerKey in response.headers) {
-			if(send)
-				res.setHeader(headerKey, response.headers[headerKey]);
-			cache[key].headers[headerKey] = response.headers[headerKey];
+		if(response && response.headers) {
+			for(var headerKey in response.headers) {
+				if(send)
+					res.setHeader(headerKey, response.headers[headerKey]);
+				cache[key].headers[headerKey] = response.headers[headerKey];
+			}
 		}
 
 		if(send)
