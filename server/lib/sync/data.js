@@ -176,33 +176,62 @@ module.exports = function(app, done) {
 
 	function fetchSpaces(spacesIds, doneFetchSpaces) {
 
-		// create string from array
-		spacesIds = spacesIds.join(',');
+    var i, j, chunk = 500, chunked = [];
 
-		// request config
-		var spacesReqUrl = {
-			url: config.mapasCulturais.endpoint + '/space/find',
-			qs: {
-				'@select': 'id,name,shortDescription,endereco,location,acessibilidade',
-				'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
-				'id': 'in(' + spacesIds + ')',
-			}
-		};
+    for(i = 0, j = spacesIds.length; i<j; i += chunk) {
+      chunked.push(spacesIds.slice(i, i+chunk));
+    }
 
-		// fetch data
-		request(_.extend(defaultReq, spacesReqUrl), function(err, res, body) {
-			if(err) return doneFetchSpaces(err);
+    var spaces = [];
 
-			// parse result
-			var spaces = tryJSON(body) || [];
+    async.eachSeries(chunked, function(chunk, cb) {
 
-			// persist spaces to db
+      var ids = chunk.join(',');
+
+      var req = {
+  			url: config.mapasCulturais.endpoint + '/space/find',
+  			qs: {
+  				'@select': 'id,name,shortDescription,endereco,location,acessibilidade',
+  				'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
+  				'id': 'in(' + ids + ')',
+  			}
+  		};
+
+      request(_.extend(defaultReq, req), function(err, res, body) {
+
+        if(err) {
+           cb(err);
+        } else {
+          spaces = spaces.concat(tryJSON(body) || []);
+          cb();
+        }
+
+      });
+
+    }, function(err) {
+
 			async.eachSeries(spaces, function(space, doneEach){
-
 				// space['_id'] = space.id;
 				Space.update({ _id: space.id}, space, {upsert: true}, doneEach);
 			}, doneFetchSpaces);
-		});
+
+    });
+
+		// // create string from array
+		// spacesIds = spacesIds.join(',');
+    //
+		// // request config
+		// var spacesReqUrl =
+    //
+		// // fetch data
+		// request(_.extend(defaultReq, spacesReqUrl), function(err, res, body) {
+		// 	if(err) return doneFetchSpaces(err);
+    //
+		// 	// parse result
+		// 	var spaces = tryJSON(body) || [];
+    //
+		// 	// persist spaces to db
+		// });
 	}
 
 	clearDB(fetchProjects(function(err){
