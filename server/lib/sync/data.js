@@ -29,152 +29,152 @@ var clearDB = function (done) {
 
 module.exports = function(app, done) {
 
-	var config = app.locals.config;
-	var storeDir = 'dist/data';
+  var config = app.locals.config;
+  var storeDir = 'dist/data';
 
-	var defaultReq = {
-		method: 'GET'
-	};
+  var defaultReq = {
+    method: 'GET'
+  };
 
-	// if callback is not defined, print error to console
-	if (!done) {
-		done = function(err) {
-			if (err) console.log(err);
-		}
-	}
+  // if callback is not defined, print error to console
+  if (!done) {
+    done = function(err) {
+      if (err) console.log(err);
+    }
+  }
 
-	/**
-	 * Projects
-	 **/
+  /**
+  * Projects
+  **/
 
-	function fetchProjects(doneFetchProjects) {
-		var projectId = config.mapasCulturais.projectId;
+  function fetchProjects(doneFetchProjects) {
+    var projectId = config.mapasCulturais.projectId;
 
-		var projectReq = {
-			url: config.mapasCulturais.endpoint + '/project/findOne',
-			qs: {
-				'@select': 'childrenIds',
-				'id': 'EQ('+projectId+')'
-			}
-		};
+    var projectReq = {
+      url: config.mapasCulturais.endpoint + '/project/findOne',
+      qs: {
+        '@select': 'childrenIds',
+        'id': 'EQ('+projectId+')'
+      }
+    };
 
-		request(_.extend(defaultReq, projectReq), function(err, res, body) {
-			if (err) return doneFetchProjects(err);
+    request(_.extend(defaultReq, projectReq), function(err, res, body) {
+      if (err) return doneFetchProjects(err);
 
-			var projectsIds = [];
+      var projectsIds = [];
 
-			_.each(tryJSON(body).childrenIds, function(id){
-				projectsIds.push(parseInt(id));
-			});
-			projectsIds.push(parseInt(projectId));
-			fetchEvents(projectsIds, doneFetchProjects);
-		});
-	}
+      _.each(tryJSON(body).childrenIds, function(id){
+        projectsIds.push(parseInt(id));
+      });
+      projectsIds.push(parseInt(projectId));
+      fetchEvents(projectsIds, doneFetchProjects);
+    });
+  }
 
-	/**
-	 * Events
-	 **/
+  /**
+  * Events
+  **/
 
-	function fetchEvents(projectsIds, doneFetchEvents){
-		var eventsReq = {
-			url: config.mapasCulturais.endpoint + '/event/find',
-			qs: {
-				'@select': 'id,name,shortDescription,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
-				'@files': '(avatar,header):url',
-				'project': 'in(' + projectsIds.join(',') + ')'
-			}
-		};
+  function fetchEvents(projectsIds, doneFetchEvents){
+    var eventsReq = {
+      url: config.mapasCulturais.endpoint + '/event/find',
+      qs: {
+        '@select': 'id,name,shortDescription,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
+        '@files': '(avatar,header):url',
+        'project': 'in(' + projectsIds.join(',') + ')'
+      }
+    };
 
-		request(_.extend(defaultReq, eventsReq), function(err, res, body) {
-			if (err) return done(err);
+    request(_.extend(defaultReq, eventsReq), function(err, res, body) {
+      if (err) return done(err);
 
-			var events = tryJSON(body);
+      var events = tryJSON(body);
 
-			if(!events)
-				return false;
+      if(!events)
+      return false;
 
-			if(!events.length)
-				throw new Error('This project has no events');
-
-
-			async.parallel([function(doneParallel){
-					saveEvents(events, doneParallel);
-			}, function(doneParallel){
-					fetchOccurrences(events, doneParallel);
-			}], function(err){
-				if (err) console.log(err);
-				doneFetchEvents(err);
-			});
-		});
-	}
-
-	function saveEvents(events, done) {
-		async.eachSeries(events, function(event, doneEach){
-			var occurrences = event.occurrences;
-			delete event.occurrences;
-			Event.update({_id: event['id']}, event, {upsert:true}, doneEach);
-		}, done)
-	}
+      if(!events.length)
+      throw new Error('This project has no events');
 
 
-	/**
-	* Occurrences
-	**/
+      async.parallel([function(doneParallel){
+        saveEvents(events, doneParallel);
+      }, function(doneParallel){
+        fetchOccurrences(events, doneParallel);
+      }], function(err){
+        if (err) console.log(err);
+        doneFetchEvents(err);
+      });
+    });
+  }
 
-	function fetchOccurrences(events, doneFetchOccurrences) {
-		var eventsIds = [];
+  function saveEvents(events, done) {
+    async.eachSeries(events, function(event, doneEach){
+      var occurrences = event.occurrences;
+      delete event.occurrences;
+      Event.update({_id: event['id']}, event, {upsert:true}, doneEach);
+    }, done)
+  }
 
-		_.each(events, function(event) {
-			eventsIds.push(event.id);
-		});
 
-		eventsIds = eventsIds.join(',');
+  /**
+  * Occurrences
+  **/
 
-		var occursReqUrl = {
-			url: config.mapasCulturais.endpoint + '/eventOccurrence/find?event=in(' + eventsIds + ')',
-			qs: {
-				'@select': 'id,eventId,rule',
-				'@order': '_startsAt'
-			}
-		};
+  function fetchOccurrences(events, doneFetchOccurrences) {
+    var eventsIds = [];
 
-		request(_.extend(defaultReq, occursReqUrl), function(err, res, body) {
+    _.each(events, function(event) {
+      eventsIds.push(event.id);
+    });
 
-			if(err) return doneFetchOccurrences(err);
+    eventsIds = eventsIds.join(',');
 
-			var occurrences = tryJSON(body) || [];
+    var occursReqUrl = {
+      url: config.mapasCulturais.endpoint + '/eventOccurrence/find?event=in(' + eventsIds + ')',
+      qs: {
+        '@select': 'id,eventId,rule',
+        '@order': '_startsAt'
+      }
+    };
 
-			var spaceIds = [];
+    request(_.extend(defaultReq, occursReqUrl), function(err, res, body) {
 
-			_.each(occurrences, function(occurrence) {
-				// Store space id for following spaces request
-				spaceIds.push(occurrence.rule.spaceId);
-			});
+      if(err) return doneFetchOccurrences(err);
 
-			async.parallel([function(doneParallel){
-					saveOccurrences(occurrences, doneParallel);
-			}, function(doneParallel){
-					fetchSpaces(spaceIds, doneParallel);
-			}], doneFetchOccurrences);
-		});
-	}
+      var occurrences = tryJSON(body) || [];
 
-	function saveOccurrences(occurrences, done) {
-		async.eachSeries(occurrences, function(occurrence, doneEach){
+      var spaceIds = [];
 
-			async.series ([ function(cb) {
-					Occurrence.update({_id: occurrence.id}, occurrence.rule, {upsert: true}, cb);
-				}, function(cb){
-					Event.update({_id: occurrence.eventId}, {$addToSet: {'occurrences': occurrence.id }}, {upsert: true}, cb);
-				}], doneEach);
-		}, done);
-	}
+      _.each(occurrences, function(occurrence) {
+        // Store space id for following spaces request
+        spaceIds.push(occurrence.rule.spaceId);
+      });
 
-	/**
-	* Spaces
-	**/
+      async.parallel([function(doneParallel){
+        saveOccurrences(occurrences, doneParallel);
+      }, function(doneParallel){
+        fetchSpaces(spaceIds, doneParallel);
+      }], doneFetchOccurrences);
+    });
+  }
 
-	function fetchSpaces(spacesIds, doneFetchSpaces) {
+  function saveOccurrences(occurrences, done) {
+    async.eachSeries(occurrences, function(occurrence, doneEach){
+
+      async.series ([ function(cb) {
+        Occurrence.update({_id: occurrence.id}, occurrence.rule, {upsert: true}, cb);
+      }, function(cb){
+        Event.update({_id: occurrence.eventId}, {$addToSet: {'occurrences': occurrence.id }}, {upsert: true}, cb);
+      }], doneEach);
+    }, done);
+  }
+
+  /**
+  * Spaces
+  **/
+
+  function fetchSpaces(spacesIds, doneFetchSpaces) {
 
     var i, j, chunk = 500, chunked = [];
 
@@ -189,18 +189,18 @@ module.exports = function(app, done) {
       var ids = chunk.join(',');
 
       var req = {
-  			url: config.mapasCulturais.endpoint + '/space/find',
-  			qs: {
-  				'@select': 'id,name,shortDescription,endereco,location,acessibilidade',
-  				'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
-  				'id': 'in(' + ids + ')',
-  			}
-  		};
+        url: config.mapasCulturais.endpoint + '/space/find',
+        qs: {
+          '@select': 'id,name,shortDescription,endereco,location,acessibilidade',
+          '@files': '(avatar.viradaSmall,avatar.viradaBig):url',
+          'id': 'in(' + ids + ')',
+        }
+      };
 
       request(_.extend(defaultReq, req), function(err, res, body) {
 
         if(err) {
-           cb(err);
+          cb(err);
         } else {
           spaces = spaces.concat(tryJSON(body) || []);
           cb();
@@ -210,39 +210,39 @@ module.exports = function(app, done) {
 
     }, function(err) {
 
-			async.eachSeries(spaces, function(space, doneEach){
-				// space['_id'] = space.id;
-				Space.update({ _id: space.id}, space, {upsert: true}, doneEach);
-			}, doneFetchSpaces);
+      async.eachSeries(spaces, function(space, doneEach){
+        // space['_id'] = space.id;
+        Space.update({ _id: space.id}, space, {upsert: true}, doneEach);
+      }, doneFetchSpaces);
 
     });
 
-		// // create string from array
-		// spacesIds = spacesIds.join(',');
+    // // create string from array
+    // spacesIds = spacesIds.join(',');
     //
-		// // request config
-		// var spacesReqUrl =
+    // // request config
+    // var spacesReqUrl =
     //
-		// // fetch data
-		// request(_.extend(defaultReq, spacesReqUrl), function(err, res, body) {
-		// 	if(err) return doneFetchSpaces(err);
+    // // fetch data
+    // request(_.extend(defaultReq, spacesReqUrl), function(err, res, body) {
+    // 	if(err) return doneFetchSpaces(err);
     //
-		// 	// parse result
-		// 	var spaces = tryJSON(body) || [];
+    // 	// parse result
+    // 	var spaces = tryJSON(body) || [];
     //
-		// 	// persist spaces to db
-		// });
-	}
+    // 	// persist spaces to db
+    // });
+  }
 
-	clearDB(fetchProjects(function(err){
+  clearDB(fetchProjects(function(err){
     if (err) {
       console.log('Data sync had errors:');
       console.log(err);
     } else console.log('Data sync completed.');
-	}));
+  }));
 
 };
 
 if(!module.parent) {
-	module.exports();
+  module.exports();
 }
