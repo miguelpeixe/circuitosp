@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			build: {
 				options: {
 					mangle: true,
-					compress: true
+					compress: { drop_console: true }
 				},
 				files: {
 					'dist/vendor.js': 'dist/vendor.js',
