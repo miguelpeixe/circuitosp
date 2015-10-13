@@ -77,14 +77,14 @@ angular.module('mci', [
 			angular.forEach(search, function(v, k){
 				params.push(k + '=' + v);
 			});
-			
+
 			return path + '/?' + params.join('&');
 		});
 
 	}
 ])
 
-/* 
+/*
  * Track history and push navigation to Google Analytics
  */
 .run([
@@ -206,7 +206,7 @@ angular.module('mci', [
 				});
 
 			});
-			
+
 		});
 
 		var relativeDates = RelativeDate.get();
@@ -388,7 +388,6 @@ $(document).ready(function() {
 	$('#loading').addClass('active');
 	$.get('/api/v1/data', function(data) {
 		window.mci = data;
-		console.log(mci);
 		$('#loading').removeClass('active');
 		angular.bootstrap(document, ['mci']);
 	}, 'json');

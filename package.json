@@ -64,7 +64,7 @@
     "angular-i18n": "angular/bower-angular-i18n",
     "angular-animate": "angular/bower-angular-animate#v1.3.0",
     "angular-pickadate": "miguelpeixe/angular-pickadate",
-    "angular-leaflet": "tombatossals/angular-leaflet-directive",
+    "angular-leaflet": "tombatossals/angular-leaflet-directive#v0.8.7",
     "angular-masonry": "passy/angular-masonry",
     "angular-dialog": "likeastore/ngDialog#0.3.0",
     "angular-infiniteScroll": "sroze/ngInfiniteScroll"
