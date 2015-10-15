@@ -17,7 +17,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "angular": "^1.2.23",
+    "angular": "^1.4.7",
     "async": "^0.9.0",
     "body-parser": "^1.9.0",
     "compression": "^1.1.0",
@@ -62,7 +62,7 @@
   },
   "napa": {
     "angular-i18n": "angular/bower-angular-i18n",
-    "angular-animate": "angular/bower-angular-animate#v1.3.0",
+    "angular-animate": "angular/bower-angular-animate#v1.3.20",
     "angular-pickadate": "miguelpeixe/angular-pickadate",
     "angular-leaflet": "tombatossals/angular-leaflet-directive#v0.8.7",
     "angular-masonry": "passy/angular-masonry",

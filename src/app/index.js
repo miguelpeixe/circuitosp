@@ -22,7 +22,6 @@ require('./facebook');
 angular.module('mci', [
 	'ui.router',
 	'FacebookPluginDirectives',
-	'ngAnimate',
 	'mci.home',
 	'mci.events',
 	'mci.spaces',

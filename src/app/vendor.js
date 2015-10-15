@@ -3,7 +3,7 @@ window.L = require('leaflet');
 
 require('angular');
 require('angular-i18n/angular-locale_pt-br');
-require('angular-animate/angular-animate');
+// require('angular-animate/angular-animate');
 require('ui-router');
 require('angular-pickadate/src/angular-pickadate');
 require('angular-leaflet/dist/angular-leaflet-directive');

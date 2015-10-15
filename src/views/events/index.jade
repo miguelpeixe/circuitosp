@@ -19,7 +19,7 @@ section#index-event(ng-class="{tag: tag}")
 			.container
 				.twelve.columns(ng-controller="EventController")
 					ul.event-list(masonry preserve-order reload-on-show="true" ng-show="filteredEvents.length")
-						li.masonry-brick(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict | tagEvents:tag | classificacaoEvents:eventSearch.classificacao | spaceEvents:space | futureEvents:isFutureEvents | byDateEvents:eventSearch.startDate:eventSearch.endDate)) | limitTo: (eventNav.perPage + (eventNav.perPage * eventNav.curPage)) track by event.id")
+						li.masonry-brick(ng-repeat="event in (filteredEvents = (events | filter:eventFilter.$:$ | filter:eventFilter.terms:terms | tagEvents:tag | classificacaoEvents:eventSearch.classificacao | spaceEvents:space | futureEvents:isFutureEvents | byDateEvents:eventSearch.startDate:eventSearch.endDate)) | limitTo: (eventNav.perPage + (eventNav.perPage * eventNav.curPage)) track by event.id")
 							include partials/event-list-item
 
 					p.not-found(ng-hide="filteredEvents.length") Nenhum evento foi encontrado
