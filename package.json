@@ -55,7 +55,7 @@
     "prerender-node": "^1.1.0",
     "request": "^2.44.0",
     "swig": "^1.4.2",
-    "ui-router": "0.0.1",
+    "ui-router": "^1.0.0-alpha0",
     "underscore": "^1.7.0",
     "view-helpers": "^0.1.5",
     "winston": "^0.8.1"
